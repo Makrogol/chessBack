@@ -9,8 +9,8 @@ DB_PATH = BASE_DIR / "users.db"
 
 class DbSettings(BaseModel):
     url: str = f"sqlite+aiosqlite:///{DB_PATH}"
-    # echo: bool = False
-    echo: bool = True
+    echo: bool = False
+    # echo: bool = True
 
 
 class Settings(BaseSettings):

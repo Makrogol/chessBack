@@ -9,10 +9,6 @@ class UserBase(UserElement):
     password: str
 
 
-class UserDb(UserElement):
-    password: bytes
-
-
 class UserCreate(UserBase):
     pass
 

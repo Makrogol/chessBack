@@ -3,7 +3,7 @@ import asyncio
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .shemas import UserValidate, UserCreate, UserElement, UserDb
+from .shemas import UserValidate, UserCreate, UserElement
 from src.core.models.user import User
 from src.auth.utils import hash_password, validate_password
 
@@ -16,7 +16,7 @@ def __convert_users_to_user_elements(users):
 
 
 async def get_users(session: AsyncSession) -> list[UserElement]:
-    stmt = select(UserDb).order_by(User.id)
+    stmt = select(User).order_by(User.id)
     users = await session.scalars(stmt)
     return __convert_users_to_user_elements(users)
 
