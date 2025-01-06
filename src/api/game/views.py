@@ -55,6 +55,7 @@ manager = ConnectionManager()
 @router.websocket("/")
 async def websocket_game(username: str, websocket: WebSocket):
     await manager.connect(websocket, username)
+    print(len(manager.connections))
     try:
         while True:
             # here we are waiting for an oncomming message from clients
