@@ -31,4 +31,7 @@ async def validate_user(
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
     user_validate = UserValidate(username=username, password=password)
-    return await crud.validate_user(session, user_validate)
+    validate_result = await crud.validate_user(session, user_validate)
+    return {
+        "validate_result": validate_result,
+    }
