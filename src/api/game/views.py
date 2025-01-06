@@ -10,8 +10,11 @@ class ConnectionManager:
         self.connections: {str: WebSocket} = {}
 
     async def connect(self, websocket: WebSocket, username: str):
+        print("before connect")
         await websocket.accept()
+        print("after connect")
         self.connections[username] = websocket
+        print("connections", self.connections)
 
     async def disconnect(self, websocket: WebSocket):
         for username, socket in self.connections.items():
