@@ -1,4 +1,0 @@
-alembic init --autogenerate -m "<migrations message>"
-alembic upgrade head
-
-https://github.com/artemonsh/fastapi_course/blob/main/Lesson_08/src/operations/router.py
