@@ -26,7 +26,15 @@ class ConnectionManager:
 
 
 async def parse_data(manager: ConnectionManager, data: dict):
+    print("connections", manager.connections)
+    print("turn", data["turn"])
     if data["turn"] is not None:  # Сама игра
+        print(
+            "turn is not none, send json, turn",
+            data["turn"],
+            "opponent_username",
+            data["username"],
+        )
         await manager.connections[data["opponent_username"]].send_json(
             {
                 "turn": data["turn"],
@@ -34,6 +42,12 @@ async def parse_data(manager: ConnectionManager, data: dict):
             }
         )
     elif data["game_end"] is not None:  # Завершение игры
+        print(
+            "game_end is not none, send json, game_end",
+            data["game_end"],
+            "opponent_username",
+            data["username"],
+        )
         await manager.broadcast(
             {
                 "opponent_username": data["username"],
@@ -42,6 +56,10 @@ async def parse_data(manager: ConnectionManager, data: dict):
         )
         manager.connections = {}
     elif data["opponent_username"] in manager.connections.keys():  # Вызов на игру
+        print(
+            "opponent_username is in connections, send json, opponent_username",
+            data["username"],
+        )
         await manager.connections[data["opponent_username"]].send_json(
             {
                 "opponent_username": data["username"],
@@ -60,7 +78,6 @@ async def websocket_game(username: str, websocket: WebSocket):
         while True:
             # here we are waiting for an oncomming message from clients
             data = await websocket.receive_text()
-            print("string data", data)
             data = json.loads(data)
             print("json data", data)
             # precessing the incomming message
