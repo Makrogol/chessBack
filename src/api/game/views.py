@@ -40,8 +40,9 @@ async def parse_data(manager: ConnectionManager, data: dict):
         )
         await manager.connections[data["opponent_username"]].send_json(
             {
-                "turn": data["turn"],
+                "username": data["opponent_username"],
                 "opponent_username": data["username"],
+                "turn": data["turn"],
             }
         )
     elif data.get("game_end", None) is not None:  # Завершение игры
@@ -53,6 +54,7 @@ async def parse_data(manager: ConnectionManager, data: dict):
         )
         await manager.broadcast(
             {
+                "username": data["opponent_username"],
                 "opponent_username": data["username"],
                 "game_end": data["game_end"],
             }
@@ -67,6 +69,7 @@ async def parse_data(manager: ConnectionManager, data: dict):
         )
         await manager.connections[data["opponent_username"]].send_json(
             {
+                "username": data["opponent_username"],
                 "opponent_username": data["username"],
             }
         )
