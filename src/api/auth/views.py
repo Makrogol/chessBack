@@ -20,8 +20,14 @@ async def create_user(
     user: UserCreate,
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
-    await crud.create_user(session, user)
-    return True
+    success = True
+    try:
+        await crud.create_user(session, user)
+    except Exception as e:
+        success = False
+    return {
+        "success": success,
+    }
 
 
 @router.get("/validate_user")
