@@ -30,8 +30,8 @@ class ConnectionManager:
 
 async def parse_data(manager: ConnectionManager, data: dict):
     print("connections", manager.connections)
-    print("turn", data["turn"])
-    if data["turn"] is not None:  # Сама игра
+    # print("turn", data["turn"])
+    if data.get("turn", None) is not None:  # Сама игра
         print(
             "turn is not none, send json, turn",
             data["turn"],
@@ -44,7 +44,7 @@ async def parse_data(manager: ConnectionManager, data: dict):
                 "opponent_username": data["username"],
             }
         )
-    elif data["game_end"] is not None:  # Завершение игры
+    elif data.get("game_end", None) is not None:  # Завершение игры
         print(
             "game_end is not none, send json, game_end",
             data["game_end"],
@@ -58,7 +58,9 @@ async def parse_data(manager: ConnectionManager, data: dict):
             }
         )
         manager.connections = {}
-    elif data["opponent_username"] in manager.connections.keys():  # Вызов на игру
+    elif (
+        data.get("opponent_username", None) in manager.connections.keys()
+    ):  # Вызов на игру
         print(
             "opponent_username is in connections, send json, opponent_username",
             data["username"],
