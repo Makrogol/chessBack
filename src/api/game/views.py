@@ -55,13 +55,14 @@ manager = ConnectionManager()
 @router.websocket("/{username}")
 async def websocket_game(username: str, websocket: WebSocket):
     await manager.connect(websocket, username)
-    print(len(manager.connections))
-    print(username)
+    print(username, "connected")
     try:
         while True:
             # here we are waiting for an oncomming message from clients
             data = await websocket.receive_text()
+            print("string data", data)
             data = json.loads(data)
+            print("json data", data)
             # precessing the incomming message
             await parse_data(manager, data)
             if len(manager.connections) == 0:
