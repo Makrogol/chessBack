@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="white_cell_color">#F0D9B5</color>
+    <color name="black_cell_color">#B58863</color>
+    <color name="piece_route_cell_color">#66FF99</color>
+    <color name="check_cell_color">#FF3300</color>
+    <color name="wrong_piece_on_check_color">#665300</color>
+    <color name="empty_route_color">#665300</color>
+    <color name="magic_pawn_transformation_color">#CDA001</color>
+    <color name="login_password_info_text_color">#FF3300</color>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/opponent_item_bg">
+
+    <TextView
+        android:id="@+id/opponent_name_textview"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+    <!--    TODO переделать на строковые и value ресурсы-->
+
+    <Button
+        android:id="@+id/start_game_button"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:text="Вызвать на игру"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+</GridLayout>

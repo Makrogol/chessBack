@@ -1,0 +1,3 @@
+/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles/cyclechesscpp.dir
+/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles/edit_cache.dir
+/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles/rebuild_cache.dir
