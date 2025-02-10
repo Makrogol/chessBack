@@ -25,8 +25,16 @@ public:
 
     MoveType tryDoMove(const Position& position, const Position& newPosition);
 
+    bool canDoOneStepAndDrawByFiftyMoves() const;
+
+    bool canDoPassant() const;
+
+    Board::Moves getAllPossibleMoves() const;
+
     // TODO тут вооще говоря может вернуться и плохая позиция (короля может не быть??)
     Position getKingPositionByColor(const Color& color) const;
+
+    std::string getFen() const;
 
     GameState getGameState() const;
 

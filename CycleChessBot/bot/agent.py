@@ -16,15 +16,17 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO, filename="_log_.log", format=' %(message)s')
+
 class Agent:
-    def __init__(self, local_predictions: bool = True, model_path = None, state: str = None):
+    def __init__(self, local_predictions: bool = True, model_path = None, fen: str = config.DEFAULT_FEN):
         """
         An agent is an object that can play chessmoves on the environment.
         Based on the parameters, it can play with a local model, or send its input to a server.
         It holds an MCTS object that is used to run MCTS simulations to build a tree.
         """
         if local_predictions and model_path is not None:
-            logging.info("Using local predictions")
+            logging.info("<agent> Using local predictions")
             from tensorflow.python.ops.numpy_ops import np_config
             import tensorflow as tf
             from tensorflow.keras.models import load_model
@@ -46,7 +48,7 @@ class Agent:
         #         exit(1)
         #     logging.info(f"Agent connected to server {server}:{port}")
 
-        self.mcts = MCTS(self, state=state)
+        self.mcts = MCTS(self, fen=fen)
         
 
     def build_model(self) -> Model:
@@ -69,9 +71,9 @@ class Agent:
         Save the current model to a file
         """
         if timestamped:
-            self.model.save(f"{config.MODEL_FOLDER}/model-{time.time()}.h5")
+            self.model.save(f"{config.MODEL_FOLDER}/model-{time.time()}.keras")
         else:
-            self.model.save(f"{config.MODEL_FOLDER}/model.h5")
+            self.model.save(f"{config.MODEL_FOLDER}/model.keras")
 
     def predict(self, data):
         """

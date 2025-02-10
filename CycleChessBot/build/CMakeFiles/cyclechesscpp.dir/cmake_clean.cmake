@@ -18,6 +18,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o.d"
   "CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o"
   "CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o.d"
+  "CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o"
+  "CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o.d"
   "CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o"
   "CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o.d"
   "CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o"

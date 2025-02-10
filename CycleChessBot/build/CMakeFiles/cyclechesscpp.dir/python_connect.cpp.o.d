@@ -1,7 +1,7 @@
 CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.cpp \
  /usr/include/stdc-predef.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.h \
  /usr/include/c++/14.2.1/cstring /usr/include/c++/14.2.1/bits/version.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -15,10 +15,10 @@ CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main_factory.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/parser.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main_factory.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/parser.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.h \
  /usr/include/c++/14.2.1/map \
  /usr/include/c++/14.2.1/bits/requires_hosted.h \
  /usr/include/c++/14.2.1/bits/stl_tree.h \
@@ -126,7 +126,7 @@ CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: \
  /usr/include/c++/14.2.1/bits/stl_vector.h \
  /usr/include/c++/14.2.1/bits/stl_bvector.h \
  /usr/include/c++/14.2.1/bits/vector.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.h \
  /usr/include/c++/14.2.1/memory \
  /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h \
@@ -197,16 +197,18 @@ CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: \
  /usr/include/c++/14.2.1/bits/ranges_algobase.h \
  /usr/include/c++/14.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/14.2.1/pstl/execution_defs.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
  /usr/include/c++/14.2.1/iostream /usr/include/c++/14.2.1/istream \
  /usr/include/c++/14.2.1/bits/istream.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/game_state.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/move_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/unparser.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.h
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/game_state.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/unparser.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.h

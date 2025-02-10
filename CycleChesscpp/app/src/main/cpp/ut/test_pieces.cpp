@@ -754,6 +754,18 @@ TEST_F(TestPieces, PawnPossibleMovesOverBoard) {
     }
 }
 
+TEST_F(TestPieces, PawnAttackMoves) {
+    // Проверяем, что пешка должным образом
+    // Генерирует свои битые поля
+
+    SetUp();
+
+    const PieceType type = PieceType::PAWN;
+    const Color color = Color::WHITE;
+    
+        
+}
+
 TEST_F(TestPieces, KnightPossibleMoves) {
     // Проверяем, что кони могут ходить
     // как задумано из разных позиций

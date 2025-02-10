@@ -24,15 +24,21 @@ class Evaluation:
 			game = Game(ChessEnv(), agent_1, agent_2)
 			# play deterministally
 			result = game.play_one_game(stochastic=False)
-			if result == 0: score["amount_of_draws"] += 1
-			elif result == 1: score["model_1"] += 1
-			else: score["model_2"] += 1
+			if result == 0:
+				score["amount_of_draws"] += 1
+			elif result == 1:
+				score["model_1"] += 1
+			else:
+				score["model_2"] += 1
 			# turn around the colors
 			game = Game(ChessEnv(), agent_2, agent_1)
 			result = game.play_one_game(stochastic=False)
-			if result == 0: score["amount_of_draws"] += 1
-			elif result == 1: score["model_2"] += 1
-			else: score["model_1"] += 1
+			if result == 0:
+				score["amount_of_draws"] += 1
+			elif result == 1:
+				score["model_2"] += 1
+			else:
+				score["model_1"] += 1
 		
 		return f"Evaluated these models: Model 1 = {self.model_1}, Model 2 = {self.model_2}\n" + \
 		f"The results: \nModel 1: {score['model_1']} \nModel 2: {score['model_2']} \nDraws: {score['amount_of_draws']}"

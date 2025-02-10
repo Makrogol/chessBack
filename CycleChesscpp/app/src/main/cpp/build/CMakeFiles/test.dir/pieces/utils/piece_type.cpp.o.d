@@ -1,7 +1,7 @@
 CMakeFiles/test.dir/pieces/utils/piece_type.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp \
  /usr/include/stdc-predef.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
  /usr/include/c++/14.2.1/vector \
  /usr/include/c++/14.2.1/bits/requires_hosted.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \

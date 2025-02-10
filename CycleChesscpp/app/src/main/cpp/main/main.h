@@ -7,9 +7,10 @@
 
 class Main {
 public:
-    using String = std::string;
-
     Main() = default;
+
+    // TODO приписать сюда константы к методам
+    // У которых это можно сделать (у всех?)
 
     void startGame(const String& mainColorString);
 
@@ -23,9 +24,20 @@ public:
 
     String getKingPositionByColor(const String& colorString);
 
+    String canDoOneStepAndDrawByFiftyMoves();
+
+    String canDoPassant();
+
+    String allPossibleMoves();
+
     String tryDoMove(const String& positionsString);
 
+    // TODO переименовать
+    String tryDoMoveV2(const String& moveString);
+
     String getGameState();
+
+    String getFen();
 
     String tryDoMagicPawnTransformation(const String& positionAndPieceTypeString);
 

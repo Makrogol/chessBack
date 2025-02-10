@@ -1,5 +1,5 @@
 CMakeFiles/test.dir/ut/test_pieces.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/ut/test_pieces.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/ut/test_pieces.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/14.2.1/iostream \
  /usr/include/c++/14.2.1/bits/requires_hosted.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -309,24 +309,25 @@ CMakeFiles/test.dir/ut/test_pieces.cpp.o: \
  /usr/include/gmock/internal/custom/gmock-generated-actions.h \
  /usr/include/gmock/gmock-more-matchers.h \
  /usr/include/gmock/gmock-nice-strict.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/game_state.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/move_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/linear_steps_piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/equal_steps_piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.h
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/game_state.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/linear_steps_piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/equal_steps_piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.h

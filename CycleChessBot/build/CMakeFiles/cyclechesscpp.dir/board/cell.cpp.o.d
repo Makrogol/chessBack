@@ -1,7 +1,7 @@
 CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.cpp \
  /usr/include/stdc-predef.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.h \
  /usr/include/c++/14.2.1/memory /usr/include/c++/14.2.1/bits/memoryfwd.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -180,11 +180,11 @@ CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: \
  /usr/include/c++/14.2.1/bits/ranges_algobase.h \
  /usr/include/c++/14.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/14.2.1/pstl/execution_defs.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
  /usr/include/c++/14.2.1/vector /usr/include/c++/14.2.1/bits/stl_vector.h \
  /usr/include/c++/14.2.1/bits/stl_bvector.h \
  /usr/include/c++/14.2.1/bits/vector.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
  /usr/include/c++/14.2.1/iostream /usr/include/c++/14.2.1/istream \
  /usr/include/c++/14.2.1/bits/istream.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h

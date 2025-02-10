@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp
+CMAKE_SOURCE_DIR = /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/konstantin/Документы/python/CycleChessBot/build
+CMAKE_BINARY_DIR = /home/konstantin/Документы/cyclechess/CycleChessBot/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cyclechesscpp.dir/depend.make
@@ -73,298 +73,312 @@ CMakeFiles/cyclechesscpp.dir/codegen:
 .PHONY : CMakeFiles/cyclechesscpp.dir/codegen
 
 CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.cpp
+CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.cpp
 CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cyclechesscpp.dir/board/board.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/board/board.cpp.o -MF CMakeFiles/cyclechesscpp.dir/board/board.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/board/board.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cyclechesscpp.dir/board/board.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/board/board.cpp.o -MF CMakeFiles/cyclechesscpp.dir/board/board.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/board/board.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.cpp
 
 CMakeFiles/cyclechesscpp.dir/board/board.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/board/board.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.cpp > CMakeFiles/cyclechesscpp.dir/board/board.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.cpp > CMakeFiles/cyclechesscpp.dir/board/board.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/board/board.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/board/board.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.cpp -o CMakeFiles/cyclechesscpp.dir/board/board.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.cpp -o CMakeFiles/cyclechesscpp.dir/board/board.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.cpp
+CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.cpp
 CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o -MF CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o -MF CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/board/cell.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.cpp
 
 CMakeFiles/cyclechesscpp.dir/board/cell.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/board/cell.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.cpp > CMakeFiles/cyclechesscpp.dir/board/cell.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.cpp > CMakeFiles/cyclechesscpp.dir/board/cell.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/board/cell.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/board/cell.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.cpp -o CMakeFiles/cyclechesscpp.dir/board/cell.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.cpp -o CMakeFiles/cyclechesscpp.dir/board/cell.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/color.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/offset.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/piece_type.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp > CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/utils/position.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp > CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp > CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/bishop.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.cpp > CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.cpp > CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/king.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp > CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp > CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/knight.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp > CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp > CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/pawn.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp > CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp > CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/queen.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp
+CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp
 CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o -MF CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp
 
 CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp > CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp > CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.cpp -o CMakeFiles/cyclechesscpp.dir/pieces/rook.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/game/game.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/game/game.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.cpp
+CMakeFiles/cyclechesscpp.dir/game/game.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.cpp
 CMakeFiles/cyclechesscpp.dir/game/game.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/game.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/game.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/game.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/game.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/game.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/game.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/game.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/game.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.cpp
 
 CMakeFiles/cyclechesscpp.dir/game/game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/game/game.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.cpp > CMakeFiles/cyclechesscpp.dir/game/game.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.cpp > CMakeFiles/cyclechesscpp.dir/game/game.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/game/game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/game/game.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/game.cpp -o CMakeFiles/cyclechesscpp.dir/game/game.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/game.cpp -o CMakeFiles/cyclechesscpp.dir/game/game.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp
+CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp
 CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp
 
 CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp > CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp > CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp -o CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.cpp -o CMakeFiles/cyclechesscpp.dir/game/history_record_manager.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.cpp
+CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.cpp
 CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.cpp
 
 CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.cpp > CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.cpp > CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.cpp -o CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.cpp -o CMakeFiles/cyclechesscpp.dir/game/history_record.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/game/history.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/game/history.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.cpp
+CMakeFiles/cyclechesscpp.dir/game/history.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.cpp
 CMakeFiles/cyclechesscpp.dir/game/history.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/cyclechesscpp.dir/game/history.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/game/history.cpp.o -MF CMakeFiles/cyclechesscpp.dir/game/history.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/game/history.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.cpp
 
 CMakeFiles/cyclechesscpp.dir/game/history.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/game/history.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.cpp > CMakeFiles/cyclechesscpp.dir/game/history.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.cpp > CMakeFiles/cyclechesscpp.dir/game/history.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/game/history.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/game/history.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.cpp -o CMakeFiles/cyclechesscpp.dir/game/history.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.cpp -o CMakeFiles/cyclechesscpp.dir/game/history.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp
+CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp
 CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp
 
 CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp > CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp > CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp -o CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main_factory.cpp -o CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/main/main.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/main/main.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main.cpp
+CMakeFiles/cyclechesscpp.dir/main/main.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main.cpp
 CMakeFiles/cyclechesscpp.dir/main/main.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/main.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/main.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/main.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/main.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/main.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/main.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main.cpp
 
 CMakeFiles/cyclechesscpp.dir/main/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/main/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main.cpp > CMakeFiles/cyclechesscpp.dir/main/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main.cpp > CMakeFiles/cyclechesscpp.dir/main/main.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/main/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/main/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/main.cpp -o CMakeFiles/cyclechesscpp.dir/main/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/main.cpp -o CMakeFiles/cyclechesscpp.dir/main/main.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/parser.cpp
+CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/parser.cpp
 CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/parser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/parser.cpp
 
 CMakeFiles/cyclechesscpp.dir/main/parser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/main/parser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/parser.cpp > CMakeFiles/cyclechesscpp.dir/main/parser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/parser.cpp > CMakeFiles/cyclechesscpp.dir/main/parser.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/main/parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/main/parser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/parser.cpp -o CMakeFiles/cyclechesscpp.dir/main/parser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/parser.cpp -o CMakeFiles/cyclechesscpp.dir/main/parser.cpp.s
+
+CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
+CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.cpp
+CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.cpp
+
+CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.cpp > CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.i
+
+CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.cpp -o CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/unparser.cpp
+CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/unparser.cpp
 CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/unparser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o -MF CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/unparser.cpp
 
 CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/unparser.cpp > CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/unparser.cpp > CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main/unparser.cpp -o CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/unparser.cpp -o CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.s
 
 CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: CMakeFiles/cyclechesscpp.dir/flags.make
-CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.cpp
+CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.cpp
 CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o -MF CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o -c /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o -MF CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o.d -o CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o -c /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.cpp
 
 CMakeFiles/cyclechesscpp.dir/python_connect.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cyclechesscpp.dir/python_connect.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.cpp > CMakeFiles/cyclechesscpp.dir/python_connect.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.cpp > CMakeFiles/cyclechesscpp.dir/python_connect.cpp.i
 
 CMakeFiles/cyclechesscpp.dir/python_connect.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cyclechesscpp.dir/python_connect.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/python_connect.cpp -o CMakeFiles/cyclechesscpp.dir/python_connect.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/python_connect.cpp -o CMakeFiles/cyclechesscpp.dir/python_connect.cpp.s
 
 # Object files for target cyclechesscpp
 cyclechesscpp_OBJECTS = \
@@ -387,6 +401,7 @@ cyclechesscpp_OBJECTS = \
 "CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o" \
 "CMakeFiles/cyclechesscpp.dir/main/main.cpp.o" \
 "CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o" \
+"CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o" \
 "CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o" \
 "CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o"
 
@@ -412,12 +427,13 @@ libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/game/history.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/main/main_factory.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/main/main.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/main/parser.cpp.o
+libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/main/unparser.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/python_connect.cpp.o
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/build.make
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/compiler_depend.ts
 libcyclechesscpp.so: CMakeFiles/cyclechesscpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX shared library libcyclechesscpp.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking CXX shared library libcyclechesscpp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cyclechesscpp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -429,6 +445,6 @@ CMakeFiles/cyclechesscpp.dir/clean:
 .PHONY : CMakeFiles/cyclechesscpp.dir/clean
 
 CMakeFiles/cyclechesscpp.dir/depend:
-	cd /home/konstantin/Документы/python/CycleChessBot/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp /home/konstantin/Документы/python/CycleChessBot/build /home/konstantin/Документы/python/CycleChessBot/build /home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles/cyclechesscpp.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/konstantin/Документы/cyclechess/CycleChessBot/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp /home/konstantin/Документы/cyclechess/CycleChessBot/build /home/konstantin/Документы/cyclechess/CycleChessBot/build /home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles/cyclechesscpp.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/cyclechesscpp.dir/depend
 

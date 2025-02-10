@@ -1,7 +1,7 @@
 CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.cpp \
  /usr/include/stdc-predef.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/board.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/board.h \
  /usr/include/c++/14.2.1/map \
  /usr/include/c++/14.2.1/bits/requires_hosted.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -122,7 +122,7 @@ CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: \
  /usr/include/c++/14.2.1/bits/stl_vector.h \
  /usr/include/c++/14.2.1/bits/stl_bvector.h \
  /usr/include/c++/14.2.1/bits/vector.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/cell.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/cell.h \
  /usr/include/c++/14.2.1/memory \
  /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h \
@@ -193,17 +193,18 @@ CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: \
  /usr/include/c++/14.2.1/bits/ranges_algobase.h \
  /usr/include/c++/14.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/14.2.1/pstl/execution_defs.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/color.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/position.h \
  /usr/include/c++/14.2.1/iostream /usr/include/c++/14.2.1/istream \
  /usr/include/c++/14.2.1/bits/istream.tcc \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/game_state.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history_record.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board/move_type.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game/history.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/offset.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/game_state.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/utils/piece_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record_manager.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history_record.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board/move_type.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game/history.h \
  /usr/include/c++/14.2.1/algorithm \
  /usr/include/c++/14.2.1/bits/stl_algo.h \
  /usr/include/c++/14.2.1/bits/algorithmfwd.h \
@@ -211,14 +212,26 @@ CMakeFiles/cyclechesscpp.dir/board/board.cpp.o: \
  /usr/include/c++/14.2.1/bits/uniform_int_dist.h \
  /usr/include/c++/14.2.1/bits/ranges_algo.h \
  /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/14.2.1/functional \
+ /usr/include/c++/14.2.1/bits/std_function.h \
+ /usr/include/c++/14.2.1/unordered_map \
+ /usr/include/c++/14.2.1/bits/unordered_map.h \
+ /usr/include/c++/14.2.1/bits/hashtable.h \
+ /usr/include/c++/14.2.1/bits/hashtable_policy.h \
+ /usr/include/c++/14.2.1/bits/enable_special_members.h \
+ /usr/include/c++/14.2.1/array /usr/include/c++/14.2.1/ranges \
+ /usr/include/c++/14.2.1/iterator \
+ /usr/include/c++/14.2.1/bits/stream_iterator.h \
+ /usr/include/c++/14.2.1/optional /usr/include/c++/14.2.1/span \
  /usr/include/c++/14.2.1/utility \
  /usr/include/c++/14.2.1/bits/stl_relops.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/bishop.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/linear_steps_piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/equal_steps_piece.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/king.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/knight.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/pawn.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/queen.h \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces/rook.h
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main/string_utils.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/bishop.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/linear_steps_piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/equal_steps_piece.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/king.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/knight.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/pawn.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/queen.h \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces/rook.h

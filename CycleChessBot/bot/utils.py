@@ -1,12 +1,17 @@
 import socket
-import chess
-from chess import Move, PieceType
 import numpy as np
 from PIL import Image
 import time
 from mapper import Mapping
 import config
 from node import Node
+
+from chess_game.move import Move
+from chess_game.piece import Piece
+from chess_game.board import Board
+from chess_game.color import Color
+from chess_game.piece_type import PieceType
+from chess_game.chess_unparser import ChessUnparser
 
 def save_input_state_to_imgs(input_state: np.ndarray, path: str):
     """
@@ -44,8 +49,7 @@ def save_output_state_to_imgs(output_state: np.ndarray, path: str, name: str = "
     if img.mode != 'RGB':
         img = img.convert('RGB')
     img.save(f"{path}/{name}.png")
-    print(
-        f"*** Saving to images: {(time.time() - start_time):.6f} seconds ***")
+    print(f"*** Saving to images: {(time.time() - start_time):.6f} seconds ***")
 
 def time_function(func):
     """
@@ -59,49 +63,52 @@ def time_function(func):
         return result
     return wrap_func
 
-def moves_to_output_vector(moves: dict, board: chess.Board) -> np.ndarray:
+def moves_to_output_vector(moves: dict, fen: str = config.DEFAULT_FEN) -> np.ndarray:
     """
     Convert a dictionary of moves to a vector of probabilities
     """
     vector = np.zeros((73, 8, 8), dtype=np.float32)
     for move in moves:
-        plane_index, row, col = move_to_plane_index(move, board)
+        plane_index, row, col = move_to_plane_index(move, fen)
         vector[plane_index, row, col] = moves[move]
     return np.asarray(vector)
     
-def move_to_plane_index(move: str, board: chess.Board):
+def move_to_plane_index(move: str, fen: str = config.DEFAULT_FEN):
     """"
     Convert a move to a plane index and the row and column on the board
     """
-    move: Move = Move.from_uci(move)
+    unparser = ChessUnparser()
+    move: Move = unparser.move(move)
     # get start and end position
-    from_square = move.from_square
-    to_square = move.to_square
+    position_first = move.position_first
+    position_second = move.position_second
     # get piece
-    piece: chess.Piece = board.piece_at(from_square)
+    board = Board()
+    board.create_from_fen(fen)
 
-    if piece is None:
-            raise Exception(f"No piece at {from_square}")
+    if not board.has_piece(position_first):
+        raise Exception(f"No piece at {position_first}")
 
+    piece: Piece = board.get_piece(position_first)
     plane_index: int = None
 
-    if move.promotion and move.promotion != chess.QUEEN:
+    if piece.piece_type != PieceType.QUEEN:
         piece_type, direction = Mapping.get_underpromotion_move(
-            move.promotion, from_square, to_square
+            piece.piece_type, position_first, position_second
         )
         plane_index = Mapping.mapper[piece_type][1 - direction]
     else:
-        if piece.piece_type == chess.KNIGHT:
+        if piece.piece_type == PieceType.KNIGHT:
             # get direction
-                direction = Mapping.get_knight_move(from_square, to_square)
+                direction = Mapping.get_knight_move(position_first, position_second)
                 plane_index = Mapping.mapper[direction]
         else:
             # get direction of queen-type move
             direction, distance = Mapping.get_queenlike_move(
-                from_square, to_square)
+                position_first, position_second)
             plane_index = Mapping.mapper[direction][np.abs(distance)-1]
-    row = from_square % 8
-    col = 7 - (from_square // 8)
+    row = position_first.i
+    col = position_first.j
     return (plane_index, row, col)
 
 def recvall(sock: socket.socket, count: int = 0) -> bytes:
@@ -131,30 +138,31 @@ def get_height_of_tree(node: Node):
         h = max(h, get_height_of_tree(edge.output_node))
     return h + 1
 
-if __name__ == "__main__":
-    board = chess.Board()
-    board.push_san("e4")
-    board.push_san("e5")
-    board.push_san("Nf3")
-    board.push_san("Nc6")
-    board.push_san("Bc4")
-    board.push_san("Bc5")
-    board.push_san("Nc3")
-    board.push_san("Nf6")
-    board.push_san("Bb5")
+# if __name__ == "__main__":
+    # TODO разобраться с этим
+    # board = chess.Board()
+    # board.push_san("e4")
+    # board.push_san("e5")
+    # board.push_san("Nf3")
+    # board.push_san("Nc6")
+    # board.push_san("Bc4")
+    # board.push_san("Bc5")
+    # board.push_san("Nc3")
+    # board.push_san("Nf6")
+    # board.push_san("Bb5")
 
-    from chessEnv import ChessEnv
+    # from chessEnv import ChessEnv
 
-    from agent import Agent
-    agent = Agent(local_predictions=True, model_path="models/model-2022-04-13_19:39:50.h5", state=board.fen())
+    # from agent import Agent
+    # agent = Agent(local_predictions=True, model_path="models/model-2022-04-13_19:39:50.keras", state=board.fen())
 
-    input_state = ChessEnv.state_to_input(board.fen())
-    p, v = agent.predict(input_state)
+    # input_state = ChessEnv.state_to_input(board.fen())
+    # p, v = agent.predict(input_state)
 
-    print(p)
+    # print(p)
 
-    probabilities = p.reshape(config.amount_of_planes, config.n, config.n)
+    # probabilities = p.reshape(config.amount_of_planes, config.n, config.n)
 
-    # input_state = np.reshape(input_state, (19, 8, 8))
-    # save_input_state_to_imgs(input_state, "tests")
-    save_output_state_to_imgs(probabilities, "./", "output_state")
+    # # input_state = np.reshape(input_state, (19, 8, 8))
+    # # save_input_state_to_imgs(input_state, "tests")
+    # save_output_state_to_imgs(probabilities, "./", "output_state")

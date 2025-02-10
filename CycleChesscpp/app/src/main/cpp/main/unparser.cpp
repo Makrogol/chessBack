@@ -14,6 +14,12 @@
 // Пример
 // TODO
 
+// Move = std::tuple<Position, Position, PieceType>
+// В начале НЕ подписывается, что это move
+// Элементы разделяются . (PieceType добавляется только если он не PieceTYpe::Empty)
+// Пример
+// TODO
+
 // Color = int
 // Просто одно число
 // В начале подписывается, что это color
@@ -33,21 +39,9 @@
 // TODO
 
 
-
-Unparser::Strings Unparser::split(const String& splitString, const String& splitCharacter) {
-    Unparser::Strings splitStrings;
-    int start, end = -1 * splitCharacter.size();
-    do {
-        start = end + splitCharacter.size();
-        end = splitString.find(splitCharacter, start);
-        splitStrings.push_back(splitString.substr(start, end - start));
-    } while (end != -1);
-    return splitStrings;
-}
-
 Unparser::TwoPositions Unparser::getPositionsToMove(const String& positionsString) {
-    const Unparser::Strings nameAndPositions = split(positionsString, ":");
-    const Unparser::Strings positions = split(nameAndPositions[1], ";");
+    const Strings nameAndPositions = split(positionsString, ":");
+    const Strings positions = split(nameAndPositions[1], ";");
     // if (positions.size() != 3 || positions[0] != "PositionsToMove") {
     //     // TODO бросить исключение
     // }
@@ -55,24 +49,35 @@ Unparser::TwoPositions Unparser::getPositionsToMove(const String& positionsStrin
 }
 
 Position Unparser::getPosition(const String& positionString) {
-    const Unparser::Strings positionElements = split(positionString, ",");
+    const Strings positionElements = split(positionString, ",");
     // TODO тут сделать аналогичные проверки на содержимое
     // __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", "Unparser getPosition");
     // __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", positionElements[0].c_str());
     // __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", positionElements[1].c_str());
-    return Position(std::atoi(positionElements[0].c_str()), std::atoi(positionElements[1].c_str()));
+    return Position(stringToInt(positionElements[0]), stringToInt(positionElements[1]));
 }
 
 Position Unparser::getPositionToPossibleMove(const String& positionString) {
     return getPosition(positionString);
 }
 
+Move Unparser::getMove(const String& moveString) {
+    const Strings moveElements = split(moveString, ".");
+    const Position positionFirst = getPosition(moveElements[0]);
+    const Position positionSecond = getPosition(moveElements[1]);
+    const PieceType promotionType = 
+        moveElements.size() > 2 ? 
+            static_cast<PieceType>(stringToInt(moveElements[2])) : 
+            PieceType::EMPTY;
+    return Move(positionFirst, positionSecond, promotionType);
+}
+
 Unparser::PositionAndPieceType Unparser::getPositionAndPieceTypeForMagicPawnTransformation(const String& positionAndPieceTypeString) {
-    const Unparser::Strings nameAndPositionsAndPieceType = split(positionAndPieceTypeString, ":");
+    const Strings nameAndPositionsAndPieceType = split(positionAndPieceTypeString, ":");
     // TODO тут сделать аналогичные проверки на содержимое
-    const Unparser::Strings positionAndPieceType = split(nameAndPositionsAndPieceType[1], ";");
+    const Strings positionAndPieceType = split(nameAndPositionsAndPieceType[1], ";");
     const Position position = getPosition(positionAndPieceType[0]);
-    const int pieceTypeInt = std::atoi(positionAndPieceType[1].c_str());
+    const int pieceTypeInt = stringToInt(positionAndPieceType[1]);
     const PieceType pieceType = static_cast<PieceType>(pieceTypeInt);
     return {position, pieceType};
 }
@@ -81,9 +86,9 @@ Unparser::PositionAndPieceType Unparser::getPositionAndPieceTypeForMagicPawnTran
 Color Unparser::getColor(const String& color) {
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", "Unparser getMainColor");
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", color.c_str());
-    const Unparser::Strings nameAndColor = split(color, ":");
+    const Strings nameAndColor = split(color, ":");
     // TODO тут сделать аналогичные проверки на содержимое
-    const int colorInt = std::atoi(nameAndColor[1].c_str());
+    const int colorInt = stringToInt(nameAndColor[1]);
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", nameAndColor[0].c_str());
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", nameAndColor[1].c_str());
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%d", colorInt);

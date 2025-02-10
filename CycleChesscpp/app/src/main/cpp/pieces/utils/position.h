@@ -67,3 +67,5 @@ Offset getOffsetBetweenPositions(const Position& firstPosition, const Position& 
 // TODO костыль, переделать
 bool isStepInBorderByMove(const Position& position, const Offset& offset, const int i, const int j);
 int getIDeltaBetweenPositions(const Position& firstPosition, const Position& secondPosition);
+int getJDeltaBetweenPositions(const Position& firstPosition, const Position& secondPosition);
+Position fromString(const std::string& positionString);

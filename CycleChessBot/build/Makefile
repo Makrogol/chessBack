@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp
+CMAKE_SOURCE_DIR = /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/konstantin/Документы/python/CycleChessBot/build
+CMAKE_BINARY_DIR = /home/konstantin/Документы/cyclechess/CycleChessBot/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles /home/konstantin/Документы/python/CycleChessBot/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles /home/konstantin/Документы/cyclechess/CycleChessBot/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/python/CycleChessBot/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/cyclechess/CycleChessBot/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -344,6 +344,30 @@ main/parser.s: main/parser.cpp.s
 main/parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cyclechesscpp.dir/build.make CMakeFiles/cyclechesscpp.dir/main/parser.cpp.s
 .PHONY : main/parser.cpp.s
+
+main/string_utils.o: main/string_utils.cpp.o
+.PHONY : main/string_utils.o
+
+# target to build an object file
+main/string_utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cyclechesscpp.dir/build.make CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.o
+.PHONY : main/string_utils.cpp.o
+
+main/string_utils.i: main/string_utils.cpp.i
+.PHONY : main/string_utils.i
+
+# target to preprocess a source file
+main/string_utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cyclechesscpp.dir/build.make CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.i
+.PHONY : main/string_utils.cpp.i
+
+main/string_utils.s: main/string_utils.cpp.s
+.PHONY : main/string_utils.s
+
+# target to generate assembly for a file
+main/string_utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cyclechesscpp.dir/build.make CMakeFiles/cyclechesscpp.dir/main/string_utils.cpp.s
+.PHONY : main/string_utils.cpp.s
 
 main/unparser.o: main/unparser.cpp.o
 .PHONY : main/unparser.o
@@ -669,6 +693,9 @@ help:
 	@echo "... main/parser.o"
 	@echo "... main/parser.i"
 	@echo "... main/parser.s"
+	@echo "... main/string_utils.o"
+	@echo "... main/string_utils.i"
+	@echo "... main/string_utils.s"
 	@echo "... main/unparser.o"
 	@echo "... main/unparser.i"
 	@echo "... main/unparser.s"

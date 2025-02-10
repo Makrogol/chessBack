@@ -28,6 +28,7 @@ set(src
         main/main_factory.cpp
         main/main.cpp
         main/parser.cpp
+        main/string_utils.cpp
         main/unparser.cpp
 )
 
@@ -70,6 +71,7 @@ if (GTEST)
 set(src ${src}
         ut/main.cpp
         ut/test_board.cpp
+        ut/test_fen.cpp
         ut/test_pieces.cpp
 )
 add_executable(test ${src})

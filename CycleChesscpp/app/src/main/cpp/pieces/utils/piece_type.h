@@ -16,5 +16,7 @@ enum PieceType {
 using PieceTypes = std::vector<PieceType>;
 
 PieceTypes getAllPieceTypes();
+PieceTypes getPieceTypesForPromotion();
 
 char toFen(const PieceType type);
+PieceType getPieceTypeFromFen(char fenElement);

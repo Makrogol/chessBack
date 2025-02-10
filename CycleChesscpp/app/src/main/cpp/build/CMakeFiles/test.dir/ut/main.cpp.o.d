@@ -1,5 +1,5 @@
 CMakeFiles/test.dir/ut/main.cpp.o: \
- /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/ut/main.cpp \
+ /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/ut/main.cpp \
  /usr/include/stdc-predef.h /usr/include/gtest/gtest.h \
  /usr/include/c++/14.2.1/cstddef \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \

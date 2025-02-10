@@ -11,47 +11,99 @@ HistoryRecord HistoryRecordManager::getRecord() {
     return copyRecord;
 }
 
+void HistoryRecordManager::setTurnColor(Color color) {
+    turnColor = color;
+}
+
+void HistoryRecordManager::clearAll() {
+    // TODO рефактор
+    HistoryMove blackMove = record.blackMove;
+    blackMove.color = Color::NO_COLOR;
+    blackMove.endPosition = Position();
+    blackMove.isCheck = false;
+    blackMove.isEating = false;
+    blackMove.specialMovesType = MoveType::NOT_SPECIAL;
+    blackMove.startPosition = Position();
+    blackMove.type = PieceType::EMPTY;
+    blackMove.isMagicPawnTransformation = false;
+    blackMove.pawnMagicTransfomationPieceType = PieceType::EMPTY;
+    blackMove.passantPosition = Position(0, 0);
+    record.setMoveByColor(turnColor, std::move(blackMove));
+
+    HistoryMove whiteMove = record.whiteMove;
+    whiteMove.color = Color::NO_COLOR;
+    whiteMove.endPosition = Position();
+    whiteMove.isCheck = false;
+    whiteMove.isEating = false;
+    whiteMove.specialMovesType = MoveType::NOT_SPECIAL;
+    whiteMove.startPosition = Position();
+    whiteMove.type = PieceType::EMPTY;
+    whiteMove.isMagicPawnTransformation = false;
+    whiteMove.pawnMagicTransfomationPieceType = PieceType::EMPTY;
+    whiteMove.passantPosition = Position(0, 0);
+    record.setMoveByColor(turnColor, std::move(whiteMove));
+}
+
 void HistoryRecordManager::clearRecord() {
-    record.color = Color::NO_COLOR;
-    record.endPosition = Position();
-    record.isCheck = false;
-    record.isEating = false;
-    record.specialMovesType = MoveType::NOT_SPECIAL;
-    record.startPosition = Position();
-    record.typeMovedPiece = PieceType::EMPTY;
-    record.isMagicPawnTransformation = false;
-    record.pawnMagicTransfomationPieceType = PieceType::EMPTY;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.color = Color::NO_COLOR;
+    move.endPosition = Position();
+    move.isCheck = false;
+    move.isEating = false;
+    move.specialMovesType = MoveType::NOT_SPECIAL;
+    move.startPosition = Position();
+    move.type = PieceType::EMPTY;
+    move.isMagicPawnTransformation = false;
+    move.pawnMagicTransfomationPieceType = PieceType::EMPTY;
+    move.passantPosition = Position(0, 0);
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::onPieceDoSpecialMove(const MoveType& specialMovesType) {
-    record.specialMovesType = specialMovesType;
+    // TODO возможно можно сделать, чтобы getMoveByColor
+    // Возвращало ссылку на мув, чтобы не париться с этим
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.specialMovesType = specialMovesType;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::onPieceDoEatMove() {
-    record.isEating = true;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.isEating = true;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::onPieceMove(const Position& position, const Position& newPosition) {
-    record.startPosition = position;
-    record.endPosition = newPosition;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.startPosition = position;
+    move.endPosition = newPosition;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::isPieceDoCheck() {
-    record.isCheck = true;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.isCheck = true;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::setPieceTypeAndColor(const PieceType& type, const Color& color) {
-    record.color = color;
-    record.typeMovedPiece = type;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.color = color;
+    move.type = type;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::setPassantPosition(const Position& position) {
-    record.passantPosition = position;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.passantPosition = position;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 void HistoryRecordManager::setMagicPawnTransformationPieceType(const PieceType& type) {
-    record.isMagicPawnTransformation = true;
-    record.pawnMagicTransfomationPieceType = type;
+    HistoryMove move = record.getMoveByColor(turnColor);
+    move.isMagicPawnTransformation = true;
+    move.pawnMagicTransfomationPieceType = type;
+    record.setMoveByColor(turnColor, std::move(move));
 }
 
 HistoryRecordManager::PHistoryRecordManager HistoryRecordManager::getCopy() const {

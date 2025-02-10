@@ -30,8 +30,28 @@ char* getPossibleMovesForPosition(char* position) {
     return stringToCharP(MainFactory::getOrCreateMain()->getPossibleMovesForPosition(std::string(position)));
 }
 
+char* canDoOneStepAndDrawByFiftyMoves() {
+    return stringToCharP(MainFactory::getOrCreateMain()->canDoOneStepAndDrawByFiftyMoves());
+}
+
+char* canDoPassant() {
+    return stringToCharP(MainFactory::getOrCreateMain()->canDoPassant());
+}
+
 char* tryDoMove(char* positions) {
     return stringToCharP(MainFactory::getOrCreateMain()->tryDoMove(std::string(positions)));
+}
+
+char* tryDoMoveV2(char* move) {
+    return stringToCharP(MainFactory::getOrCreateMain()->tryDoMoveV2(std::string(move)));
+}
+
+char* allPossibleMoves() {
+    return stringToCharP(MainFactory::getOrCreateMain()->allPossibleMoves());
+}
+
+char* getFen() {
+    return stringToCharP(MainFactory::getOrCreateMain()->getFen());
 }
 
 char* getGameState() {

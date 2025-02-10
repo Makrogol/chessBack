@@ -13,15 +13,17 @@ from chessEnv import ChessEnv
 from game import Game
 import config
 import numpy as np
-import chess
 import pandas as pd
 from GUI.display import GUI
 
+from chess_game.color import Color
+
 
 # set logging config
-logging.basicConfig(level=logging.INFO, format=' %(message)s')
+logging.basicConfig(level=logging.INFO, filename="_log_.log", format=' %(message)s')
 
-def setup(starting_position: str = chess.STARTING_FEN, local_predictions=False) -> Game:
+
+def setup(fen: str = config.DEFAULT_FEN, local_predictions=False) -> Game:
     """
     Setup function to set up a game. 
     This can be used in both the self-play and puzzle solving function
@@ -35,32 +37,34 @@ def setup(starting_position: str = chess.STARTING_FEN, local_predictions=False) 
     np.random.seed(number)
     print(f"========== > Setup. Test Random number: {np.random.randint(0, 123456789)}")
 
-
     # create environment and game
-    env = ChessEnv(fen=starting_position)
+    env = ChessEnv(fen=fen)
 
     # create agents
-    model_path = os.path.join(config.MODEL_FOLDER, "model.h5")
-    white = Agent(local_predictions, model_path, env.board.fen())
-    black = Agent(local_predictions, model_path, env.board.fen())
+    model_path = os.path.join(config.MODEL_FOLDER, "model.keras")
+    white = Agent(local_predictions, model_path, env.fen)
+    black = Agent(local_predictions, model_path, env.fen)
 
     return Game(env=env, white=white, black=black)
 
-def self_play(local_predictions=False):
+def self_play(local_predictions=True, show_board=False):
     """
     Continuously play games against itself
     """
     game = setup(local_predictions=local_predictions)
-
-    show_board = os.environ.get("SELFPLAY_SHOW_BOARD") == "true"
+    # show_board = os.environ.get("SELFPLAY_SHOW_BOARD") == "true"
 
     # play games continuously
     if show_board:
-        gui = GUI(400, 400, game.env.board.turn)
+        # TODO сделать как-то, чтобы не приходилось каждый раз перетирать фен (мб много инстансов либы)
+        if game.env.cpp_api.getFen() != game.env.fen:
+            game.env.cpp_api.startGameWithFen(Color.WHITE, game.env.fen)
+        gui = GUI(400, 400, game.env.cpp_api.getCurrentTurn() == Color.WHITE, game.env.fen)
         game.GUI = gui
     while True:
         if show_board:
-            game.GUI.gameboard.board.set_fen(game.env.board.fen())
+            if game.GUI.gameboard.cpp_api.getFen() != game.env.fen:
+                game.GUI.gameboard.cpp_api.startGameWithFen(Color.WHITE, game.env.fen)
             game.GUI.draw()
         game.play_one_game(stochastic=True)
 
@@ -82,7 +86,8 @@ if __name__ == "__main__":
     parser.add_argument('--type', type=str, default='selfplay', choices=('selfplay', 'puzzles') ,help='selfplay or puzzles')
     parser.add_argument('--puzzle-file', type=str, default=None, help='File to load puzzles from (csv)')
     parser.add_argument('--puzzle-type', type=str, default='mateIn1', help='Type of puzzles to solve. Make sure to set a puzzle move limit in config.py if necessary')
-    parser.add_argument('--local-predictions', action='store_true', help='Use local predictions instead of the server')
+    parser.add_argument('--local-predictions', default=True, action='store_true', help='Use local predictions instead of the server')
+    parser.add_argument('--show-board', default=False, action='store_true', help='Use local predictions instead of the server')
     args = parser.parse_args()
     args = vars(args)
 
@@ -92,22 +97,26 @@ if __name__ == "__main__":
     local_predictions = False
     if args['local_predictions']:
         local_predictions = True
-    else:
-        # wait until server is ready
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        server = os.environ.get("SOCKET_HOST", "localhost")
-        port = int(os.environ.get("SOCKET_PORT", 5000))
 
-        print("Checking if server is ready...")
-        while s.connect_ex((server, port)) != 0:
-            print(f"Waiting for server at {server}:{port}")
-            time.sleep(1)
-        print(f"Server is ready on {s.getsockname()}!")
-        s.close()
+    show_board = False
+    if args['show_board']:
+        show_board = True
+    # else:
+    #     # wait until server is ready
+    #     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #     s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    #     server = os.environ.get("SOCKET_HOST", "localhost")
+    #     port = int(os.environ.get("SOCKET_PORT", 5000))
+
+    #     print("Checking if server is ready...")
+    #     while s.connect_ex((server, port)) != 0:
+    #         print(f"Waiting for server at {server}:{port}")
+    #         time.sleep(1)
+    #     print(f"Server is ready on {s.getsockname()}!")
+    #     s.close()
     
     if args['type'] == 'selfplay':
-        self_play(local_predictions)
+        self_play(local_predictions, show_board)
     else:
         puzzles = Game.create_puzzle_set(filename=args['puzzle_file'], type=args['puzzle_type'])
         puzzle_solver(puzzles, local_predictions)

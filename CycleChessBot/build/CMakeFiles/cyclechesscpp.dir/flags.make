@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dcyclechesscpp_EXPORTS
 
-CXX_INCLUDES = -I/home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/board -I/home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/pieces -I/home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/game -I/home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/main
+CXX_INCLUDES = -I/home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/board -I/home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/pieces -I/home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/game -I/home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/main
 
 CXX_FLAGS = -std=gnu++20 -fPIC
 

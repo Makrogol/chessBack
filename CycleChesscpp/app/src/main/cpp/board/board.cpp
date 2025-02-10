@@ -2,8 +2,14 @@
 
 // #include <android/log.h>
 #include <algorithm>
+#include <cctype>
+#include <iostream>
+#include <functional>
 #include <memory>
+#include <ranges>
 #include <utility>
+
+#include "string_utils.h"
 
 #include "piece.h"
 #include "bishop.h"
@@ -15,7 +21,7 @@
 
 namespace {
 // TODO перенести куда-то в другое место
-    Cell::PPiece createPieceByType(const Position& position, const Color& color, const PieceType& type) {
+    Cell::PPiece createPieceByType(const Position& position, Color color, PieceType type) {
         // TODO придумать что-то по лучше, чем свитч
         switch (type)
         {
@@ -37,6 +43,10 @@ namespace {
         // TODO писать, что какой-то еррор произошел
         return nullptr;
     }
+
+    Cell::PPiece createPieceByType(const Position& position, const Board::PieceTypeAndColor& typeAndColor) {
+        return createPieceByType(position, typeAndColor.color, typeAndColor.type);
+    }
 }
 
 
@@ -53,7 +63,7 @@ Board::Board(const Color& mainColor, PHistory  history, PHistoryRecordManager  h
     }
 
 void Board::createEmptyField() {
-    field.clear();
+    clearField();
     field.resize(8);
     for (Board::Line& line : field) {
         line.resize(8);
@@ -61,7 +71,7 @@ void Board::createEmptyField() {
 }
 
 void Board::createEmptyColoredField() {
-    field.clear();
+    clearField();
     field.resize(8);
     // 0, 0 - Левый верхний угол
     // Поле в левом верхнем углу всегда белое
@@ -183,11 +193,14 @@ bool Board::hasPieceSameColor(const Position& position, const Offset& offset, co
 }
 
 bool Board::hasPieceAnotherColor(const Position& position, const Offset& offset, const Color& color) const {
-    const Position newPosition = MakeOffset(position, offset);
-    if (!hasPiece(position, offset)) {
+    return hasPieceAnotherColor(MakeOffset(position, offset), color);
+}
+
+bool Board::hasPieceAnotherColor(const Position& position, Color color) const {
+    if (!hasPiece(position)) {
         return false;
     }
-    const Cell::PPiece piece = getPieceByPosition(newPosition);
+    const Cell::PPiece piece = getPieceByPosition(position);
     return piece->getColor() == getAnotherColor(color);
 }
 
@@ -344,6 +357,70 @@ bool Board::isDraw() const {
     return checkDrawCondition();
 }
 
+bool Board::canDoPassant() const {
+    if (history->getCountMoves() > 1) {
+        return history->getLastMoveForColor(turnColor).passantPosition != Position(0, 0);
+    }
+    return false;
+}
+
+bool Board::canDoOneStepAndDrawByFiftyMoves() const {
+    if (history->getCountMovesWithoutEatingOrPawnsMove() < 49) {
+        return false;
+    }
+
+    for (const Position& position : getRouteForAllPiecesByColor(turnColor)) {
+        if (!hasPieceAnotherColor(position, turnColor)) {
+            return true;
+        }
+    }
+
+    for (Cell::PPiece piece : getAllPiecesByColor(turnColor)) {
+        if (piece->getType() != PieceType::PAWN && getPossiblePositionsToMove(piece->getPosition()).size() > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Board::Moves Board::getAllPossibleMoves() const {
+    PPieces pieces = getAllPiecesByColor(turnColor);
+    Moves allPossibleMoves;
+    for (const Cell::PPiece piece : pieces) {
+        Route piecesPossiblePositions = getPossiblePositionsToMove(piece->getPosition());
+        Moves piecesPossibleMoves;
+        piecesPossibleMoves.reserve(piecesPossiblePositions.size() + 3); // +3 это для превращения пешки
+        const Position position = piece->getPosition();
+        if (piece->getType() == PieceType::PAWN) {
+            for (const Position& possiblePosition : piecesPossiblePositions) {
+                if (isPositionGoodForMagicTransformation(possiblePosition)) {
+                    for (PieceType promotionType : getPieceTypesForPromotion()) {
+                        piecesPossibleMoves.emplace_back(Move(position, possiblePosition, promotionType));
+                    }
+                } else {
+                    piecesPossibleMoves.emplace_back(Move(position, possiblePosition, PieceType::EMPTY));
+                }
+            }
+        } else {
+            if (piecesPossiblePositions.size() > 0) {
+                std::cout << "add " << piecesPossiblePositions.size() << " positions for piece " << toFen(piece->getType()) << std::endl;
+            }
+            for (const Position& possiblePosition : piecesPossiblePositions) {
+                piecesPossibleMoves.emplace_back(Move(position, possiblePosition, PieceType::EMPTY));
+            }
+            // TODO разобраться, почему не работает трансформ
+            // std::ranges::transform(
+            //     piecesPossiblePositions.begin(),
+            //     piecesPossiblePositions.end(),
+            //     piecesPossibleMoves.begin(),
+            //     [piecePosition = piece->getPosition()](const Position& position) { return Move(piecePosition, position, PieceType::EMPTY); }
+            // );
+        }
+        allPossibleMoves.insert(allPossibleMoves.end(), piecesPossibleMoves.begin(), piecesPossibleMoves.end());
+    }
+    return allPossibleMoves;
+}
+
 GameState Board::getGameState() const {
 // TODO вообще говоря тут надо не возвращать занчение, а записывать его в переменную и обновлять при необходимости
 // тогда бы не было проблем, как тут. обязательно должна сначала идти проверка на мат, а потом проверка на шах
@@ -468,8 +545,8 @@ bool Board::checkOnlyKingAndOneKnightInBoard() const {
 bool Board::checkOnlyKingInBoard() const {
     const Board::PiecesByTypes pieces = getPiecesByTypes();
     for (const auto& pieceType : pieces) {
-        std::string str = "Board checkOnlyKingInBoard piece type = " + std::to_string(static_cast<int>(pieceType.first)) + " , count = " +
-                std::to_string(pieceType.second);
+        // String str = "Board checkOnlyKingInBoard piece type = " + std::to_string(static_cast<int>(pieceType.first)) + " , count = " +
+        //         std::to_string(pieceType.second);
         // __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", str.c_str());
         if (pieceType.first == PieceType::KING) {
             if (pieceType.second != 2) {
@@ -577,12 +654,82 @@ bool Board::isStepDoCheck(const Position& position, const Offset& offset, const 
     return isStepDoCheck(position, MakeOffset(position, offset), color);
 }
 
-void Board::createFieldFromFen(const std::string& fen) {
-
+void Board::setMainColor(Color color) {
+    mainColor = color;
+    anotherColor = getAnotherColor(mainColor);
 }
 
-std::string Board::getFen() const {
-    std::string fen= "";
+void Board::createFieldFromFen(const std::string& fen) {
+    createEmptyColoredField();
+    Strings fenElements = split(fen, " ");
+    if (fenElements.size() != 6) {
+        // TODO error need log
+        // std::cout << "fenElements.size() != 6 cannot create field" << std::endl;
+        return;
+    }
+
+    Strings boardStr = split(fenElements[0], "/");
+    if (boardStr.size() != 8) {
+        // TODO error need log
+        // std::cout << "boardStr.size() != 8 cannot create field" << std::endl;
+        return;
+    }
+    String turnColorStr = fenElements[1];
+    // Права рокировки не нужны, потому что я запоминаю количество ходов
+    // Каждой фигуры
+    // String castlingRights = fenElements[2];
+    String passantPosition = fenElements[3];
+    String countMovesWithoutEatingOrPawnsMoveStr = fenElements[4];
+    String countMovesStr = fenElements[5];
+
+    for (int i = 0; i < 8; ++i) {
+        int j = 0;
+        for (int k = 0; k < boardStr[i].size(); ++k) {
+            // Если началось с цифры, то ничего не делаем (пустые поля и так есть)
+            // Просто скипаем поля и запоминаем сколько, чтобы потом понимать где расставлять
+            // Фигуры, когда они пойдут
+            if (isdigit(boardStr[i][k])) {
+                // TODO рефактор приведения чарика к строке
+                j += stringToInt(std::string{boardStr[i][k]});
+            } else if (isalpha(boardStr[i][k])) {
+                // std::cout << "setPiece to position " << Position(i, j) << std::endl;
+                // TODO рефактор приведения чарика к строке
+                // Можно очень легко написать конвертер чара в инт
+                PieceTypeAndColor typeAndColor = Piece::getPieceTypeAndColorFromFen(boardStr[i][k]);
+                int countSteps = stringToInt(std::string{boardStr[i][k + 1]});
+                Cell::PPiece piece = createPieceByType(Position(i, j), typeAndColor);
+                piece->setCountSteps(countSteps);
+                field[i][j]->changePieceTo(piece);
+                ++j;
+                ++k;
+            }
+        }
+    }
+
+    turnColor = getTurnColorFromFen(turnColorStr);
+    // Заполняем прошлый ход, а не текущий
+    historyRecordManager->setTurnColor(getAnotherColor(turnColor));
+    historyRecordManager->setPassantPosition(fromString(passantPosition));
+    history->setCountMovesWithoutEatingOrPawnsMove(stringToInt(countMovesWithoutEatingOrPawnsMoveStr));
+    // TODO тут надо очень аккуртно, потому что может что-то сработать,
+    // Что смотрит только на количество элементов в истории
+    history->setCountMoves(stringToInt(countMovesStr));
+    // Это для того, чтобы при дефолтном фене
+    // Не создавались никакие записи в истории
+    if (history->getCountMoves() > 0) {
+        history->addHistoryRecord(historyRecordManager->getRecord());
+    }
+    // TODO возможно надо будет сделать какую-нибудь облегченную версию борды
+    // Специально для фена, которая не будет иметь ни истории
+    // Ничего такого, тип просто на один ход какая-то супер легкая борда
+    // Или сделать моки или типо того, чтобы я тут выставлял значения
+    // И вся логика продолжала работать
+}
+
+String Board::getFen() const {
+    // Дефолтный фен
+    // r0n0b0q0k0b0n0r0/p0p0p0p0p0p0p0p0/8/8/8/8/P0P0P0P0P0P0P0P0/R0N0B0Q0K0B0N0R0 w KQkq - 0 0
+    String fen = "";
     for (int i = 0; i < 8; ++i) {
         int countEmptyCell = 0;
         for (int j = 0; j < 8; ++j) {
@@ -593,7 +740,8 @@ std::string Board::getFen() const {
                     fen += std::to_string(countEmptyCell);
                     countEmptyCell = 0;
                 }
-                fen += field[i][j]->getPiece()->getFen();
+                // Тут расхождения с fen (добавляется количество ходов фигуры после каждой фигуры)
+                fen += field[i][j]->getPiece()->getFen() += std::to_string(field[i][j]->getPiece()->getCountSteps());
             }
         }
         if (countEmptyCell > 0) {
@@ -625,16 +773,21 @@ std::string Board::getFen() const {
     }
 
     fen += " ";
-    if (history->getCountMoves() > 0 && history->getLastMove().passantPosition != Position(0, 0)) {
-        // Тут уже начинаются расхождения с fen
-        fen += history->getLastMove().passantPosition.toString();
+    if (history->getCountMoves() > 0 && history->getLastMoveForColor(turnColor).passantPosition != Position(0, 0)) {
+        // Тут расхождения с fen, позиция пишется двумя кордами через запятую
+        fen += history->getLastMoveForColor(turnColor).passantPosition.toString();
     } else {
         fen += "-";
     }
 
     // TODO верим, что тут существует history
-    fen += " " + history->getCountMovesWithoutEatingOrPawnsMove();
-    fen += " " + history->getCountMoves();
+    fen += " " + std::to_string(history->getCountMovesWithoutEatingOrPawnsMove());
+    fen += " " + std::to_string(history->getCountMoves());
+
+    // TODO на countEqualMoves мы просто тут забиваем в моменте
+    // И поэтому они не учитываются в фене и в нейронке
+    // Надо их в фен тоже добавить и учитывать в нем и в нейронке
+    return fen;
 }
 
 void Board::clearField() {
@@ -642,17 +795,64 @@ void Board::clearField() {
 }
 
 bool Board::hasRightToDoAnyCastlingForAnyColor() const {
-    return hasRightToDoQueenSideCastling(Color::WHITE) ||
+    return
+        hasRightToDoQueenSideCastling(Color::WHITE) ||
         hasRightToDoQueenSideCastling(Color::BLACK) ||
-        hasRightToDoKingSideCastling(Color::WHITE) || 
+        hasRightToDoKingSideCastling(Color::WHITE) ||
         hasRightToDoKingSideCastling(Color::BLACK);
 }
 
 bool Board::hasRightToDoQueenSideCastling(const Color color) const {
+    // TODO вынести эти методы в какое-то одно место
+    // Чтобы они использовали одну функциональность
+    
+    // TODO мб сделать какую-то мапку, в которой
+    // будут все фигуры по цветам, чтобы было проще
+    // их доставать
+    const Cell::PPiece king = getKingByColor(color);
+    const PPieces rooks = getPiecesByTypeAndColor(PieceType::ROOK, color);
+    if (!king || rooks.size() == 0 || king->getCountSteps() > 0) {
+        return false;
+    }
+
+    for (const Cell::PPiece rook : rooks) {
+        if (rook->getCountSteps() == 0) {
+            // Если обе фигуры не делали ходов до этого и эта ладья
+            // Со стороны ферзя, то есть между ней и королем 4 клетки
+            // То теоретически право сделать рокировку еще есть
+            if (std::abs(getJDeltaBetweenPositions(rook->getPosition(), king->getPosition())) == 4) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 
 bool Board::hasRightToDoKingSideCastling(const Color color) const {
+    // TODO вынести эти методы в какое-то одно место
+    // Чтобы они использовали одну функциональность
+    
+    // TODO мб сделать какую-то мапку, в которой
+    // будут все фигуры по цветам, чтобы было проще
+    // их доставать
+    const Cell::PPiece king = getKingByColor(color);
+    const PPieces rooks = getPiecesByTypeAndColor(PieceType::ROOK, color);
+    if (!king || rooks.size() == 0 || king->getCountSteps() > 0) {
+        return false;
+    }
+
+    for (const Cell::PPiece rook : rooks) {
+        if (rook->getCountSteps() == 0) {
+            // Если обе фигуры не делали ходов до этого и эта ладья
+            // Со стороны короля, то есть между ней и королем 3 клетки
+            // То теоретически право сделать рокировку еще есть
+            if (std::abs(getJDeltaBetweenPositions(rook->getPosition(), king->getPosition())) == 3) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 
@@ -662,25 +862,32 @@ MoveType Board::tryMovePiece(const Position& position, const Offset& offset) {
 }
 
 MoveType Board::tryMovePiece(const Position& position, const Position& newPosition, const bool logging) {
+    // TODO тут не проверяется, что ход позволителен
+    // Мб надо добавить проверку подобного рода сюда
     if (!hasPiece(position)) {
+        std::cout << "!hasPiece " << position << std::endl;
         return MoveType::NOT_MOVE;
     }
     PCell cell = getCellByPosition(position);
     PCell newCell = getCellByPosition(newPosition);
     if (!cell || !newCell) {
+        std::cout << "!cell || !newCell" << std::endl;
         return MoveType::NOT_MOVE;
     }
     const Cell::PPiece piece = getPieceByPosition(position);
     const MoveType moveType = checkMoveIsSpecial(position, newPosition);
     if (moveType == MoveType::NOT_MOVE) {
+        std::cout << "checkMoveIsSpecial return is MoveType::NOT_MOVE" << std::endl;
         return MoveType::NOT_MOVE;
     }
     const Color color = piece->getColor();
     const PieceType type = piece->getType();
+    historyRecordManager->setTurnColor(turnColor);
     historyRecordManager->setPieceTypeAndColor(type, color);
     historyRecordManager->onPieceMove(position, newPosition);
     if (moveType != MoveType::NOT_SPECIAL && moveType != MoveType::MAGIC_PAWN_TRANSFORMATION) {
         if (!tryDoSpecialMovePiece(position, newPosition, moveType)) {
+            std::cout << "!tryDoSpecialMovePiece" << std::endl;
             historyRecordManager->clearRecord();
             return MoveType::NOT_MOVE;
         }
@@ -800,6 +1007,7 @@ Piece::Route Board::getSpecialMovesForPosition(const Position& position) const {
         for (const Position& attackPosition : attackRoute) {
             if (checkSpecialMoveCondition(position, attackPosition, MoveType::PASSANT)) {
                 route.push_back(attackPosition);
+                break;
                 // сюда можно еще дописать break - как выполнение инварианта, что может быть только одно взятие на проходе
             }
         }
@@ -865,26 +1073,28 @@ bool Board::checkSpecialMoveCondition(const Position& position, const Position& 
             return false;
         }
 
-        // Верим, что предыдущий ход был сделан другим цветом
-        const HistoryRecord record = history->getLastMove();
-        if (!hasPiece(record.endPosition)) {
-            return false;
-        }
-        const Cell::PPiece pawn = getPieceByPosition(record.endPosition);
-        if (pawn->getType() != PieceType::PAWN) {
-            return false;
-        }
-        if (pawn->getCountSteps() != 1) {
-            return false;
-        }
-        // Плохо, подумать как сделать без этого
-        if (dynamic_cast<Pawn*>(pawn.get())->canDoBigStep()) {
-            return false;
-        }
-        if (!isPositionsGoodForPassant(position, newPosition, record.endPosition)) {
-            return false;
-        }
-        return true;
+        return history->getLastMoveForColor(turnColor).passantPosition == newPosition;
+
+        // TODO удалить, если строчка выше корректно заработала
+        // const HistoryMove& historyMove = history->getLastMoveForColor(turnColor);
+        // if (!hasPiece(historyMove.endPosition)) {
+        //     return false;
+        // }
+        // const Cell::PPiece pawn = getPieceByPosition(historyMove.endPosition);
+        // if (pawn->getType() != PieceType::PAWN) {
+        //     return false;
+        // }
+        // if (pawn->getCountSteps() != 1) {
+        //     return false;
+        // }
+        // // Плохо, подумать как сделать без этого
+        // if (dynamic_cast<Pawn*>(pawn.get())->canDoBigStep()) {
+        //     return false;
+        // }
+        // if (!isPositionsGoodForPassant(position, newPosition, historyMove.endPosition)) {
+        //     return false;
+        // }
+        // return true;
     }
     return false;
 }
@@ -983,8 +1193,8 @@ bool Board::tryDoSpecialMovePiece(const Position& position, const Position& newP
         if (!startCell || !endCell) {
             return false;
         }
-        const HistoryRecord lastRecord = history->getLastMove();
-        PCell attackedPawnCell = getCellByPosition(lastRecord.endPosition);
+        const HistoryMove& lastHistoryMove = history->getLastMoveForColor(turnColor);
+        PCell attackedPawnCell = getCellByPosition(lastHistoryMove.endPosition);
         if (!attackedPawnCell) {
             return false;
         }

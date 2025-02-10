@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include "string_utils.h"
+
 
 Position::Position(int i, int j): i(i), j(j) {}
 
@@ -102,6 +104,27 @@ int getIDeltaBetweenPositions(const Position& firstPosition, const Position& sec
         return 0;
     }
     return secondPosition.getI() - firstPosition.getI();
+}
+
+int getJDeltaBetweenPositions(const Position& firstPosition, const Position& secondPosition) {
+    if (firstPosition.getI() != secondPosition.getI()) {
+        // TODO error need log
+        return 0;
+    }
+    return secondPosition.getJ() - firstPosition.getJ();
+}
+
+Position fromString(const String& positionString) {
+    if (positionString.size() != 3) {
+        // TODO error need log
+        return Position(0, 0);
+    }
+    Strings positionsElements = split(positionString, ",");
+    if (positionsElements.size() != 2) {
+        // TODO error need log
+        return Position(0, 0);
+    }
+    return Position(stringToInt(positionsElements[0]), stringToInt(positionsElements[1]));
 }
 
 std::ostream& operator<<(std::ostream& os, const Position& position) {

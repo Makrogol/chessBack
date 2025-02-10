@@ -2,7 +2,6 @@ import argparse
 import os
 import time
 from typing import Tuple
-import chess
 import numpy as np
 from chessEnv import ChessEnv
 import config
@@ -37,8 +36,8 @@ class Trainer:
         y_value = []
         for position in data:
             # for every position in the batch, get the output probablity vector and value of the state
-            board = chess.Board(position[0])
-            moves = utils.moves_to_output_vector(position[1], board)
+            fen = position[0]
+            moves = utils.moves_to_output_vector(position[1], fen)
             y_probs.append(moves)
             y_value.append(position[2])
         return X, (np.array(y_probs).reshape(len(y_probs), 4672), np.array(y_value))
@@ -100,7 +99,7 @@ class Trainer:
 
     def save_model(self):
         os.makedirs(config.MODEL_FOLDER, exist_ok=True)
-        path = f"{config.MODEL_FOLDER}/model-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.h5"
+        path = f"{config.MODEL_FOLDER}/model-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.keras"
         save_model(self.model, path)
         print(f"Model trained. Saved model to {path}")
 

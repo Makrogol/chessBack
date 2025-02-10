@@ -54,7 +54,7 @@ class RLModelBuilder:
         x = self.build_convolutional_layer(main_input)
 
         # add a high amount of residual layers
-        for i in range(self.nr_hidden_layers):
+        for _ in range(self.nr_hidden_layers):
             x = self.build_residual_layer(x)
 
         model = Model(inputs=main_input, outputs=x)
@@ -157,5 +157,5 @@ if __name__ == "__main__":
         os.makedirs(args['model_folder'])
 
     # save the model
-    print(f"Saving model to {args['model_folder']} as {args['model_name']}.h5 ...")
-    model.save(os.path.join(args['model_folder'], args['model_name']) + '.h5')
+    print(f"Saving model to {args['model_folder']} as {args['model_name']}.keras ...")
+    model.save(os.path.join(args['model_folder'], args['model_name']) + '.keras')

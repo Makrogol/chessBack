@@ -6,6 +6,7 @@
 
 #include "cell.h"
 #include "game_state.h"
+#include "move.h"
 
 #include "utils/color.h"
 #include "utils/piece_type.h"
@@ -21,11 +22,13 @@ class Offset;
 class Board {
 public:
     struct PieceTypeAndColor{
+        // TODO переменные с заглавной буквы
         PieceType type = PieceType::EMPTY;
         Color color = Color::NO_COLOR;
     };
 
     using Route = std::vector<Position>;
+    using Moves = std::vector<Move>;
     using PCell = std::shared_ptr<Cell>;
     using PPieces = std::vector<Cell::PPiece>;
     using Line = std::vector<PCell>;
@@ -37,6 +40,7 @@ public:
     using PiecesByTypesAndColors = std::map<Color, PiecesByTypes>;
     using PiecesConfiguraions = std::vector<PiecesByTypesAndColors>;
     using LineRepresentation = std::vector<PieceTypeAndColor>;
+    // TODO удалить это, так как есть фен
     using BoardRepresentation = std::vector<LineRepresentation>;
 
 
@@ -54,12 +58,17 @@ public:
 
     bool hasPieceAnotherColor(const Position& position, const Offset& offset, const Color& color) const;
 
+    bool hasPieceAnotherColor(const Position& position, Color color) const;
+
     bool hasPiece(const Position& position, const Offset& offset) const;
 
     bool hasPiece(const Position& position) const;
 
     BoardRepresentation getBoardRepresentation() const;
 
+    // TODO сделать мб особый тип для фена
+    // Но мб и не надо, потому что внутри либы он наверное не будет
+    // Использоваться, а вне либы будут отдельные парсеры для фена
     std::string getFen() const;
 
     Color getMainColor() const {
@@ -119,12 +128,20 @@ public:
     // Не ходил королем и все остальное
     bool hasRightToDoKingSideCastling(const Color color) const;
 
+    bool canDoOneStepAndDrawByFiftyMoves() const;
+
+    bool canDoPassant() const;
+
+    Moves getAllPossibleMoves() const;
+
     PiecesByTypes getPiecesByTypesForColor(const Color& color) const;
 
     // Суммарное количество для обоих цветов
     PiecesByTypes getPiecesByTypes() const;
 
     PiecesByTypesAndColors getPiecesByTypesAndColors() const;
+
+    void setMainColor(Color color);
 
     // Просто поле 8х8
     void createEmptyField();
@@ -135,7 +152,6 @@ public:
     // С дефолтным расположением фигур
     void createDefaultField();
 
-    // TODO это на будущее, надо будет потом сделать класс для настроек, которые будем парсить из строки, которая приходит в либу
     void createFieldFromFen(const std::string& fen);
 
     void clearField();
@@ -152,6 +168,7 @@ public:
 
 private:
 friend class TestBoard;
+friend class TestFen;
 friend class TestPieces;
 
     bool hasRightToDoAnyCastlingForAnyColor() const;
@@ -211,7 +228,7 @@ friend class TestPieces;
     Field field;
     const PHistory history;
     const PHistoryRecordManager historyRecordManager;
-    const Color mainColor = Color::NO_COLOR; // "Главный" цвет, то есть цвет фигур, за которые играет "основной" игрок
-    const Color anotherColor = Color::NO_COLOR; // Обратный цвет к "главному"
+    Color mainColor = Color::NO_COLOR; // "Главный" цвет, то есть цвет фигур, за которые играет "основной" игрок
+    Color anotherColor = Color::NO_COLOR; // Обратный цвет к "главному"
     Color turnColor = Color::NO_COLOR; // Цвет того, кто сейчас ходит
 };

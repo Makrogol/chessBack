@@ -16,3 +16,4 @@ Colors getAllColors();
 
 // Раскидать то, что относится к фену в один файл
 std::string getTurnColorFen(const Color color);
+Color getTurnColorFromFen(std::string fen);

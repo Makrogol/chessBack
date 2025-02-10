@@ -5,78 +5,81 @@ import numpy as np
 import time
 import logging
 
-from cpp_api import CppApi
-from game.color import Color
+from chess_game.cpp_api import CppApi
+from chess_game.board import Board
+from chess_game.color import Color, get_all_colors
+from chess_game.piece_type import PieceType, get_all_piece_types
+from chess_game.move import Move
 
-logging.basicConfig(level=logging.INFO, format=' %(message)s')
+logging.basicConfig(level=logging.INFO, filename="_log_.log", format=' %(message)s')
 
 
 class ChessEnv:
-    def __init__(self, fen: str = None):
+    def __init__(self, fen: str = config.DEFAULT_FEN):
         """
         Initialize the chess environment
         """
         # the chessboard
         self.fen = fen
         self.cpp_api = CppApi()
+        self.reset()
+    
+    def reset(self):
+        if self.cpp_api.getFen() != self.fen:
+            self.cpp_api.startGameWithFen(Color.WHITE, self.fen)
 
     @staticmethod
     def state_to_input(fen: str) -> np.ndarray(config.INPUT_SHAPE):
         """
         Convert board to a fen that is interpretable by the model
         """
-
         cpp_api = CppApi()
         # Какой будет mainColor? 
         # возможно просто надо сделать, чтобы всегда был белый
-        cpp_api.startGameWithFen(Color.WHITE, fen)
+        if cpp_api.getFen() != fen:
+            cpp_api.startGameWithFen(Color.WHITE, fen)
+        board = Board()
+        board.create_from_fen(fen)
 
         # 1. is it white's turn? (1x8x8)
-        is_white_turn = np.ones((8, 8)) if cpp_api.getCurrentTurn() == Color.WHITE else np.zeros((8, 8))
+        is_white_turn = np.ones((8, 8)) if board.turn_color == Color.WHITE else np.zeros((8, 8))
 
         # 2. castling rights (4x8x8)
         castling = np.asarray([
-            np.ones((8, 8)) if board.has_queenside_castling_rights(
-                Color.WHITE) else np.zeros((8, 8)),
-            np.ones((8, 8)) if board.has_kingside_castling_rights(
-                Color.WHITE) else np.zeros((8, 8)),
-            np.ones((8, 8)) if board.has_queenside_castling_rights(
-                Color.BLACK) else np.zeros((8, 8)),
-            np.ones((8, 8)) if board.has_kingside_castling_rights(
-                Color.BLACK) else np.zeros((8, 8)),
+            np.ones((8, 8)) if board.castling_rights[0] else np.zeros((8, 8)),
+            np.ones((8, 8)) if board.castling_rights[1] else np.zeros((8, 8)),
+            np.ones((8, 8)) if board.castling_rights[2] else np.zeros((8, 8)),
+            np.ones((8, 8)) if board.castling_rights[3] else np.zeros((8, 8)),
         ])
 
         # 3. repitition counter
-        counter = np.ones(
-            (8, 8)) if board.can_claim_fifty_moves() else np.zeros((8, 8))
+        counter = np.ones((8, 8)) if cpp_api.canDoOneStepAndDrawByFiftyMoves() else np.zeros((8, 8))
 
         # create new np array
         arrays = []
-        for color in chess.COLORS:
+        for color in get_all_colors():
             # 4. player 1's pieces (6x8x8)
             # 5. player 2's pieces (6x8x8)
-            for piece_type in chess.PIECE_TYPES:
+            for piece_type in get_all_piece_types():
                 # 6 arrays of 8x8 booleans
                 array = np.zeros((8, 8))
-                for index in list(board.pieces(piece_type, color)):
-                    # row calculation: 7 - index/8 because we want to count from bottom left, not top left
-                    array[7 - int(index/8)][index % 8] = True
+                for piece in board.get_pieces_by_type_and_color(color, piece_type):
+                    array[piece.position.i][piece.position.j] = True
                 arrays.append(array)
         arrays = np.asarray(arrays)
 
         # 6. en passant square (8x8)
         en_passant = np.zeros((8, 8))
-        if board.has_legal_en_passant():
-            en_passant[7 - int(board.ep_square/8)][board.ep_square % 8] = True
+        if cpp_api.canDoPassant():
+            en_passant[board.passant_position][board.passant_position] = True
 
         r = np.array([is_white_turn, *castling,
                      counter, *arrays, en_passant]).reshape((1, *config.INPUT_SHAPE))
         # memory management
-        del board
         return r.astype(bool)
 
     @staticmethod
-    def estimate_winner(board: chess.Board) -> int:
+    def estimate_winner(board: Board) -> int:
         """
         Estimate the winner of the current node.
         Pawn = 1, Bishop = 3, Rook = 5, Queen = 9
@@ -84,42 +87,47 @@ class ChessEnv:
         """
         score = 0
         piece_scores = {
-            chess.PAWN: 1,
-            chess.KNIGHT: 3,
-            chess.BISHOP: 3,
-            chess.ROOK: 5,
-            chess.QUEEN: 9,
-            chess.KING: 0
+            PieceType.PAWN: 1,
+            PieceType.KNIGHT: 3,
+            PieceType.BISHOP: 3,
+            PieceType.ROOK: 5,
+            PieceType.QUEEN: 9,
+            PieceType.KING: 0
         }
-        for piece in board.piece_map().values():
-            if piece.color == chess.WHITE:
+        for piece in board.get_all_pieces():
+            if piece.color == Color.WHITE:
                 score += piece_scores[piece.piece_type]
             else:
                 score -= piece_scores[piece.piece_type]
         if np.abs(score) > 5:
             if score > 0:
-                logging.debug("White wins (estimated)")
+                logging.info("<chess_env> White wins (estimated)")
                 return 0.25
             else:
-                logging.debug("Black wins (estimated)")
+                logging.info("<chess_env> Black wins (estimated)")
                 return -0.25
         else:
-            logging.debug("Draw")
+            logging.info("<chess_env> Draw")
             return 0
 
     @staticmethod
-    def get_piece_amount(board: chess.Board) -> int:
-        return len(board.piece_map().values())
+    def get_piece_amount(board: Board) -> int:
+        return len(board.get_all_pieces())
 
     def __str__(self):
         """
         Print the board
         """
-        return str(chess.Board(self.board))
+        logging.info('<chess_env> __str__ if used need to fill')
+        return ""
 
-    def step(self, action: Move) -> chess.Board:
+    def step(self, move: Move):
         """
         Perform a step in the game
         """
-        self.board.push(action)
-        return self.board
+        # Уверены, что поле не менялось в либе
+        # Хотя непонятно с чего мы в этом так уверены
+        if self.cpp_api.getFen() != self.fen:
+            self.cpp_api.startGameWithFen(Color.WHITE, self.fen)
+        self.cpp_api.tryDoMove(move)
+        self.fen = self.cpp_api.getFen()

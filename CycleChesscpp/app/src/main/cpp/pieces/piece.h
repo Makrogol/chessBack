@@ -1,6 +1,7 @@
  #pragma once
 
 // #include <android/log.h>
+#include <iostream>
 #include <algorithm>
 #include <string>
 #include <vector>
@@ -39,9 +40,24 @@ public:
 
     std::string getFen() const {
         if (color == Color::WHITE) {
-            return std::string(static_cast<char>(std::toupper(toFen(type))), 1);
+            return std::string{static_cast<char>(std::toupper(toFen(type)))};
         }
-        return std::string(static_cast<char>(std::tolower(toFen(type))), 1);
+        return std::string{static_cast<char>(std::tolower(toFen(type)))};
+    }
+
+    // TODO вынести в утили
+    static Board::PieceTypeAndColor getPieceTypeAndColorFromFen(char fenElement) {
+        PieceType type = getPieceTypeFromFen(fenElement);
+        if (isupper(fenElement)) {
+            return {
+                .type = type,
+                .color = Color::WHITE,
+            };
+        }
+        return {
+            .type = type,
+            .color = Color::BLACK,
+        };
     }
 
     int getCountSteps() const {

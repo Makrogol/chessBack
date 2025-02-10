@@ -5,12 +5,17 @@ from agent import Agent
 import utils
 import logging
 import config
-from chess.pgn import Game as ChessGame
-from edge import Edge
+from node import Edge
 from mcts import MCTS
 import uuid
 import pandas as pd
 import numpy as np
+
+from chess_game.color import Color
+from chess_game.game_state import is_game_over, GameState
+from chess_game.board import Board
+
+logging.basicConfig(level=logging.INFO, filename="_log_.log", format=' %(message)s')
 
 class Game:
     def __init__(self, env: ChessEnv, white: Agent, black: Agent):
@@ -27,11 +32,13 @@ class Game:
 
     def reset(self):
         self.env.reset()
-        self.turn = self.env.board.turn  # True = white, False = black
+        if self.env.cpp_api.getFen() != self.env.fen:
+            self.env.cpp_api.startGameWithFen(Color.WHITE, self.env.fen)
+        self.turn = self.env.cpp_api.getCurrentTurn() == Color.WHITE  # True = white, False = black
 
     @staticmethod
-    def get_winner(result: str) -> int:
-        return 1 if result == "1-0" else - 1 if result == "0-1" else 0
+    def get_winner(result: GameState) -> int:
+        return 1 if result == GameState.MATE_FOR_BLACK else -1 if result == GameState.MATE_FOR_WHITE else 0
 
 
     @utils.time_function
@@ -46,44 +53,49 @@ class Game:
         # add a new memory entry
         self.memory.append([])
         # show the board
-        logging.info(f"\n{self.env.board}")
+        logging.info(f"\n<game>{self.env.cpp_api.getFen()}")
         # counter to check amount of moves played. if above limit, estimate winner
         counter, previous_edges, full_game = 0, (None, None), True
-        while not self.env.board.is_game_over():
+        while not is_game_over(self.env.cpp_api.getGameState()):
             # play one move (previous move is used for updating the MCTS tree)
             previous_edges = self.play_move(stochastic=stochastic, previous_moves=previous_edges)
-            logging.info(f"\n{self.env.board}")
-            logging.info(f"Value according to white: {self.white.mcts.root.value}")
-            logging.info(f"Value according to black: {self.black.mcts.root.value}")
-            if os.environ.get("SELFPLAY_SHOW_BOARD") == "true":
-                self.GUI.gameboard.board.set_fen(self.env.board.fen()) 
-                self.GUI.draw()
+            logging.info(f"\n<game> {self.env.cpp_api.getFen()}")
+            logging.info(f"<game> Value according to white: {self.white.mcts.root.value}")
+            logging.info(f"<game> Value according to black: {self.black.mcts.root.value}")
+            # if os.environ.get("SELFPLAY_SHOW_BOARD") == "true":
+            #     self.GUI.gameboard.board.set_fen(self.env.board.fen()) 
+            #     self.GUI.draw()
 
             # end if the game drags on too long
             counter += 1
-            if counter > config.MAX_GAME_MOVES or self.env.board.is_repetition(3):
+            if counter > config.MAX_GAME_MOVES:
                 # estimate the winner based on piece values
-                winner = ChessEnv.estimate_winner(self.env.board)
-                logging.info(f"Game over by move limit ({config.MAX_GAME_MOVES}). Result: {winner}")
+                board = Board()
+                if self.env.cpp_api.getFen() != self.env.fen:
+                    self.env.cpp_api.startGameWithFen(Color.WHITE, self.env.fen)
+                board.create_from_fen(self.env.cpp_api.getFen())
+                winner = ChessEnv.estimate_winner(board)
+                logging.info(f"<game> Game over by move limit ({config.MAX_GAME_MOVES}). Result: {winner}")
                 full_game = False
                 break
         if full_game:
             # get the winner based on the result of the game
-            winner = Game.get_winner(self.env.board.result())
-            logging.info(f"Game over. Result: {winner}")
+            winner = Game.get_winner(self.env.cpp_api.getGameState())
+            logging.info(f"<game> Game over. Result: {winner}")
         # save game result to memory for all games
         for index, element in enumerate(self.memory[-1]):
             self.memory[-1][index] = (element[0], element[1], winner)
 
-        game = ChessGame()
-        # set starting position
-        game.setup(self.env.fen)
-        # add moves
-        node = game.add_variation(self.env.board.move_stack[0])
-        for move in self.env.board.move_stack[1:]:
-            node = node.add_variation(move)
-        # print pgn
-        logging.info(game)
+        # Пока что без логов, потом надо будет раскомментить
+        # game = ChessGame()
+        # # set starting position
+        # game.setup(self.env.fen)
+        # # add moves
+        # node = game.add_variation(self.env.board.move_stack[0])
+        # for move in self.env.board.move_stack[1:]:
+        #     node = node.add_variation(move)
+        # # print pgn
+        # logging.info(game)
 
         # save memory to file
         self.save_game(name="game", full_game=full_game)
@@ -102,23 +114,23 @@ class Game:
 
         if previous_moves[0] is None or previous_moves[1] is None:
             # create new tree with root node == current board
-            current_player.mcts = MCTS(current_player, state=self.env.board.fen(), stochastic=stochastic)
+            current_player.mcts = MCTS(current_player, fen=self.env.fen, stochastic=stochastic)
         else:
             # change the root node to the node after playing the two previous moves
             try:
-                node = current_player.mcts.root.get_edge(previous_moves[0].action).output_node
-                node = node.get_edge(previous_moves[1].action).output_node
+                node = current_player.mcts.root.get_edge(previous_moves[0].move).output_node
+                node = node.get_edge(previous_moves[1].move).output_node
                 current_player.mcts.root = node
             except AttributeError:
-                logging.warning("WARN: Node does not exist in tree, continuing with new tree...")
-                current_player.mcts = MCTS(current_player, state=self.env.board.fen(), stochastic=stochastic)
+                logging.warning("<game> Node does not exist in tree, continuing with new tree...")
+                current_player.mcts = MCTS(current_player, fen=self.env.fen, stochastic=stochastic)
         # play n simulations from the root node
         current_player.run_simulations(n=config.SIMULATIONS_PER_MOVE)
 
         moves = current_player.mcts.root.edges
 
         if save_moves:
-            self.save_to_memory(self.env.board.fen(), moves)
+            self.save_to_memory(self.env.fen, moves)
 
         sum_move_visits = sum(e.N for e in moves)
         probs = [e.N / sum_move_visits for e in moves]
@@ -130,10 +142,14 @@ class Game:
             # choose a move based on the highest N
             best_move = moves[np.argmax(probs)]
 
+        # TODO Очень фигово создавать доску каждый раз
+        # Надо либо ее один раз создать где-то раньше
+        # Либо просверлить дырку в либе для числа ходов
+        board = Board()
+        board.create_from_fen(self.env.fen)
         # play the move
-        logging.info(
-            f"{'White' if self.turn else 'Black'} played  {self.env.board.fullmove_number}. {best_move.action}")
-        self.env.step(best_move.action)
+        logging.info(f"<game> {'White' if self.turn else 'Black'} played  {board.countMoves} {best_move.move}")
+        self.env.step(best_move.move)
         
         # switch turn
         self.turn = not self.turn
@@ -141,16 +157,16 @@ class Game:
         # return the previous move and the new move
         return (previous_moves[1], best_move)
 
-    def save_to_memory(self, state, moves) -> None:
+    def save_to_memory(self, fen: str = config.DEFAULT_FEN, moves = None) -> None:
         """
-        Append the current state and move probabilities to the internal memory.
+        Append the current fen and move probabilities to the internal memory.
         """
         sum_move_visits = sum(e.N for e in moves)
         # create dictionary of moves and their probabilities
         search_probabilities = {
-            e.action.uci(): e.N / sum_move_visits for e in moves}
+            str(e.move): e.N / sum_move_visits for e in moves}
         # winner gets added after game is over
-        self.memory[-1].append((state, search_probabilities, None))
+        self.memory[-1].append((fen, search_probabilities, None))
 
     def save_game(self, name: str = "game", full_game: bool = False) -> None:
         """
@@ -163,9 +179,8 @@ class Game:
             with open("full_games.txt", "a") as f:
                 f.write(f"{game_id}.npy\n")
         np.save(os.path.join(config.MEMORY_DIR, game_id), self.memory[-1])
-        logging.info(
-            f"Game saved to {os.path.join(config.MEMORY_DIR, game_id)}.npy")
-        logging.info(f"Memory size: {len(self.memory)}")
+        logging.info(f"<game> Game saved to {os.path.join(config.MEMORY_DIR, game_id)}.npy")
+        logging.info(f"<game> Memory size: {len(self.memory)}")
 
 
     @utils.time_function
@@ -174,46 +189,51 @@ class Game:
         Create positions from puzzles (fen strings) and let the MCTS figure out how to solve them.
         The saved positions can be used to train the neural network.
         """
-        logging.info(f"Training on {len(puzzles)} puzzles")
+        logging.info(f"<game> Training on {len(puzzles)} puzzles")
         for puzzle in puzzles.itertuples():
             self.env.fen = puzzle.fen
             self.env.reset()
             # play the first move
             moves = puzzle.moves.split(" ")
-            self.env.board.push_uci(moves.pop(0))
-            logging.info(f"Puzzle to solve ({puzzle.rating} ELO): {self.env.fen}")
-            logging.info(f"\n{self.env.board}")
-            logging.info(f"Correct solution: {moves} ({len(moves)} moves)")
+            if self.env.cpp_api.getFen() != self.env.fen:
+                self.env.cpp_api.startGameWithFen(Color.WHITE, self.env.fen)
+            self.env.cpp_api.tryDoMove(moves.pop(0))
+            logging.info(f"<game> Puzzle to solve ({puzzle.rating} ELO): {self.env.fen}")
+            logging.info(f"<game> Correct solution: {moves} ({len(moves)} moves)")
             self.memory.append([])
             counter, previous_edges = 0, (None, None)
-            while not self.env.board.is_game_over():
+            while not is_game_over(self.env.cpp_api.getGameState()):
                 # deterministically choose the next move (we want no exploration here)
                 previous_edges = self.play_move(stochastic=False, previous_moves=previous_edges)
-                logging.info(f"\n{self.env.board}")
-                logging.info(f"Value according to white: {self.white.mcts.root.value}")
-                logging.info(f"Value according to black: {self.black.mcts.root.value}")
+                if self.env.cpp_api.getFen() != self.env.fen:
+                    self.env.cpp_api.startGameWithFen(Color.WHITE, self.env.fen)
+                logging.info(f"<game> Value according to white: {self.white.mcts.root.value}")
+                logging.info(f"<game> Value according to black: {self.black.mcts.root.value}")
                 counter += 1
                 if counter > config.MAX_PUZZLE_MOVES:
                     logging.warning("Puzzle could not be solved within the move limit")
                     break
-            if not self.env.board.is_game_over():
+            if self.env.cpp_api.getFen() != self.env.fen:
+                self.env.cpp_api.startGameWithFen(Color.WHITE, self.env.fen)
+            if not is_game_over(self.env.cpp_api.getGameState()):
                 continue
-            logging.info(f"Puzzle complete. Ended after {counter} moves: {self.env.board.result()}")
+            logging.info(f"<game> Puzzle complete. Ended after {counter} moves: {self.env.cpp_api.getGameState()}")
             # save game result to memory for all games
-            winner = Game.get_winner(self.env.board.result())
+            winner = Game.get_winner(self.env.cpp_api.getGameState())
             for index, element in enumerate(self.memory[-1]):
                 self.memory[-1][index] = (element[0], element[1], winner)
 
-            game = ChessGame()
-            # set starting position
-            game.setup(self.env.fen)
-            # add moves
-            node = game.add_variation(self.env.board.move_stack[0])
-            for move in self.env.board.move_stack[1:]:
-                logging.info(move)
-                node = node.add_variation(move)
-            # print pgn
-            logging.info(game)
+            # TODO потом вернуть логи, когда разберусь как они работают
+            # game = ChessGame()
+            # # set starting position
+            # game.setup(self.env.fen)
+            # # add moves
+            # node = game.add_variation(self.env.board.move_stack[0])
+            # for move in self.env.board.move_stack[1:]:
+            #     logging.info(move)
+            #     node = node.add_variation(move)
+            # # print pgn
+            # logging.info(game)
 
             # save memory to file
             self.save_game(name="puzzle")
@@ -232,7 +252,6 @@ class Game:
         puzzles.columns = ["fen", "moves", "rating", "type"]
         # only keep puzzles where type contains "mate"
         puzzles = puzzles[puzzles["type"].str.contains(type)]
-        logging.info(f"Created puzzles in {time.time() - start_time} seconds")
+        logging.info(f"<game> Created puzzles in {time.time() - start_time} seconds")
         return puzzles
-
     

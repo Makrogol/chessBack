@@ -13,7 +13,11 @@ public:
 
     HistoryRecord getRecord();
 
+    void setTurnColor(Color color);
+
     void clearRecord();
+
+    void clearAll();
 
     void onPieceDoSpecialMove(const MoveType& specialMovesType);
 
@@ -34,4 +38,5 @@ public:
 
 private:
     HistoryRecord record;
+    Color turnColor;
 };

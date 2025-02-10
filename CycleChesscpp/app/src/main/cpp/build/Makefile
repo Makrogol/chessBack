@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp
+CMAKE_SOURCE_DIR = /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/build
+CMAKE_BINARY_DIR = /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/build/CMakeFiles /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/build/CMakeFiles /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/AndroidStudioProjects/CycleChesscpp/app/src/main/cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/konstantin/Документы/cyclechess/CycleChesscpp/app/src/main/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -344,6 +344,30 @@ main/parser.s: main/parser.cpp.s
 main/parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/main/parser.cpp.s
 .PHONY : main/parser.cpp.s
+
+main/string_utils.o: main/string_utils.cpp.o
+.PHONY : main/string_utils.o
+
+# target to build an object file
+main/string_utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/main/string_utils.cpp.o
+.PHONY : main/string_utils.cpp.o
+
+main/string_utils.i: main/string_utils.cpp.i
+.PHONY : main/string_utils.i
+
+# target to preprocess a source file
+main/string_utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/main/string_utils.cpp.i
+.PHONY : main/string_utils.cpp.i
+
+main/string_utils.s: main/string_utils.cpp.s
+.PHONY : main/string_utils.s
+
+# target to generate assembly for a file
+main/string_utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/main/string_utils.cpp.s
+.PHONY : main/string_utils.cpp.s
 
 main/unparser.o: main/unparser.cpp.o
 .PHONY : main/unparser.o
@@ -657,6 +681,30 @@ ut/test_board.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/ut/test_board.cpp.s
 .PHONY : ut/test_board.cpp.s
 
+ut/test_fen.o: ut/test_fen.cpp.o
+.PHONY : ut/test_fen.o
+
+# target to build an object file
+ut/test_fen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/ut/test_fen.cpp.o
+.PHONY : ut/test_fen.cpp.o
+
+ut/test_fen.i: ut/test_fen.cpp.i
+.PHONY : ut/test_fen.i
+
+# target to preprocess a source file
+ut/test_fen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/ut/test_fen.cpp.i
+.PHONY : ut/test_fen.cpp.i
+
+ut/test_fen.s: ut/test_fen.cpp.s
+.PHONY : ut/test_fen.s
+
+# target to generate assembly for a file
+ut/test_fen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/ut/test_fen.cpp.s
+.PHONY : ut/test_fen.cpp.s
+
 ut/test_pieces.o: ut/test_pieces.cpp.o
 .PHONY : ut/test_pieces.o
 
@@ -717,6 +765,9 @@ help:
 	@echo "... main/parser.o"
 	@echo "... main/parser.i"
 	@echo "... main/parser.s"
+	@echo "... main/string_utils.o"
+	@echo "... main/string_utils.i"
+	@echo "... main/string_utils.s"
 	@echo "... main/unparser.o"
 	@echo "... main/unparser.i"
 	@echo "... main/unparser.s"
@@ -756,6 +807,9 @@ help:
 	@echo "... ut/test_board.o"
 	@echo "... ut/test_board.i"
 	@echo "... ut/test_board.s"
+	@echo "... ut/test_fen.o"
+	@echo "... ut/test_fen.i"
+	@echo "... ut/test_fen.s"
 	@echo "... ut/test_pieces.o"
 	@echo "... ut/test_pieces.i"
 	@echo "... ut/test_pieces.s"

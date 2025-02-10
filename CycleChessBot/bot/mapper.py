@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import Tuple
-from chess import PieceType
 import numpy as np
+
+from chess_game.piece_type import PieceType
+from chess_game.position import Position
 
 
 class QueenDirection(Enum):
@@ -30,9 +32,9 @@ class KnightMove(Enum):
 
 
 class UnderPromotion(Enum):
-    KNIGHT = 0
-    BISHOP = 1
-    ROOK = 2
+    ROOK = 1
+    BISHOP = 2
+    KNIGHT = 4
 
 
 class Mapping:
@@ -52,8 +54,10 @@ class Mapping:
             return QueenDirection(direction) * 8 + distance
 
     @staticmethod
-    def get_underpromotion_move(piece_type: PieceType, from_square: int, to_square: int) -> Tuple[UnderPromotion, int]:
-        piece_type = UnderPromotion(piece_type - 2)
+    def get_underpromotion_move(piece_type: PieceType, position_first: Position, position_second: Position) -> Tuple[UnderPromotion, int]:
+        piece_type = UnderPromotion(piece_type.value - 2)
+        from_square = position_first.i * 8 + position_first.j
+        to_square = position_second.i * 8 + position_second.j
         diff = from_square - to_square
         if to_square < 8:
             # black promotes (1st rank)
@@ -64,11 +68,15 @@ class Mapping:
         return (piece_type, direction)
 
     @staticmethod
-    def get_knight_move(from_square: int, to_square: int) -> KnightMove:
+    def get_knight_move(position_first: Position, position_second: Position) -> KnightMove:
+        from_square = position_first.i * 8 + position_first.j
+        to_square = position_second.i * 8 + position_second.j
         return KnightMove(Mapping.knight_mappings.index(from_square - to_square))
 
     @staticmethod
-    def get_queenlike_move(from_square: int, to_square: int) -> Tuple[QueenDirection, int]:
+    def get_queenlike_move(position_first: Position, position_second: Position) -> Tuple[QueenDirection, int]:
+        from_square = position_first.i * 8 + position_first.j
+        to_square = position_second.i * 8 + position_second.j
         diff = from_square - to_square
         if diff % 8 == 0:
             # north and south
