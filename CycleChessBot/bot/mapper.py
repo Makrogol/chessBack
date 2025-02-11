@@ -40,21 +40,38 @@ class QueenDirection(Enum):
 
 class KnightMove(Enum):
     # eight possible knight moves
-    NORTH_LEFT = 0  # diff == -15
-    NORTH_RIGHT = 1  # diff == -17
-    EAST_UP = 2  # diff == -6
-    EAST_DOWN = 3  # diff == 10
-    SOUTH_RIGHT = 4  # diff == 15
-    SOUTH_LEFT = 5  # diff == 17
-    WEST_DOWN = 6  # diff == 6
-    WEST_UP = 7  # diff == -10
+    NORTH_LEFT = 0  # diff == -15  -2 +1
+    NORTH_RIGHT = 1  # diff == -17 -2 -1
+    EAST_UP = 2  # diff == -6      -1 +2
+    EAST_DOWN = 3  # diff == 10    +1 +2
+    SOUTH_RIGHT = 4  # diff == 15  +2 -1
+    SOUTH_LEFT = 5  # diff == 17   +2 +1
+    WEST_DOWN = 6  # diff == 6     +1 -2
+    WEST_UP = 7  # diff == -10     -1 -2
 
+def get_knigh_over_board_move(position_first: Position, position_second: Position) -> KnightMove:
+    if make_offset(position_first, -2, 1) == position_second:
+        return KnightMove.NORTH_LEFT
+    if make_offset(position_first, -2, -1) == position_second:
+        return KnightMove.NORTH_RIGHT
+    if make_offset(position_first, -1, 2) == position_second:
+        return KnightMove.EAST_UP
+    if make_offset(position_first, 1, 2) == position_second:
+        return KnightMove.EAST_DOWN
+    if make_offset(position_first, 2, -1) == position_second:
+        return KnightMove.SOUTH_RIGHT
+    if make_offset(position_first, 2, 1) == position_second:
+        return KnightMove.SOUTH_LEFT
+    if make_offset(position_first, 1, -2) == position_second:
+        return KnightMove.WEST_DOWN
+    if make_offset(position_first, -1, -2) == position_second:
+        return KnightMove.WEST_UP
+    raise Exception(f"Invalid knight over board move, position_first={position_first}, position_second={position_second}")
 
 class UnderPromotion(Enum):
     ROOK = 1
     BISHOP = 2
     KNIGHT = 4
-
 
 class Mapping:
     """
@@ -88,15 +105,17 @@ class Mapping:
 
     @staticmethod
     def get_knight_move(position_first: Position, position_second: Position) -> KnightMove:
-        from_square = position_first.i * 8 + position_first.j
-        to_square = position_second.i * 8 + position_second.j
-        return KnightMove(Mapping.knight_mappings.index(from_square - to_square))
+        return get_knigh_over_board_move(position_first, position_second)
+        # from_square = position_first.i * 8 + position_first.j
+        # to_square = position_second.i * 8 + position_second.j
+        # diff = from_square - to_square
+        # return KnightMove(Mapping.knight_mappings.index(from_square - to_square))
 
     @staticmethod
     def get_queenlike_move(position_first: Position, position_second: Position) -> Tuple[QueenDirection, int]:
-        from_square = position_first.i * 8 + position_first.j # 2 * 8 + 7 = 23
-        to_square = position_second.i * 8 + position_second.j # 1 * 8 = 8
-        diff = from_square - to_square # 8 - 23 = 15
+        from_square = position_first.i * 8 + position_first.j
+        to_square = position_second.i * 8 + position_second.j
+        diff = from_square - to_square
         if diff % 8 == 0:
             # north and south
             if diff > 0:
@@ -133,7 +152,7 @@ class Mapping:
         elif is_north_west_over_board(position_first, position_second):
             return QueenDirection.NORTHWEST
         else:
-            raise Exception("Invalid queen-like move")
+            raise Exception(f"Invalid queen-like move, position_first={position_first}, position_second={position_second}")
         return (direction, distance)
 
     mapper = {

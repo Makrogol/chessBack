@@ -52,7 +52,8 @@ Position MakeOffset(const Position& position, const Offset& offset);
 bool isStepOverBoard(const Position& position, const Offset& offset);
 bool isStepInBorder(const Position& position, const Offset& offset);
 bool isPositionsNear(const Position& firstPosition, const Position& secondPosition);
-// TODO мб ренейн на InsideBoard
+bool isPositionsNearOverBoard(const Position& firstPosition, const Position& secondPosition);
+// TODO мб ренейм на InsideBoard
 bool isPositionInBoard(const Position& position);
 // Геометрическое расстояние - корень из суммы квадратов разности координат
 float distBetweenPosition(const Position& firstPosition, const Position& secondPosition);

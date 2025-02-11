@@ -104,7 +104,8 @@ public:
 
     GameState getGameState() const;
 
-    bool hasKingAnotherColorNear(const Position& position, const Offset& offset, const Color& color) const;
+    bool hasKingAnotherColorNear(const Position& position, const Offset& offset, Color color) const;
+    bool hasKingAnotherColorNearOverBoard(const Position& position, const Offset& offset, Color color) const;
 
     // TODO мб стоит это перенести на уровень выше в Game, чтобы борда не зависила от истории
     bool isStepDoCheck(const Position& position, const Offset& offset, const Color& color) const;

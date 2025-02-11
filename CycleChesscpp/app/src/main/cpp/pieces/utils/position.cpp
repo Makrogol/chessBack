@@ -26,6 +26,14 @@ bool isStepInBorder(const Position& position, const Offset& offset) {
     return iInBorder || jInBorder;
 }
 
+bool isPositionsNearOverBoard(const Position& firstPosition, const Position& secondPosition) {
+    int iAbs = std::abs(firstPosition.getI() - secondPosition.getI());
+    int jAbs = std::abs(firstPosition.getJ() - secondPosition.getJ());
+    const bool iIsNear = iAbs <= 1 || iAbs >= 7;
+    const bool jIsNear = jAbs <= 1 || jAbs >= 7;
+    return iIsNear && jIsNear;
+}
+
 bool isPositionsNear(const Position& firstPosition, const Position& secondPosition) {
     const bool iIsNear = std::abs(firstPosition.getI() - secondPosition.getI()) <= 1;
     const bool jIsNear = std::abs(firstPosition.getJ() - secondPosition.getJ()) <= 1;

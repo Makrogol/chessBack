@@ -268,7 +268,7 @@ Cell::PPiece Board::getKingByColor(const Color& color) const {
     return kings[0];
 }
 
-bool Board::hasKingAnotherColorNear(const Position& position, const Offset& offset, const Color& color) const {
+bool Board::hasKingAnotherColorNear(const Position& position, const Offset& offset, Color color) const {
     const Cell::PPiece king = getKingByColor(getAnotherColor(color));
     if (king == nullptr) {
         // error
@@ -276,6 +276,16 @@ bool Board::hasKingAnotherColorNear(const Position& position, const Offset& offs
     }
     const Position& newPosition = MakeOffset(position, offset);
     return isPositionsNear(king->getPosition(), newPosition);
+}
+
+bool Board::hasKingAnotherColorNearOverBoard(const Position& position, const Offset& offset, Color color) const {
+    const Cell::PPiece king = getKingByColor(getAnotherColor(color));
+    if (king == nullptr) {
+        // error
+        return false;
+    }
+    const Position& newPosition = MakeOffset(position, offset);
+    return isPositionsNearOverBoard(king->getPosition(), newPosition);
 }
 
 Piece::Route Board::getPossibleRouteForKingByColor(const Color& color) const {
