@@ -9,10 +9,10 @@ from GUI.display import GUI
 # cpp_api.startGameWithFen(Color.WHITE, 'r0n0b0q01b0n0r0/p0p0p0k1p0p0p01/7p1/3p14/8/N13P12P1/P0P0P0P0K1P0P01/R01B0Q01B0N0R0 b - 4 2')
 # cpp_api.allPossibleMoves()
 
-# gui = GUI(400, 400, True, 'r02n41k11r0/p01p02p01p0/3P33b1/1p1P2n2p11p11/2B32P1b1q4/1P11Q43P1/P0B11P01K1P01/R0N04N0R0 w - 18 2')
-# gui.start()
-# while True:
-#     gui.draw()
+gui = GUI(400, 400, True, 'r0k33b0n0r0/4p0N51p0/b1p16/p11p12q4P21/Q21P1p3P1p22/3P11n31P1/P0P06/R21B0K11B01R0 b - 4 2')
+gui.start()
+while True:
+    gui.draw()
 
 # possible_moves = "asd:".split(':')[1].split(';')
 # print(possible_moves == [""])

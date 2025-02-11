@@ -143,14 +143,20 @@ class Mapping:
             else:
                 direction = QueenDirection.NORTHWEST
             distance = np.abs(int(diff / 8)) + 1
+            # Это только для короля и для пешки, когда они могут ходить сквозь край поля
+            # Они могут пойти только на одну клету
         elif is_south_east_over_board(position_first, position_second):
-            return QueenDirection.SOUTHEAST
+            direction = QueenDirection.SOUTHEAST
+            distance = 1
         elif is_south_west_over_board(position_first, position_second):
-            return QueenDirection.SOUTHWEST
+            direction = QueenDirection.SOUTHWEST
+            distance = 1
         elif is_north_east_over_board(position_first, position_second):
-            return QueenDirection.NORTHEAST
+            direction = QueenDirection.NORTHEAST
+            distance = 1
         elif is_north_west_over_board(position_first, position_second):
-            return QueenDirection.NORTHWEST
+            direction = QueenDirection.NORTHWEST
+            distance = 1
         else:
             raise Exception(f"Invalid queen-like move, position_first={position_first}, position_second={position_second}")
         return (direction, distance)
