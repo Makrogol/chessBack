@@ -6,6 +6,25 @@ import numpy as np
 from chess_game.piece_type import PieceType
 from chess_game.position import Position
 
+# TODO унести это куда-то в другое место и мб сделать так эту штуку как-то по-другому (хотя придется модель переучивать)
+def make_offset(position: Position, i: int, j: int) -> Position:
+    return Position((position.i + i + 8) % 8, (position.j + j + 8) % 8)
+
+# +1 +1
+def is_south_west_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, 1, 1)
+
+# +1 -1
+def is_south_east_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, 1, -1)
+
+# -1 +1
+def is_north_west_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, -1, 1)
+
+# -1 -1
+def is_north_east_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, -1, -1)
 
 class QueenDirection(Enum):
     # eight directions
@@ -75,9 +94,9 @@ class Mapping:
 
     @staticmethod
     def get_queenlike_move(position_first: Position, position_second: Position) -> Tuple[QueenDirection, int]:
-        from_square = position_first.i * 8 + position_first.j
-        to_square = position_second.i * 8 + position_second.j
-        diff = from_square - to_square
+        from_square = position_first.i * 8 + position_first.j # 2 * 8 + 7 = 23
+        to_square = position_second.i * 8 + position_second.j # 1 * 8 = 8
+        diff = from_square - to_square # 8 - 23 = 15
         if diff % 8 == 0:
             # north and south
             if diff > 0:
@@ -105,6 +124,14 @@ class Mapping:
             else:
                 direction = QueenDirection.NORTHWEST
             distance = np.abs(int(diff / 8)) + 1
+        elif is_south_east_over_board(position_first, position_second):
+            return QueenDirection.SOUTHEAST
+        elif is_south_west_over_board(position_first, position_second):
+            return QueenDirection.SOUTHWEST
+        elif is_north_east_over_board(position_first, position_second):
+            return QueenDirection.NORTHEAST
+        elif is_north_west_over_board(position_first, position_second):
+            return QueenDirection.NORTHWEST
         else:
             raise Exception("Invalid queen-like move")
         return (direction, distance)
