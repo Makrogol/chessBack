@@ -1,4 +1,5 @@
 from chess_game.cpp_api import CppApi
+from chess_game.position import Position
 from chess_game.color import Color
 
 from GUI.display import GUI
@@ -13,6 +14,4 @@ from GUI.display import GUI
 # while True:
 #     gui.draw()
 
-cpp_api = CppApi()
-cpp_api.startGameWithFen(Color.WHITE, 'r0q12k3b0n0r0/1p0p01p03/p11n11b11p1p1/3p1P23/1P1P13B21/P12P13P1/3Q1N1P02/R0N0B01K02R0 w KQ - 6 2')
-cpp_api.allPossibleMoves()
+print(Position(13 % 8, 5 % 8) == Position(5, 5))
