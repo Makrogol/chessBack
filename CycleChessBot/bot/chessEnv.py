@@ -71,7 +71,7 @@ class ChessEnv:
         # 6. en passant square (8x8)
         en_passant = np.zeros((8, 8))
         if cpp_api.canDoPassant():
-            en_passant[board.passant_position][board.passant_position] = True
+            en_passant[board.passant_position.i][board.passant_position.j] = True
 
         r = np.array([is_white_turn, *castling,
                      counter, *arrays, en_passant]).reshape((1, *config.INPUT_SHAPE))
