@@ -26,7 +26,8 @@ class ChessUnparser():
     
     def possible_moves(self, possible_moves_str: bytearray) -> list[Move]:
         possible_moves = possible_moves_str.decode('utf-8').split(':')[1].split(';')
-        if possible_moves == "":
+        # Это значит, что мувов не пришло из либы
+        if possible_moves == [""]:
             return []
         return [self.move(move) for move in possible_moves]
 
