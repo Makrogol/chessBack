@@ -73,18 +73,34 @@ class Board():
         self.fen = fen
         self.create_empty_field()
         fen_elements = fen.split(' ')
-        if len(fen_elements) != 6:
+        if len(fen_elements) < 5:
             # TODO error need log
             return
-        board_str = fen_elements[0].split('/')
+        iter = 0
+        board_str = fen_elements[iter].split('/')
+        iter += 1
+
         if len(board_str) != 8:
             # TODO error need log
             return
-        self.turn_color = Color.WHITE if fen_elements[1] == 'w' else Color.BLACK
-        self.castling_rights = ['K' in fen_elements[2], 'Q' in fen_elements[2], 'k' in fen_elements[2], 'q' in fen_elements[2]]
-        self.passant_position = Position(int(fen_elements[3][0]), int(fen_elements[3][2])) if fen_elements[3] != '-' else None
-        self.countMovesWithoutEatingOrPawnsMove = int(fen_elements[4])
-        self.countMoves = int(fen_elements[5]) 
+        
+        self.turn_color = Color.WHITE if fen_elements[iter] == 'w' else Color.BLACK
+        iter += 1
+
+        if len(fen_elements) == 6:
+            self.castling_rights = ['K' in fen_elements[iter], 'Q' in fen_elements[iter], 'k' in fen_elements[iter], 'q' in fen_elements[iter]]
+            iter += 1
+        else:
+            self.castling_rights = [False, False, False, False]
+
+        self.passant_position = Position(int(fen_elements[iter][0]), int(fen_elements[iter][2])) if fen_elements[iter] != '-' else None
+        iter += 1
+
+        self.countMovesWithoutEatingOrPawnsMove = int(fen_elements[iter])
+        iter += 1
+
+        self.countMoves = int(fen_elements[iter]) 
+        iter += 1
 
         for i in range(8):
             j = 0

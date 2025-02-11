@@ -37,11 +37,11 @@ BASICFONTSIZE = 30
 
 
 class GUI:
-    def __init__(self, width: int, height: int, player: bool, fen: str):
+    def __init__(self, width: int, height: int, color_is_white: bool, fen: str):
         self.gameboard: Board = None
         self.WINDOWWIDTH = width
         self.WINDOWHEIGHT = height
-        self.player = player
+        self.color_is_white = color_is_white
         self.move = None
 
         self.fen = fen

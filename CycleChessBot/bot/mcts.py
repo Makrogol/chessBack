@@ -236,7 +236,7 @@ class MCTS:
         # create a child node for every action
         for action in possible_actions:
             # make the move and get the new board
-            logging.info(f'<mcts> step {action}')
+            # logging.info(f'<mcts> step {action}')
             new_state = leaf.step(action)
             # add a new child node with the new board, the action taken and its prior probability
             leaf.add_child(Node(new_state), action, actions[str(action)])

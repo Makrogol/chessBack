@@ -402,9 +402,9 @@ Board::Moves Board::getAllPossibleMoves() const {
                 }
             }
         } else {
-            if (piecesPossiblePositions.size() > 0) {
-                std::cout << "add " << piecesPossiblePositions.size() << " positions for piece " << toFen(piece->getType()) << std::endl;
-            }
+            // if (piecesPossiblePositions.size() > 0) {
+            //     std::cout << "add " << piecesPossiblePositions.size() << " positions for piece " << toFen(piece->getType()) << std::endl;
+            // }
             for (const Position& possiblePosition : piecesPossiblePositions) {
                 piecesPossibleMoves.emplace_back(Move(position, possiblePosition, PieceType::EMPTY));
             }
@@ -662,25 +662,29 @@ void Board::setMainColor(Color color) {
 void Board::createFieldFromFen(const std::string& fen) {
     createEmptyColoredField();
     Strings fenElements = split(fen, " ");
-    if (fenElements.size() != 6) {
+    if (fenElements.size() < 5) {
         // TODO error need log
-        // std::cout << "fenElements.size() != 6 cannot create field" << std::endl;
+        // std::cout << "fenElements.size() < 5 cannot create field" << std::endl;
         return;
     }
-
-    Strings boardStr = split(fenElements[0], "/");
+    
+    // TODO rename
+    int iter = 0;
+    Strings boardStr = split(fenElements[iter++], "/");
     if (boardStr.size() != 8) {
         // TODO error need log
         // std::cout << "boardStr.size() != 8 cannot create field" << std::endl;
         return;
     }
-    String turnColorStr = fenElements[1];
-    // Права рокировки не нужны, потому что я запоминаю количество ходов
-    // Каждой фигуры
-    // String castlingRights = fenElements[2];
-    String passantPosition = fenElements[3];
-    String countMovesWithoutEatingOrPawnsMoveStr = fenElements[4];
-    String countMovesStr = fenElements[5];
+    String turnColorStr = fenElements[iter++];
+    if (fenElements.size() == 6) {
+        // Права рокировки не нужны, потому что я запоминаю количество ходов
+        // Каждой фигуры
+        String castlingRights = fenElements[iter++];
+    }
+    String passantPosition = fenElements[iter++];
+    String countMovesWithoutEatingOrPawnsMoveStr = fenElements[iter++];
+    String countMovesStr = fenElements[iter++];
 
     for (int i = 0; i < 8; ++i) {
         int j = 0;
