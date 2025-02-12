@@ -15,7 +15,7 @@ class TurnSocketMessage: DefaultSocketMessage() {
     }
 
     override fun allFieldFill(): Boolean {
-        println(super.allFieldFill())
+//        println(super.allFieldFill())
         return super.allFieldFill() && (turn != null)
     }
 

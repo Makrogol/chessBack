@@ -117,7 +117,7 @@ class MCTS:
         if move.promotion is not None and move.promotion != PieceType.QUEEN:
             piece_type, direction = Mapping.get_underpromotion_move(
                 move.promotion, position_first, position_second)
-            plane_index = Mapping.mapper[piece_type][1 - direction]
+            plane_index = Mapping.mapper[piece_type][direction]
         else:
             # find the correct plane based on position_first and move_square
             if piece.piece_type == PieceType.KNIGHT:

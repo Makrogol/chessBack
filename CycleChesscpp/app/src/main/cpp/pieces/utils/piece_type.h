@@ -4,13 +4,13 @@
 
 
 enum PieceType {
-    EMPTY,
-    PAWN,
-    KING,
-    ROOK,
-    BISHOP,
-    QUEEN,
-    KNIGHT,
+    EMPTY = 0,
+    PAWN = 1,
+    KING = 2,
+    ROOK = 3,
+    BISHOP = 4,
+    QUEEN = 5,
+    KNIGHT = 6,
 };
 
 using PieceTypes = std::vector<PieceType>;

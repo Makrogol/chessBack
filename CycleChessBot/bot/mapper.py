@@ -10,21 +10,21 @@ from chess_game.position import Position
 def make_offset(position: Position, i: int, j: int) -> Position:
     return Position((position.i + i + 8) % 8, (position.j + j + 8) % 8)
 
-# +1 +1
-def is_south_west_over_board(position_first: Position, position_second: Position) -> bool:
-    return position_second == make_offset(position_first, 1, 1)
-
-# +1 -1
-def is_south_east_over_board(position_first: Position, position_second: Position) -> bool:
-    return position_second == make_offset(position_first, 1, -1)
-
 # -1 +1
-def is_north_west_over_board(position_first: Position, position_second: Position) -> bool:
+def is_south_west_over_board(position_first: Position, position_second: Position) -> bool:
     return position_second == make_offset(position_first, -1, 1)
 
 # -1 -1
-def is_north_east_over_board(position_first: Position, position_second: Position) -> bool:
+def is_south_east_over_board(position_first: Position, position_second: Position) -> bool:
     return position_second == make_offset(position_first, -1, -1)
+
+# +1 +1
+def is_north_west_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, 1, 1)
+
+# +1 -1
+def is_north_east_over_board(position_first: Position, position_second: Position) -> bool:
+    return position_second == make_offset(position_first, 1, -1)
 
 class QueenDirection(Enum):
     # eight directions
@@ -94,13 +94,24 @@ class Mapping:
         piece_type = UnderPromotion(piece_type.value - 2)
         from_square = position_first.i * 8 + position_first.j
         to_square = position_second.i * 8 + position_second.j
-        diff = from_square - to_square
-        if to_square < 8:
-            # black promotes (1st rank)
-            direction = diff - 8
-        elif to_square > 55:
-            # white promotes (8th rank)
-            direction = diff + 8
+        # Шаг по прямой
+        if make_offset(position_first, 1, 0) == position_second or make_offset(position_first, -1, 0) == position_second:
+            direction = 1
+        # Шаг для пешки по диагонали вправо
+        elif make_offset(position_first, 1, -1) == position_second or make_offset(position_first, -1, 1) == position_second:
+            direction = 2
+        # Шаг для пешки по диагонали влево
+        elif make_offset(position_first, 1, 1) == position_second or make_offset(position_first, -1, -1) == position_second:
+            direction = 0
+        else:
+            raise Exception(f"Invalid underpromotion move, position_first={position_first}, position_second={position_second}")
+        # diff = from_square - to_square
+        # if to_square < 8:
+        #     # black promotes (1st rank)
+        #     direction = diff - 8
+        # elif to_square > 55:
+        #     # white promotes (8th rank)
+        #     direction = diff + 8
         return (piece_type, direction)
 
     @staticmethod
