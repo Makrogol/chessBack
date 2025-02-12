@@ -176,7 +176,7 @@ class Game:
         game_id = f"{name}-{str(uuid.uuid4())[:8]}"
         if full_game:
             # if the game result was not estimated, save the game id to a seperate file (to look at later)
-            with open("full_games.txt", "a") as f:
+            with open("memory/full_games.txt", "a") as f:
                 f.write(f"{game_id}.npy\n")
         np.save(os.path.join(config.MEMORY_DIR, game_id), self.memory[-1])
         logging.info(f"<game> Game saved to {os.path.join(config.MEMORY_DIR, game_id)}.npy")
