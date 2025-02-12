@@ -25,6 +25,7 @@ class ChessEnv:
         self.reset()
     
     def reset(self):
+        self.fen = config.DEFAULT_FEN
         if self.cpp_api.getFen() != self.fen:
             self.cpp_api.startGameWithFen(Color.WHITE, self.fen)
 
