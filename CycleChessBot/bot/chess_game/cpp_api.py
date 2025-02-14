@@ -15,7 +15,9 @@ class CppApi():
         self.parser = ChessParser()
         self.unparser = ChessUnparser()
 
-        self.lib = ctypes.CDLL('/home/konstantin/Документы/cyclechess/CycleChessBot/build/libcyclechesscpp.so')
+        # self.lib = ctypes.CDLL('/home/konstantin/Документы/cyclechess/CycleChessBot/build/libcyclechesscpp.so')
+
+        self.lib = ctypes.CDLL('C:\\Users\konstantin\PycharmProjects\chessBack\CycleChessBot\\build\libcyclechesscpp.so')
 
         self.lib.startGame.argtypes = [ctypes.c_char_p]
 
