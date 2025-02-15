@@ -7,8 +7,8 @@ services:
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 80
     volumes:
       - ./back:/usr/src/app
-    expose:
-      - 80
+    ports:
+      - 80:80
     environment:
       - DATABASE_URL=postgresql+asyncpg://makrogol:1234@127.0.0.1:5432/chess_db
     depends_on:
@@ -16,8 +16,8 @@ services:
 
   db:
     image: postgres:15.3
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_USER=makrogol
       - POSTGRES_PASSWORD=1234
