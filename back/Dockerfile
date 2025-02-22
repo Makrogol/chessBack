@@ -4,7 +4,7 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-RUN alembic upgrade head
+#RUN alembic upgrade head
 
 #CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
 

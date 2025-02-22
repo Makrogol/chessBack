@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres
-    container_name: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=makrogol
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=chess_db
-    volumes:
-      - pgdata:/var/lib/postgres/data
-
   chessback:
     build: .
     container_name: chess_back
@@ -25,6 +13,18 @@ services:
 #      - DATABASE_URL=postgresql+asyncpg://makrogol:1234@127.0.0.1:5432/chess_db
     depends_on:
       - db
+
+  db:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=makrogol
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=chess_db
+    volumes:
+      - pgdata:/var/lib/postgres/data
 
 volumes:
   pgdata: null
