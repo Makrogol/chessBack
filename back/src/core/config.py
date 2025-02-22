@@ -9,7 +9,7 @@ DB_PATH = BASE_DIR / "users.db"
 
 class DbSettings(BaseModel):
     # url: str = f"sqlite+aiosqlite:///{DB_PATH}"
-    url: str = "postgresql+asyncpg://makrogol:1234@127.0.0.1:5432/chess_db"
+    url: str = "postgresql+asyncpg://makrogol:1234@0.0.0.0:5432/chess_db"
     echo: bool = False
     # echo: bool = True
 
