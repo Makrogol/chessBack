@@ -26,7 +26,7 @@ async def delete_user(session: AsyncSession, username: str) -> bool:
     if user is None:
         return False
     stmt = delete(User).where(User.username == username)
-    await session.delete(stmt)
+    await session.execute(stmt)
     await session.commit()
     return True
 
