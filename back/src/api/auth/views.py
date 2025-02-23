@@ -20,7 +20,7 @@ async def delete_user(
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
     return {
-        "success" : await crud.delete_user(username, session)
+        "success" : await crud.delete_user(session, username)
     }
 
 @router.post("/")
