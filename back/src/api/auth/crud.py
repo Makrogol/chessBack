@@ -1,6 +1,6 @@
 import asyncio
 
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .shemas import UserValidate, UserCreate, UserElement
@@ -25,7 +25,8 @@ async def delete_user(session: AsyncSession, username: str) -> bool:
     user = get_user_by_username(session, username)
     if user is None:
         return False
-    await session.delete(user)
+    stmt = delete(User).where(User.username == username)
+    await session.execute(stmt)
     return True
 
 async def create_user(session: AsyncSession, user_create: UserCreate) -> User:
