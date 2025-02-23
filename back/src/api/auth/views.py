@@ -14,6 +14,14 @@ async def get_users(
 ):
     return await crud.get_users(session)
 
+@router.get("/delete_user")
+async def delete_user(
+    username: str,
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    return {
+        "success" : await crud.delete_user(username, session)
+    }
 
 @router.post("/")
 async def create_user(

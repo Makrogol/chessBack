@@ -24,3 +24,33 @@ docker rm IMAGE_NAME
 
 List of all images\
 docker ps -a
+
+## docker-compose commands
+
+### For first run
+Up all containers\
+docker-compose up --build
+
+(add -d options for daemon mode)
+
+Down all containers\
+docker-compose down -v
+
+Configure postgres\
+docker-compose exec chessback alembic upgrade head
+
+### For update only backend and don't close postgres
+Stop backend\
+docker-compose stop chessback
+
+Remove container\
+docker-compose rm chessback
+
+Pull changes\
+git pull
+
+Build new backed container and run it\
+docker-compose up --build chessback
+
+Update postgres configure if need\
+docker-compose exec chessback alebmic upgrade head

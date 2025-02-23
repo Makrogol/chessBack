@@ -21,6 +21,13 @@ async def get_users(session: AsyncSession) -> list[UserElement]:
     return __convert_users_to_user_elements(users)
 
 
+async def delete_user(session: AsyncSession, username: str) -> bool:
+    user = get_user_by_username(session, username)
+    if user is None:
+        return False
+    await session.delete(user)
+    return True
+
 async def create_user(session: AsyncSession, user_create: UserCreate) -> User:
     user = User(
         username=user_create.username,
