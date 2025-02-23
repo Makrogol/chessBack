@@ -13,7 +13,7 @@ class DbSettings(BaseModel):
     echo: bool = False
     # echo: bool = True
 
-# q2
+# q
 class Settings(BaseSettings):
     # api_v1_prefix: str = "/api/v1"
 
