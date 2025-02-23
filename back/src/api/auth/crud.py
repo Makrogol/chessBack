@@ -22,11 +22,12 @@ async def get_users(session: AsyncSession) -> list[UserElement]:
 
 
 async def delete_user(session: AsyncSession, username: str) -> bool:
-    user = await get_user_by_username(session, username)
+    user: User | None = await get_user_by_username(session, username)
     if user is None:
         return False
     stmt = delete(User).where(User.username == username)
-    await session.execute(stmt)
+    await session.delete(stmt)
+    await session.commit()
     return True
 
 async def create_user(session: AsyncSession, user_create: UserCreate) -> User:
