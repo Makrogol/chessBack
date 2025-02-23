@@ -22,7 +22,7 @@ async def get_users(session: AsyncSession) -> list[UserElement]:
 
 
 async def delete_user(session: AsyncSession, username: str) -> bool:
-    user = get_user_by_username(session, username)
+    user = await get_user_by_username(session, username)
     if user is None:
         return False
     stmt = delete(User).where(User.username == username)
