@@ -1,24 +1,23 @@
 package com.serebryakov.cyclechesscpp.application.model.game.gamefield
 
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.BishopPiece
+import com.serebryakov.cyclechesscpp.application.model.game.BasePiece
+import com.serebryakov.cyclechesscpp.application.model.game.BishopPiece
 import com.serebryakov.cyclechesscpp.application.model.game.CellColor
 import com.serebryakov.cyclechesscpp.application.model.game.GameColor
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.KingPiece
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.KnightPiece
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.PawnPiece
+import com.serebryakov.cyclechesscpp.application.model.game.KingPiece
+import com.serebryakov.cyclechesscpp.application.model.game.KnightPiece
+import com.serebryakov.cyclechesscpp.application.model.game.PawnPiece
 import com.serebryakov.cyclechesscpp.application.model.game.PieceColor
 import com.serebryakov.cyclechesscpp.application.model.game.PieceType
 import com.serebryakov.cyclechesscpp.application.model.game.Position
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.QueenPiece
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.RookPiece
+import com.serebryakov.cyclechesscpp.application.model.game.QueenPiece
+import com.serebryakov.cyclechesscpp.application.model.game.RookPiece
 import com.serebryakov.cyclechesscpp.application.model.game.getAnotherColor
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.BasePiece
+import com.serebryakov.cyclechesscpp.application.model.game.size
 import com.serebryakov.cyclechesscpp.application.model.game.toPieceColor
-import java.lang.Math.abs
 
 class Field {
     private val field = mutableListOf<MutableList<Cell>>()
-    private val brokenCells = mutableListOf<Position>()
     private var gameColor = GameColor.noColor
 
     operator fun get(position: Position): Cell {
@@ -29,10 +28,11 @@ class Field {
     fun movePiece(oldPosition: Position, newPosition: Position) {
         this[newPosition].piece = this[oldPosition].piece
         this[oldPosition].piece = null
-        field[newPosition.i][newPosition.j].piece?.changePosition(newPosition)
+        this[newPosition].piece?.changePosition(newPosition)
+        this[newPosition].piece?.onPieceDoStep()
     }
 
-    fun magicPawnTransformation(position: Position, pieceType: PieceType) : Boolean {
+    fun doMagicPawnTransformation(position: Position, pieceType: PieceType) : Boolean {
         val color = this[position].piece!!.color
         this[position].piece =  when(pieceType) {
             PieceType.KNIGHT -> KnightPiece(color, position)
@@ -47,9 +47,10 @@ class Field {
     fun doPassant(position: Position, newPosition: Position) {
         this[newPosition].piece = this[position].piece
         this[position].piece = null
-        field[newPosition.i][newPosition.j].piece?.changePosition(newPosition)
+        this[newPosition].piece?.changePosition(newPosition)
+        this[newPosition].piece?.onPieceDoStep()
         // TODO сюда бы какой-то ассерт добавить, что мы убираем именно пешку
-        field[position.i][newPosition.j].piece = null
+        this[position].piece = null
     }
 
     fun doCastling(position: Position, newPosition: Position) {
@@ -63,7 +64,7 @@ class Field {
         return field[position.i][position.j].piece
     }
 
-    fun getPieceForColor(color: PieceColor, type: PieceType): Position {
+    private fun getPieceForPieceTypeAndColor(color: PieceColor, type: PieceType): Position {
         for (i in 0 until size) {
             for (j in 0 until size) {
                 val currentPiece = field[i][j].piece
@@ -79,18 +80,11 @@ class Field {
         return field[position.i][position.j].hasPiece()
     }
 
-    fun isCheck(currentPayerColor: PieceColor): Boolean {
-        val position = getPieceForColor(currentPayerColor, PieceType.KING)
-        return isCellBroken(position, currentPayerColor.getAnotherColor())
-    }
-
-    fun getMainColor() = gameColor
-
     fun generateEmptyField() {
         for (i in 0 until size) {
             field.add(mutableListOf())
         }
-        field[0].add(Cell(CellColor.white)) // это левое верхнее поле
+        field[0].add(Cell(CellColor.white)) // левое верхнее поле
         for (i in 0 until size) {
             for (j in 0 until size) {
                 if (i == 0 && j == 0)
@@ -112,7 +106,6 @@ class Field {
     }
 
     private fun setPawns(mainColor: PieceColor) {
-        println("setPawns mainColor $mainColor")
         val anotherColor = mainColor.getAnotherColor()
         val iMain = size - 2
         val iAnother = 1
@@ -124,7 +117,6 @@ class Field {
 
     private fun setAllFiguresNotPawns(mainColor: PieceColor) {
         val anotherColor = mainColor.getAnotherColor()
-        // TODO возможно это надо переделать, чтобы было без дублирования добавления фигур
         field[size - 1][0].piece = RookPiece(mainColor, Position(size - 1, 0))
         field[size - 1][size - 1].piece = RookPiece(mainColor, Position(size - 1, size - 1))
 
@@ -142,8 +134,6 @@ class Field {
             field[size - 1][4].piece = QueenPiece(mainColor, Position(size - 1, 4))
         }
 
-
-
         field[0][0].piece = RookPiece(anotherColor, Position(0, 0))
         field[0][size - 1].piece = RookPiece(anotherColor, Position(0, size - 1))
 
@@ -153,7 +143,6 @@ class Field {
         field[0][2].piece = BishopPiece(anotherColor, Position(0, 2))
         field[0][size - 3].piece = BishopPiece(anotherColor, Position(0, size - 3))
 
-
         if (mainColor == PieceColor.white) {
             field[0][3].piece = QueenPiece(anotherColor, Position(0, 3))
             field[0][4].piece = KingPiece(anotherColor, Position(0, 4))
@@ -161,38 +150,5 @@ class Field {
             field[0][3].piece = KingPiece(anotherColor, Position(0, 3))
             field[0][4].piece = QueenPiece(anotherColor, Position(0, 4))
         }
-    }
-
-    // Еще надо передать цвет, для кого мы будем считать битые поля
-    fun isCellBroken(position: Position, color: PieceColor): Boolean {
-        if (brokenCells.isEmpty())
-            generateBrokenCells(color)
-        return brokenCells.firstOrNull { it == position } != null
-    }
-
-    private fun generateBrokenCells(color: PieceColor) {
-        for (i in 0 until size) {
-            for (j in 0 until size) {
-                if (field[i][j].piece?.color != color)
-                    continue
-                val currentPieceBrokenCells = field[i][j].piece?.generateBrokenCellsRoute(this)
-
-                // TODO потом надо сделать так, чтобы тут не было повторяющихся элементов
-                if (currentPieceBrokenCells != null)
-                    brokenCells.addAll(currentPieceBrokenCells)
-            }
-        }
-    }
-
-    fun getCopy(): Field {
-        val newField = Field()
-        newField.gameColor = gameColor
-        newField.generateEmptyField()
-        for (i in 0 until size) {
-            for (j in 0 until size) {
-                newField.field[i][j] = field[i][j].getCopy()
-            }
-        }
-        return newField
     }
 }

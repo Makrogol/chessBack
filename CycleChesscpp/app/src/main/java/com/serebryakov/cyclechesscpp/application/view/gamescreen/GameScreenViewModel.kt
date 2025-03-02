@@ -26,7 +26,6 @@ class GameScreenViewModel(
     private val navigator: Navigator,
     private val uiActions: UiActions,
     private val socketRepository: SocketRepository,
-    private val cppConnectionRepository: CppConnectionRepository
 ) : WebSocketViewModel() {
 
     private val _startGameData = MutableLiveResult<StartGameData>(PendingResult())
@@ -39,38 +38,6 @@ class GameScreenViewModel(
         into(_startGameData) {
             screen.startGameData
         }
-    }
-
-    fun getKingPositionByColor(color: GameColor): Position {
-        return cppConnectionRepository.getKingPositionByColor(color)
-    }
-
-    fun startGame(mainColor: GameColor) {
-        return cppConnectionRepository.startGame(mainColor)
-    }
-
-    fun getPossibleMovesForPosition(position: Position): Route {
-        return cppConnectionRepository.getPossibleMovesForPosition(position)
-    }
-
-    fun tryDoMove(positions: Pair<Position, Position>): MoveType {
-        return cppConnectionRepository.tryDoMove(positions)
-    }
-
-    fun tryDoMove(positionFirst: Position, positionSecond: Position): MoveType {
-        return cppConnectionRepository.tryDoMove(positionFirst, positionSecond)
-    }
-
-    fun getGameState(): GameState {
-        return cppConnectionRepository.getGameState()
-    }
-
-    fun tryDoMagicPawnTransformation(position: Position, pieceType: PieceType): Boolean {
-        return cppConnectionRepository.tryDoMagicPawnTransformation(position, pieceType)
-    }
-
-    fun endGame() {
-        return cppConnectionRepository.endGame()
     }
 
     fun sendSocketMessage(message: String) = into(_socketMessageSend) {

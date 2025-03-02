@@ -2,9 +2,7 @@ package com.serebryakov.cyclechesscpp.application
 
 import android.app.Application
 import com.serebryakov.cyclechesscpp.application.model.back.Api
-import com.serebryakov.cyclechesscpp.application.model.back.socket.WebSocketHolder
 import com.serebryakov.cyclechesscpp.application.model.back.socket.WebSocketHolderImpl
-import com.serebryakov.cyclechesscpp.application.model.cppapi.CppConnectionApi
 import com.serebryakov.cyclechesscpp.application.model.cppapi.CppConnectionApiImpl
 import com.serebryakov.cyclechesscpp.application.repository.backrepository.BackRepositoryImpl
 import com.serebryakov.cyclechesscpp.application.repository.cppconnectionrepository.CppConnectionRepositoryImpl

@@ -27,18 +27,21 @@ class FindOpponentsScreenViewModel(
     private val _opponentsData = MutableLiveResult<List<UserResponse>>(PendingResult())
     var opponentsData: LiveResult<List<UserResponse>> = _opponentsData
 
-    private val _username = MutableLiveResult<String>(PendingResult())
-    var username: LiveResult<String> = _username
+    private val _params = MutableLiveResult<FindOpponentScreenParams>(PendingResult())
+    var params: LiveResult<FindOpponentScreenParams> = _params
 
-    private val _socketConnection = MutableLiveResult<Unit>(PendingResult())
-    var socketConnection: LiveResult<Unit> = _socketConnection
+    private val _socketOpening = MutableLiveResult<Unit>(PendingResult())
+    var socketOpening: LiveResult<Unit> = _socketOpening
+
+    private val _socketClosing = MutableLiveResult<Unit>(PendingResult())
+    var socketClosing: LiveResult<Unit> = _socketClosing
 
     private val _gameStarted = MutableLiveResult<OpponentData>(PendingResult())
     var gameStarted: LiveResult<OpponentData> = _gameStarted
 
     init {
-        into(_username) {
-            screen.username
+        into(_params) {
+            screen.params
         }
         getAllOpponentsData()
     }
@@ -55,13 +58,17 @@ class FindOpponentsScreenViewModel(
         navigator.launch(screen)
     }
 
-    fun createSocket(webSocketListener: BaseWebSocketListener, username: String) = into(_socketConnection) {
-        socketRepository.createSocket(webSocketListener, username)
+    fun openSocket(webSocketListener: BaseWebSocketListener, username: String) = into(_socketOpening) {
+        socketRepository.openSocket(webSocketListener, username)
+    }
+
+    fun closeSocket() = into(_socketClosing) {
+        socketRepository.closeSocket()
     }
 
     override fun onOpponentClick(opponentData: OpponentData) = into(_gameStarted) {
         val startGameSocketMessage = StartGameSocketMessage()
-        startGameSocketMessage.username = username.value.takeSuccess()
+        startGameSocketMessage.username = params.value.takeSuccess()?.username
         startGameSocketMessage.opponentUsername = opponentData.username
         socketRepository.sendMessage(startGameSocketMessage)
         opponentData

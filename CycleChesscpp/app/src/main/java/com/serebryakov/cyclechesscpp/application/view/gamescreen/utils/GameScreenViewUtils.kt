@@ -15,7 +15,9 @@ interface GameScreenViewUtils {
 
     fun drawRoute(position: Position, route: Route)
 
-    fun clearAllField()
+    fun clearField()
+
+    fun clearFieldWithoutCheckColor()
 
     fun clearRoute()
 
@@ -34,5 +36,9 @@ interface GameScreenViewUtils {
     fun hideMagicPawnTransformationUi()
 
     fun setUsernames(username: String, opponentUsername: String)
+
+    fun setGameResult(gameResult: String)
+
+    fun clearGameResult()
 
 }

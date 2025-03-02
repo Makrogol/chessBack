@@ -6,7 +6,6 @@
 #include <iostream>
 #include <functional>
 #include <memory>
-#include <ranges>
 #include <utility>
 
 #include "string_utils.h"

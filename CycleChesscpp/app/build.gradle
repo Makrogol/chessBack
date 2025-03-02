@@ -19,7 +19,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags '-std=c++20'
-                arguments "-DANDROID:BOOL=1 -DGTEST:BOOL=0"
+                arguments "-DANDROID:BOOL=1 -DGTEST:BOOL=0 -DPYTHON:BOOL=0"
             }
         }
         vectorDrawables {

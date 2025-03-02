@@ -1,6 +1,6 @@
 package com.serebryakov.cyclechesscpp.application.model.game.gamefield
 
-import com.serebryakov.cyclechesscpp.application.model.game.pieces.BasePiece
+import com.serebryakov.cyclechesscpp.application.model.game.BasePiece
 import com.serebryakov.cyclechesscpp.application.model.game.CellColor
 import com.serebryakov.cyclechesscpp.application.model.game.PieceColor
 import com.serebryakov.cyclechesscpp.application.model.game.PieceType
@@ -23,10 +23,4 @@ class Cell(val color: CellColor) {
 
     fun getAnotherColor() =
         if (color == CellColor.white) CellColor.black else CellColor.white
-
-    fun getCopy(): Cell {
-        val newCell = Cell(color)
-        newCell.piece = piece?.getCopy()
-        return newCell
-    }
 }

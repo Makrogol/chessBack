@@ -4,8 +4,12 @@ import com.serebryakov.cyclechesscpp.application.model.game.gamefield.GameField
 
 interface GameFieldHolder {
 
-    fun get(): GameField
+    // Warn: use it only if you check has() is true
+    fun getStrict(): GameField
 
-    fun set(gameField: GameField)
+    fun get(): GameField?
 
+    fun has(): Boolean
+
+    fun set(gameField: GameField?)
 }

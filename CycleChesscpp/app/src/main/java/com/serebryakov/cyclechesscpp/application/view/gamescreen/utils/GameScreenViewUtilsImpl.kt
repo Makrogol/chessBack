@@ -10,7 +10,7 @@ import com.serebryakov.cyclechesscpp.application.model.game.PieceType
 import com.serebryakov.cyclechesscpp.application.model.game.Position
 import com.serebryakov.cyclechesscpp.application.model.game.Route
 import com.serebryakov.cyclechesscpp.application.model.game.gamefield.holder.GameFieldHolder
-import com.serebryakov.cyclechesscpp.application.model.game.gamefield.size
+import com.serebryakov.cyclechesscpp.application.model.game.size
 import com.serebryakov.cyclechesscpp.application.model.game.toPieceColor
 import com.serebryakov.cyclechesscpp.application.model.user.StartGameData
 import com.serebryakov.cyclechesscpp.application.view.gamescreen.GameScreenFragment.Companion.magicPawnTransformationTypes
@@ -26,6 +26,8 @@ typealias OnUiGameFieldCellIterate = (position: Position) -> Unit
 typealias UiGameFieldCell = ImageView
 typealias UiMagicPawnTransformationElement = ImageView
 
+
+// TODO убрать !! у gameFieldHolder
 @SuppressLint("UseCompatLoadingForDrawables")
 class GameScreenViewUtilsImpl(
     private val binding: GameScreenFragmentBinding,
@@ -34,18 +36,43 @@ class GameScreenViewUtilsImpl(
 ) : GameScreenViewUtils {
     private val tagHolder: GameScreenTagHolder = GameScreenTagHolderImpl()
 
-    override fun clearAllField() {
+    override fun clearField() {
         iterateUiGameField { position ->
-            val color = gameFieldHolder.get().getField()[position].color.toScreenColor()
+            if (!gameFieldHolder.has()) {
+                // TODO error need log
+                return@iterateUiGameField
+            }
+
+            val color = gameFieldHolder.getStrict().getCellColorByPosition(position).toScreenColor()
             setBackgroundColor(getUiGameFieldCell(position), color)
+        }
+    }
+
+    override fun clearFieldWithoutCheckColor() {
+        iterateUiGameField { position ->
+            if (!gameFieldHolder.has()) {
+                // TODO error need log
+                return@iterateUiGameField
+            }
+
+            val uiGameFieldCell = getUiGameFieldCell(position)
+            if ((uiGameFieldCell.tag as Tag) != Tag.CHECK_CELL) {
+                val color = gameFieldHolder.getStrict().getCellColorByPosition(position).toScreenColor()
+                setBackgroundColor(uiGameFieldCell, color)
+            }
         }
     }
 
     override fun clearRoute() {
         iterateUiGameField { position ->
+            if (!gameFieldHolder.has()) {
+                // TODO error need log
+                return@iterateUiGameField
+            }
+
             val uiGameFieldCell = getUiGameFieldCell(position)
             if (tagHolder.isTagInRouteValues(uiGameFieldCell.tag as Tag)) {
-                val color = gameFieldHolder.get().getField()[position].color.toScreenColor()
+                val color = gameFieldHolder.getStrict().getCellColorByPosition(position).toScreenColor()
                 setBackgroundColor(uiGameFieldCell, color)
             }
         }
@@ -54,8 +81,12 @@ class GameScreenViewUtilsImpl(
     override fun drawGameField() {
         iterateUiGameField { position ->
             with(getUiGameFieldCell(position)) {
-                val piece = gameFieldHolder.get().getField()[position].piece
-                setImageResource(getPieceDrawable(piece?.type, piece?.color))
+                if (!gameFieldHolder.has()) {
+                    // TODO error need log
+                    return@iterateUiGameField
+                }
+                val piece = gameFieldHolder.getStrict().getPieceByPosition(position)
+                setImageResource(getPieceDrawable(piece?.type, piece?.color, piece?.canDoStepsOverBoard()))
             }
         }
     }
@@ -67,18 +98,23 @@ class GameScreenViewUtilsImpl(
         val sizeView = getElementSize()
         iterateUiGameField { position ->
             with(getUiGameFieldCell(position)) {
-                val piece = gameFieldHolder.get().getField()[position].piece
-                val color = gameFieldHolder.get().getField()[position].color.toScreenColor()
+                if (!gameFieldHolder.has()) {
+                    // TODO error need log
+                    return@iterateUiGameField
+                }
+
+                val piece = gameFieldHolder.getStrict().getPieceByPosition(position)
+                val color = gameFieldHolder.getStrict().getCellColorByPosition(position).toScreenColor()
                 println("$position ${piece?.type} ${piece?.color}")
 
-                setImageResource(getPieceDrawable(piece?.type, piece?.color))
+                setImageResource(getPieceDrawable(piece?.type, piece?.color, piece?.canDoStepsOverBoard()))
                 setBackgroundColor(this@with, color)
                 visibility = View.VISIBLE
                 layoutParams.width = sizeView
                 layoutParams.height = sizeView
 
                 setOnClickListener {
-                    onGameFieldUiCellClick(position, gameFieldHolder.get())
+                    onGameFieldUiCellClick(position)
                 }
             }
         }
@@ -133,7 +169,13 @@ class GameScreenViewUtilsImpl(
         binding.userNameTextview.text = username
     }
 
+    override fun setGameResult(gameResult: String) {
+        binding.gameResultTextview.text = gameResult
+    }
 
+    override fun clearGameResult() {
+        setGameResult("")
+    }
 
 
     private fun createMagicPawnTransformationUi() {
@@ -142,13 +184,18 @@ class GameScreenViewUtilsImpl(
         hideMagicPawnTransformationUi()
         for (i in magicPawnTransformationTypes.indices) {
             with(getMagicPawnTransformationUiElement(i)) {
+                if (!gameFieldHolder.has()) {
+                    // TODO error need log
+                    return
+                }
                 layoutParams.width = sizeView
                 layoutParams.height = sizeView
                 background = context.getDrawable(color)
                 setImageResource(
                     getPieceDrawable(
                         magicPawnTransformationTypes[i],
-                        gameFieldHolder.get().gameColor.toPieceColor()
+                        gameFieldHolder.getStrict().gameColor.toPieceColor(),
+                        false,
                     )
                 )
             }
@@ -185,31 +232,58 @@ class GameScreenViewUtilsImpl(
         setBackgroundColor(getUiGameFieldCell(position), color)
     }
 
-    private fun getPieceDrawable(pieceType: PieceType?, color: PieceColor?): Int {
-        if (color == null || pieceType == null) {
+    private fun getPieceDrawable(pieceType: PieceType?, color: PieceColor?, canDoMovesOverBoard: Boolean?): Int {
+        if (color == null || pieceType == null || canDoMovesOverBoard == null) {
+            // TODO error need log
             return R.drawable.empty_cell
         }
         // TODO можно подумать, как вынести свитч по цветам фигуры например в отдельную функцию
         //  (чтобы передавать туда колбеки, которые будут вызываться по определенным значениям свича)
-        return if (color == PieceColor.white) {
-            when (pieceType) {
-                PieceType.QUEEN -> R.drawable.queen_piece_white
-                PieceType.ROOK -> R.drawable.rook_piece_white
-                PieceType.KNIGHT -> R.drawable.knight_piece_white
-                PieceType.PAWN -> R.drawable.pawn_piece_white
-                PieceType.KING -> R.drawable.king_piece_white
-                PieceType.BISHOP -> R.drawable.bishop_piece_white
-                else -> R.drawable.empty_cell
+
+
+        return if (canDoMovesOverBoard) {
+            if (color == PieceColor.white) {
+                when (pieceType) {
+                    PieceType.QUEEN -> R.drawable.queen_piece_white_moves_over_board
+                    PieceType.ROOK -> R.drawable.rook_piece_white_moves_over_board
+                    PieceType.KNIGHT -> R.drawable.knight_piece_white_moves_over_board
+                    PieceType.PAWN -> R.drawable.pawn_piece_white_moves_over_board
+                    PieceType.KING -> R.drawable.king_piece_white_moves_over_board
+                    PieceType.BISHOP -> R.drawable.bishop_piece_white_moves_over_board
+                    else -> R.drawable.empty_cell
+                }
+            } else {
+                when (pieceType) {
+                    PieceType.QUEEN -> R.drawable.queen_piece_black_moves_over_board
+                    PieceType.ROOK -> R.drawable.rook_piece_black_moves_over_board
+                    PieceType.KNIGHT -> R.drawable.knight_piece_black_moves_over_board
+                    PieceType.PAWN -> R.drawable.pawn_piece_black_moves_over_board
+                    PieceType.KING -> R.drawable.king_piece_black_moves_over_board
+                    PieceType.BISHOP -> R.drawable.bishop_piece_black_moves_over_board
+                    else -> R.drawable.empty_cell
+                }
             }
         } else {
-            when (pieceType) {
-                PieceType.QUEEN -> R.drawable.queen_piece_black
-                PieceType.ROOK -> R.drawable.rook_piece_black
-                PieceType.KNIGHT -> R.drawable.knight_piece_black
-                PieceType.PAWN -> R.drawable.pawn_piece_black
-                PieceType.KING -> R.drawable.king_piece_black
-                PieceType.BISHOP -> R.drawable.bishop_piece_black
-                else -> R.drawable.empty_cell
+            if (color == PieceColor.white) {
+                when (pieceType) {
+                    PieceType.QUEEN -> R.drawable.queen_piece_white
+                    PieceType.ROOK -> R.drawable.rook_piece_white
+                    PieceType.KNIGHT -> R.drawable.knight_piece_white
+                    PieceType.PAWN -> R.drawable.pawn_piece_white
+                    PieceType.KING -> R.drawable.king_piece_white
+                    PieceType.BISHOP -> R.drawable.bishop_piece_white
+                    else -> R.drawable.empty_cell
+                }
+            } else {
+                when (pieceType) {
+                    PieceType.QUEEN -> R.drawable.queen_piece_black
+                    PieceType.ROOK -> R.drawable.rook_piece_black
+                    PieceType.KNIGHT -> R.drawable.knight_piece_black
+                    PieceType.PAWN -> R.drawable.pawn_piece_black
+                    PieceType.KING -> R.drawable.king_piece_black
+                    PieceType.BISHOP -> R.drawable.bishop_piece_black
+                    else -> R.drawable.empty_cell
+                }
             }
         }
     }

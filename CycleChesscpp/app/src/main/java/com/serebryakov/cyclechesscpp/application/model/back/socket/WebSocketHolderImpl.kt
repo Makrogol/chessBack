@@ -10,7 +10,7 @@ class WebSocketHolderImpl(
     private var webSocket: WebSocket? = null,
     private val okHttpClient: OkHttpClient = OkHttpClient(),
 ) : WebSocketHolder {
-    override suspend fun createWebSocket(webSocketListener: BaseWebSocketListener, username: String) {
+    override suspend fun openSocket(webSocketListener: BaseWebSocketListener, username: String) {
         webSocket = okHttpClient.newWebSocket(createRequest(username), webSocketListener)
     }
 
@@ -18,7 +18,7 @@ class WebSocketHolderImpl(
         webSocket?.send(message)
     }
 
-    override suspend fun deleteWebSocket() {
+    override suspend fun closeSocket() {
 //        webSocket?.close(1000, "Closed manually")
         webSocket = null
     }

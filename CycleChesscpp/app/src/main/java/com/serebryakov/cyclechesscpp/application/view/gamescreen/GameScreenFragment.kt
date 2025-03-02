@@ -17,9 +17,10 @@ import com.serebryakov.cyclechesscpp.application.model.game.Position
 import com.serebryakov.cyclechesscpp.application.model.game.getAnotherColor
 import com.serebryakov.cyclechesscpp.application.model.cppapi.cpptools.Parser
 import com.serebryakov.cyclechesscpp.application.model.cppapi.cpptools.Unparser
-import com.serebryakov.cyclechesscpp.application.model.game.gamefield.holder.GameFieldHolder
 import com.serebryakov.cyclechesscpp.application.model.game.gamefield.holder.GameFieldHolderImpl
 import com.serebryakov.cyclechesscpp.application.renderSimpleResult
+import com.serebryakov.cyclechesscpp.application.view.findopponentsscreen.FindOpponentsScreenFragment
+import com.serebryakov.cyclechesscpp.application.view.findopponentsscreen.FindOpponentScreenParams
 import com.serebryakov.cyclechesscpp.application.view.gamescreen.utils.GameScreenViewUtilsImpl
 import com.serebryakov.cyclechesscpp.application.view.gamescreen.utils.tagholder.Tag
 import com.serebryakov.cyclechesscpp.databinding.GameScreenFragmentBinding
@@ -27,7 +28,7 @@ import com.serebryakov.cyclechesscpp.foundation.views.BaseFragment
 import com.serebryakov.cyclechesscpp.foundation.views.BaseScreen
 import com.serebryakov.cyclechesscpp.foundation.views.screenViewModel
 
-typealias OnGameFieldUiCellClick = (position: Position, gameField: GameField) -> Unit
+typealias OnGameFieldUiCellClick = (position: Position) -> Unit
 
 class GameScreenFragment : BaseFragment() {
 
@@ -50,14 +51,22 @@ class GameScreenFragment : BaseFragment() {
         var mainColor = GameColor.noColor
         viewUtils = GameScreenViewUtilsImpl(binding, context, gameFieldHolder)
 
+        binding.closeButton.setOnClickListener {
+            val params = FindOpponentScreenParams(
+                username = startGameData.username,
+                needCreateSocket = false
+            )
+            viewModel.launch(FindOpponentsScreenFragment.Screen(params))
+        }
+
 
         viewModel.startGameData.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(
                 root = binding.root,
                 result = result,
                 onError = { viewModel.toast("Ошибка при получении данных об оппоненте") },
-                onSuccess = {
-                    startGameData = it
+                onSuccess = {_startGameData ->
+                    startGameData = _startGameData
                     if (startGameData.useSocket) {
                         startGameData.webSocketListener.setViewModel(viewModel)
                         viewUtils.setUsernames(
@@ -105,9 +114,9 @@ class GameScreenFragment : BaseFragment() {
                                 Position(7 - positions.second.i, 7 - positions.second.j)
                             )
 
-                            gameFieldHolder.get().currentActivePiecePosition = newPositions.first
+                            gameFieldHolder.get()?.setCurrentActivePosition(newPositions.first)
                             binding.magicPawnTransformationLinearLayout.visibility = View.GONE
-                            defaultMovePipeline(newPositions, gameFieldHolder.get(), false)
+                            defaultMovePipeline(newPositions, false)
                         }
                     }
                 }
@@ -122,41 +131,32 @@ class GameScreenFragment : BaseFragment() {
     }
 
     private fun startNewGame(mainColor: GameColor, startGameData: StartGameData) {
-        viewModel.endGame()
-        viewModel.startGame(mainColor)
+        viewUtils.clearField()
+        viewUtils.clearGameResult()
+        gameFieldHolder.get()?.endGame()
+
         gameFieldHolder.set(GameField(mainColor))
-        viewUtils.createGameFieldUi(startGameData) { position: Position, gameField: GameField ->
-            onGameFieldUiCellClick(position, gameField)
+        gameFieldHolder.get()?.startGame(mainColor)
+        viewUtils.createGameFieldUi(startGameData) { position: Position ->
+            onGameFieldUiCellClick(position)
         }
         viewUtils.enableGameField()
     }
 
     private fun defaultMovePipeline(
         positions: Pair<Position, Position>,
-        gameField: GameField,
         needSocketMessageSend: Boolean
     ) {
-        when (viewModel.tryDoMove(positions)) {
-            MoveType.NOT_SPECIAL -> {
-                gameField.movePiece(positions.second)
-            }
+        if (!gameFieldHolder.has()) {
+            // TODO error need log
+            return
+        }
 
-            MoveType.MAGIC_PAWN_TRANSFORMATION -> {
-                gameField.movePiece(positions.second)
-                doMagicPawnTransformation(gameField, positions.second)
-            }
-
-            MoveType.PASSANT -> {
-                gameField.doPassant(positions.second)
-            }
-
-            MoveType.CASTLING -> {
-                gameField.doCastling(positions.second)
-            }
-
-            MoveType.NOT_MOVE -> {
-                viewModel.toast("Ошибка при попытке сделать ход")
-            }
+        val resultDoMove = gameFieldHolder.getStrict().tryDoMove(positions)
+        if (resultDoMove == MoveType.MAGIC_PAWN_TRANSFORMATION) {
+            doMagicPawnTransformation(positions.second)
+        } else if (resultDoMove == MoveType.NOT_MOVE) {
+            viewModel.toast("Ошибка при попытке сделать ход")
         }
 
         if (needSocketMessageSend && startGameData.useSocket) {
@@ -170,38 +170,41 @@ class GameScreenFragment : BaseFragment() {
         onMoveEnd()
     }
 
-    private fun defaultGameCellUiClickPipeline(position: Position, gameField: GameField) {
+    private fun defaultGameCellUiClickPipeline(position: Position) {
+        if (!gameFieldHolder.has()) {
+            // TODO error need log
+            return
+        }
+
         viewUtils.clearRoute()
-        gameField.currentActivePiecePosition = position
-        if (gameField.hasPiece(position)) {
-            val route = viewModel.getPossibleMovesForPosition(position)
+        gameFieldHolder.getStrict().setCurrentActivePosition(position)
+        if (gameFieldHolder.getStrict().hasPiece(position)) {
+            val route = gameFieldHolder.getStrict().getPossibleMovesForPosition(position)
             viewUtils.drawRoute(position, route)
         }
     }
 
-    private fun onGameFieldUiCellClick(
-        position: Position,
-        gameField: GameField,
-    ) {
+    private fun onGameFieldUiCellClick(position: Position) {
         if (viewUtils.getUiGameFieldCell(position).tag == Tag.ROUTE_CELL) {
+            if (!gameFieldHolder.has()) {
+                // TODO error need log
+                return
+            }
+
             defaultMovePipeline(
                 Pair(
-                    gameField.currentActivePiecePosition,
+                    gameFieldHolder.getStrict().getCurrentActivePosition(),
                     position
                 ),
-                gameField,
                 startGameData.useSocket
             )
             return
         }
 
-        defaultGameCellUiClickPipeline(position, gameField)
+        defaultGameCellUiClickPipeline(position)
     }
 
-    private fun doMagicPawnTransformation(
-        gameField: GameField,
-        position: Position,
-    ) {
+    private fun doMagicPawnTransformation(position: Position) {
         viewUtils.disableGameField()
         viewUtils.showMagicPawnTransformationUi()
 
@@ -210,7 +213,6 @@ class GameScreenFragment : BaseFragment() {
                 setOnClickListener {
                     onClickMagicPawnTransformationUiElement(
                         position,
-                        gameField,
                         magicPawnTransformationTypes[i]
                     )
                 }
@@ -220,21 +222,21 @@ class GameScreenFragment : BaseFragment() {
 
     private fun onClickMagicPawnTransformationUiElement(
         position: Position,
-        gameField: GameField,
         magicPawnTransformationType: PieceType
     ) {
+        if (!gameFieldHolder.has()) {
+            // TODO error need log
+            return
+        }
+
         viewUtils.enableGameField()
         viewUtils.hideMagicPawnTransformationUi()
 
-        val resultDoMagicPawnTransformation = viewModel.tryDoMagicPawnTransformation(
+        val resultDoMagicPawnTransformation = gameFieldHolder.getStrict().tryDoMagicPawnTransformation(
             position,
             magicPawnTransformationType
         )
-        if (!resultDoMagicPawnTransformation || !gameField.magicPawnTransformation(
-                position,
-                magicPawnTransformationType
-            )
-        ) {
+        if (!resultDoMagicPawnTransformation) {
             viewModel.toast("Ошибка при попытке сделать превращение пешки")
         }
         onMoveEnd()
@@ -247,44 +249,55 @@ class GameScreenFragment : BaseFragment() {
     }
 
     private fun gameStateRequestAndReaction() {
-        when (viewModel.getGameState()) {
+        if (!gameFieldHolder.has()) {
+            // TODO error need log
+            return
+        }
+
+        when (gameFieldHolder.getStrict().getGameState()) {
             GameState.CHECK_FOR_BLACK -> viewUtils.drawCheckCell(
-                viewModel.getKingPositionByColor(GameColor.black)
+                gameFieldHolder.getStrict().getKingPositionByColor(GameColor.black)
             )
 
             GameState.CHECK_FOR_WHITE -> viewUtils.drawCheckCell(
-                viewModel.getKingPositionByColor(GameColor.white)
+                gameFieldHolder.getStrict().getKingPositionByColor(GameColor.white)
             )
 
             GameState.DRAW -> {
-                viewModel.toast("Ничья")
+                viewUtils.setGameResult("Ничья")
                 onGameEnd("draw")
             }
 
             GameState.PATE -> {
-                viewModel.toast("Пат")
+                viewUtils.setGameResult("Пат")
                 onGameEnd("pate")
             }
 
             GameState.MATE_FOR_BLACK -> {
-                viewModel.toast("Мат черным. Победа белых")
+                viewUtils.drawCheckCell(
+                    gameFieldHolder.getStrict().getKingPositionByColor(GameColor.black)
+                )
+                viewUtils.setGameResult("Мат черным")
                 onGameEnd("mate_for_black")
             }
 
             GameState.MATE_FOR_WHITE -> {
-                viewModel.toast("Мат белым. Победа черных")
+                viewUtils.drawCheckCell(
+                    gameFieldHolder.getStrict().getKingPositionByColor(GameColor.white)
+                )
+                viewUtils.setGameResult("Мат белым")
                 onGameEnd("mate_for_white")
             }
 
             GameState.ON_GOING -> {
-                viewUtils.clearAllField()
+                viewUtils.clearField()
             }
         }
     }
 
     private fun onGameEnd(gameResult: String) {
         viewUtils.disableGameField()
-        viewUtils.clearAllField()
+        viewUtils.clearFieldWithoutCheckColor()
 
         if (startGameData.useSocket) {
             val endGameSocketMessage = EndGameSocketMessage()
