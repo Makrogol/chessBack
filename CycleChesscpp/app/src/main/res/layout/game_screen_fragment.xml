@@ -6,12 +6,22 @@
 
     <include layout="@layout/part_result" />
 
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/cross_icon" />
+
     <TextView
         android:id="@+id/opponent_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="0"
-        android:layout_column="0"
+        android:layout_column="1"
         android:layout_columnSpan="4"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -842,11 +852,20 @@
         android:layout_marginBottom="5dp"
         android:textColor="@color/white" />
 
+    <TextView
+        android:id="@+id/game_result_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/white"/>
+
     <Button
         android:id="@+id/start_new_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="4"
+        android:layout_row="5"
         android:layout_column="0"
         android:layout_columnSpan="4"
         android:layout_marginLeft="10dp"

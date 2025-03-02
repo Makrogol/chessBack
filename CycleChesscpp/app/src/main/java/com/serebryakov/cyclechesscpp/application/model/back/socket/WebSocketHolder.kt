@@ -4,11 +4,10 @@ import com.serebryakov.cyclechesscpp.foundation.socket.BaseWebSocketListener
 
 interface WebSocketHolder {
 
-    suspend fun createWebSocket(webSocketListener: BaseWebSocketListener, username: String)
+    suspend fun openSocket(webSocketListener: BaseWebSocketListener, username: String)
 
     suspend fun sendMessage(message: String)
 
-
-    suspend fun deleteWebSocket()
+    suspend fun closeSocket()
 
 }

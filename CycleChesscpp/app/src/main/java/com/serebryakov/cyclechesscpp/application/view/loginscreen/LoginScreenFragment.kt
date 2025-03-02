@@ -11,6 +11,7 @@ import com.serebryakov.cyclechesscpp.application.model.game.GameColor
 import com.serebryakov.cyclechesscpp.application.model.user.StartGameData
 import com.serebryakov.cyclechesscpp.application.model.user.UserData
 import com.serebryakov.cyclechesscpp.application.renderSimpleResult
+import com.serebryakov.cyclechesscpp.application.view.findopponentsscreen.FindOpponentScreenParams
 import com.serebryakov.cyclechesscpp.application.view.findopponentsscreen.FindOpponentsScreenFragment
 import com.serebryakov.cyclechesscpp.application.view.gamescreen.GameScreenFragment
 import com.serebryakov.cyclechesscpp.databinding.LogInScreenFragmentBinding
@@ -75,7 +76,11 @@ class LoginScreenFragment : BaseFragment() {
                 onSuccess = { response ->
                     if (response.success) {
                         viewModel.toast("Регистрация прошла успешно")
-                        viewModel.launch(FindOpponentsScreenFragment.Screen(binding.usernameEdittext.text.toString()))
+                        val params = FindOpponentScreenParams(
+                            username = binding.usernameEdittext.text.toString(),
+                            needCreateSocket = true
+                        )
+                        viewModel.launch(FindOpponentsScreenFragment.Screen(params))
                     } else {
                         viewModel.toast("Серверная ошибка при регистрации\nВозможно ваш логин уже используется")
                     }
@@ -93,7 +98,11 @@ class LoginScreenFragment : BaseFragment() {
                 onSuccess = { response ->
                     if (response.validate_result) {
                         viewModel.toast("Авторизация прошла успешно")
-                        viewModel.launch(FindOpponentsScreenFragment.Screen(binding.usernameEdittext.text.toString()))
+                        val params = FindOpponentScreenParams(
+                            username = binding.usernameEdittext.text.toString(),
+                            needCreateSocket = true
+                        )
+                        viewModel.launch(FindOpponentsScreenFragment.Screen(params))
                     } else {
                         viewModel.toast("Серверная ошибка при авторизации\nВозможно ваш логин или пароль неверные")
                     }

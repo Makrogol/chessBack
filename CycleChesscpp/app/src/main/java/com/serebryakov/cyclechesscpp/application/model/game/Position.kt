@@ -1,7 +1,5 @@
 package com.serebryakov.cyclechesscpp.application.model.game
 
-import com.serebryakov.cyclechesscpp.application.model.game.gamefield.size
-
 typealias Route = MutableList<Position>
 
 class Position(
@@ -39,6 +37,4 @@ class Position(
     override fun toString(): String {
         return "${this.i},${this.j}"
     }
-
-    fun getCopy(): Position = Position(i, j)
 }

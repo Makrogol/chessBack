@@ -11,8 +11,8 @@ class SocketRepositoryImpl(
     private val ioDispatcher: IoDispatcher,
 ): SocketRepository {
 
-    override suspend fun createSocket(webSocketListener: BaseWebSocketListener, username: String) = withContext(ioDispatcher.value) {
-        socketHolder.createWebSocket(webSocketListener, username)
+    override suspend fun openSocket(webSocketListener: BaseWebSocketListener, username: String) = withContext(ioDispatcher.value) {
+        socketHolder.openSocket(webSocketListener, username)
     }
 
     override suspend fun sendMessage(message: String) = withContext(ioDispatcher.value) {
@@ -26,8 +26,8 @@ class SocketRepositoryImpl(
         }
     }
 
-    override suspend fun deleteWebSocket() = withContext(ioDispatcher.value) {
-        socketHolder.deleteWebSocket()
+    override suspend fun closeSocket() = withContext(ioDispatcher.value) {
+        socketHolder.closeSocket()
     }
 
 }

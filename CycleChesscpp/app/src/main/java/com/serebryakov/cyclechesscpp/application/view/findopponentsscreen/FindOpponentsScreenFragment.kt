@@ -12,6 +12,7 @@ import com.serebryakov.cyclechesscpp.application.model.game.GameColor
 import com.serebryakov.cyclechesscpp.application.model.user.StartGameData
 import com.serebryakov.cyclechesscpp.application.renderSimpleResult
 import com.serebryakov.cyclechesscpp.application.view.gamescreen.GameScreenFragment
+import com.serebryakov.cyclechesscpp.application.view.loginscreen.LoginScreenFragment
 import com.serebryakov.cyclechesscpp.foundation.socket.BaseWebSocketListener
 import com.serebryakov.cyclechesscpp.databinding.FindOpponentsScreenFragmentBinding
 import com.serebryakov.cyclechesscpp.foundation.views.BaseFragment
@@ -21,7 +22,7 @@ import java.util.Locale
 
 class FindOpponentsScreenFragment : BaseFragment() {
 
-    class Screen(val username: String) : BaseScreen
+    class Screen(val params: FindOpponentScreenParams) : BaseScreen
 
     private lateinit var binding: FindOpponentsScreenFragmentBinding
     override val viewModel by screenViewModel<FindOpponentsScreenViewModel>()
@@ -41,6 +42,23 @@ class FindOpponentsScreenFragment : BaseFragment() {
             findOpponentsEdittext.addTextChangedListener {
                 it?.toString()?.let { text -> findOpponent(text, opponentsList) }
             }
+
+            closeButton.setOnClickListener {
+                viewModel.closeSocket()
+            }
+        }
+
+        viewModel.socketClosing.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при закрытии сокета")
+                },
+                onSuccess = {
+                    viewModel.launch(LoginScreenFragment.Screen())
+                }
+            )
         }
 
         viewModel.socketMessage.observe(viewLifecycleOwner) { result ->
@@ -94,7 +112,7 @@ class FindOpponentsScreenFragment : BaseFragment() {
             )
         }
 
-        viewModel.socketConnection.observe(viewLifecycleOwner) { result ->
+        viewModel.socketOpening.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(
                 root = binding.root,
                 result = result,
@@ -126,16 +144,18 @@ class FindOpponentsScreenFragment : BaseFragment() {
             )
         }
 
-        viewModel.username.observe(viewLifecycleOwner) { result ->
+        viewModel.params.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(
                 root = binding.root,
                 result = result,
                 onError = {
                     viewModel.toast("Ошибка при считывании данных об оппонентах")
                 },
-                onSuccess = {
-                    username = it
-                    viewModel.createSocket(webSocketListener, it)
+                onSuccess = {params->
+                    username = params.username
+                    if (params.needCreateSocket) {
+                        viewModel.openSocket(webSocketListener, username)
+                    }
                 }
             )
         }
