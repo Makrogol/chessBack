@@ -4,8 +4,8 @@ from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .shemas import UserValidate, UserCreate, UserElement, UserExistValidation
-from back.src.core.models.user import User
-from back.src.auth import utils
+from ...core.models.user import User
+from ...auth import utils
 
 
 def __convert_users_to_user_elements(users):

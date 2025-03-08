@@ -3,8 +3,8 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jwt import InvalidTokenError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from back.src.api.auth import crud
-from back.src.core.models.db_helper import db_helper
+from ...api.auth import crud
+from ...core.models.db_helper import db_helper
 from .shemas import UserCreate, UserValidate, UserCreateResponse, UserValidateResponse, TokenValidateResponse, \
     UserExistValidation
 
