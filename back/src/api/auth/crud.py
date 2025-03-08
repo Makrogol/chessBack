@@ -49,7 +49,7 @@ async def get_user_by_username(session: AsyncSession, username: str) -> User | N
     return user
 
 async def is_user_with_username_exist(session: AsyncSession, user: UserExistValidation) -> bool:
-    return await get_user_by_username(session, UserExistValidation.username) is not None
+    return await get_user_by_username(session, user.username) is not None
 
 async def validate_user(session: AsyncSession, user_validate: UserValidate) -> bool:
     user = await get_user_by_username(session, user_validate.username)
