@@ -47,9 +47,11 @@ async def create_user(
 
 @router.get("/validate_user", response_model=UserValidateResponse)
 async def validate_user(
-    user_validate: UserValidate,
+    username: str,
+    password: str,
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
+    user_validate = UserValidate(username=username, password=password)
     response = UserValidateResponse()
     response.success = await crud.validate_user(session, user_validate)
     if response.success:
