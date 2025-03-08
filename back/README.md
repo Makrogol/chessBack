@@ -66,3 +66,6 @@ docker-compose exec chessback alebmic upgrade head
 # Extract the public key from the key pair, which can be used in a certificate
 openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 ```
+
+### Save depends to requirements.txt with poetry
+poetry export --without-hashes --format=requirements.txt > .\requirements.tx

@@ -1244,6 +1244,22 @@ files = [
 ]
 
 [[package]]
+name = "poetry-plugin-export"
+version = "1.9.0"
+description = "Poetry plugin to export the dependencies to various formats"
+optional = false
+python-versions = "<4.0,>=3.9"
+groups = ["main"]
+files = [
+    {file = "poetry_plugin_export-1.9.0-py3-none-any.whl", hash = "sha256:e2621dd8c260dd705a8227f076075246a7ff5c697e18ddb90ff68081f47ee642"},
+    {file = "poetry_plugin_export-1.9.0.tar.gz", hash = "sha256:6fc8755cfac93c74752f85510b171983e2e47d782d4ab5be4ffc4f6945be7967"},
+]
+
+[package.dependencies]
+poetry = ">=2.0.0,<3.0.0"
+poetry-core = ">=1.7.0,<3.0.0"
+
+[[package]]
 name = "pycparser"
 version = "2.22"
 description = "C parser in Python"
@@ -2041,4 +2057,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "3cfb5046db22c6765e575cc516d22b82bc06773a91a363f093051a127e952636"
+content-hash = "d5f235bad598bbe98587c59c923ad2a1f5668871d18288a7c84502b66fa938d6"
