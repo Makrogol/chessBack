@@ -48,6 +48,19 @@ class FindOpponentsScreenFragment : BaseFragment() {
             }
         }
 
+        viewModel.getUsername.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при загрузке логина из хранилища")
+                },
+                onSuccess = {
+                    username = it
+                }
+            )
+        }
+
         viewModel.socketClosing.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(
                 root = binding.root,
@@ -152,7 +165,6 @@ class FindOpponentsScreenFragment : BaseFragment() {
                     viewModel.toast("Ошибка при считывании данных об оппонентах")
                 },
                 onSuccess = {params->
-                    username = params.username
                     if (params.needCreateSocket) {
                         viewModel.openSocket(webSocketListener, username)
                     }
@@ -161,6 +173,11 @@ class FindOpponentsScreenFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.closeSocket()
     }
 
     private fun createOpponentDataFromUserResponse(

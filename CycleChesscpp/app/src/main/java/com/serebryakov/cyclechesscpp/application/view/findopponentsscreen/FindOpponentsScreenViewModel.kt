@@ -5,7 +5,9 @@ import com.serebryakov.cyclechesscpp.application.view.findopponentsscreen.FindOp
 import com.serebryakov.cyclechesscpp.application.model.back.responses.UserResponse
 import com.serebryakov.cyclechesscpp.application.model.back.socket.messages.StartGameSocketMessage
 import com.serebryakov.cyclechesscpp.application.repository.backrepository.BackRepository
+import com.serebryakov.cyclechesscpp.application.repository.sharedprefrepository.username.UsernameSharedPrefRepository
 import com.serebryakov.cyclechesscpp.application.repository.socketrepository.SocketRepository
+import com.serebryakov.cyclechesscpp.foundation.model.EmptyResult
 import com.serebryakov.cyclechesscpp.foundation.model.PendingResult
 import com.serebryakov.cyclechesscpp.foundation.model.takeSuccess
 import com.serebryakov.cyclechesscpp.foundation.navigator.Navigator
@@ -21,8 +23,10 @@ class FindOpponentsScreenViewModel(
     private val navigator: Navigator,
     private val uiActions: UiActions,
     private val backRepository: BackRepository,
-    private val socketRepository: SocketRepository
+    private val socketRepository: SocketRepository,
+    private val usernameSharedPrefRepository: UsernameSharedPrefRepository
 ) : WebSocketViewModel(), OpponentsAdapter.Listener {
+    private var username: String = ""
 
     private val _opponentsData = MutableLiveResult<List<UserResponse>>(PendingResult())
     var opponentsData: LiveResult<List<UserResponse>> = _opponentsData
@@ -39,10 +43,14 @@ class FindOpponentsScreenViewModel(
     private val _gameStarted = MutableLiveResult<OpponentData>(PendingResult())
     var gameStarted: LiveResult<OpponentData> = _gameStarted
 
+    private val _getUsername = MutableLiveResult<String>(EmptyResult())
+    val getUsername: LiveResult<String> = _getUsername
+
     init {
         into(_params) {
             screen.params
         }
+        getUsername()
         getAllOpponentsData()
     }
 
@@ -66,9 +74,14 @@ class FindOpponentsScreenViewModel(
         socketRepository.closeSocket()
     }
 
+    private fun getUsername() = into(_getUsername) {
+        username = usernameSharedPrefRepository.getUsername()
+        username
+    }
+
     override fun onOpponentClick(opponentData: OpponentData) = into(_gameStarted) {
         val startGameSocketMessage = StartGameSocketMessage()
-        startGameSocketMessage.username = params.value.takeSuccess()?.username
+        startGameSocketMessage.username = username
         startGameSocketMessage.opponentUsername = opponentData.username
         socketRepository.sendMessage(startGameSocketMessage)
         opponentData

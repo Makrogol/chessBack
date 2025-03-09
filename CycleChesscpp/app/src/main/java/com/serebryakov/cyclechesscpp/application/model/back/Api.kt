@@ -3,9 +3,11 @@ package com.serebryakov.cyclechesscpp.application.model.back
 import com.google.gson.JsonObject
 import com.serebryakov.cyclechesscpp.application.model.back.responses.CreateUserResponse
 import com.serebryakov.cyclechesscpp.application.model.back.responses.UserResponse
+import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateTokenResponse
 import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateUserResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -18,4 +20,7 @@ interface Api {
 
     @POST("/auth/")
     suspend fun createUser(@Body createUserBody: JsonObject): CreateUserResponse
+
+    @GET("/auth/validate_token")
+    suspend fun validateToken(@Header("Authorization") token: String): ValidateTokenResponse
 }

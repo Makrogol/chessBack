@@ -4,7 +4,9 @@ import com.google.gson.JsonObject
 import com.serebryakov.cyclechesscpp.application.model.back.Api
 import com.serebryakov.cyclechesscpp.application.model.back.responses.CreateUserResponse
 import com.serebryakov.cyclechesscpp.application.model.back.responses.UserResponse
+import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateTokenResponse
 import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateUserResponse
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.jwttoken.JwtToken
 import com.serebryakov.cyclechesscpp.application.model.user.UserData
 import com.serebryakov.cyclechesscpp.foundation.model.IoDispatcher
 import kotlinx.coroutines.withContext
@@ -28,4 +30,7 @@ class BackRepositoryImpl(
         return@withContext api.createUser(createUserBody)
     }
 
+    override suspend fun validateToken(token: JwtToken): ValidateTokenResponse = withContext(ioDispatcher.value) {
+        return@withContext api.validateToken("Bearer ${token.token}")
+    }
 }

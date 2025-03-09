@@ -53,7 +53,6 @@ class GameScreenFragment : BaseFragment() {
 
         binding.closeButton.setOnClickListener {
             val params = FindOpponentScreenParams(
-                username = startGameData.username,
                 needCreateSocket = false
             )
             viewModel.launch(FindOpponentsScreenFragment.Screen(params))

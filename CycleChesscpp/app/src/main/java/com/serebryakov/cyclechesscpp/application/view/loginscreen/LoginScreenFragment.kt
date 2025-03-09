@@ -1,13 +1,11 @@
 package com.serebryakov.cyclechesscpp.application.view.loginscreen
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import com.serebryakov.cyclechesscpp.application.model.user.OpponentData
 import com.serebryakov.cyclechesscpp.application.model.game.GameColor
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.jwttoken.JwtToken
 import com.serebryakov.cyclechesscpp.application.model.user.StartGameData
 import com.serebryakov.cyclechesscpp.application.model.user.UserData
 import com.serebryakov.cyclechesscpp.application.renderSimpleResult
@@ -34,9 +32,6 @@ class LoginScreenFragment : BaseFragment() {
         binding = LogInScreenFragmentBinding.inflate(inflater, container, false)
 
         with(binding) {
-            usernameEdittext.setText("abcd")
-            passwordEdittext.setText("123456")
-
             registerButton.setOnClickListener {
                 if (checkAll()) {
                     binding.loginPasswordInfoTextview.text = ""
@@ -66,6 +61,86 @@ class LoginScreenFragment : BaseFragment() {
             }
         }
 
+        viewModel.getJwtToken.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при получении токена из хранилища")
+                },
+                onSuccess = { token ->
+                    viewModel.toast("Токен успешно получен из sharedPref")
+                    viewModel.validateToken(token)
+                }
+            )
+        }
+
+        viewModel.getUsername.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при получении логина из хранилища")
+                },
+                onSuccess = { username ->
+                    viewModel.toast("Логин успешно получен из sharedPref")
+                    binding.usernameEdittext.setText(username)
+                }
+            )
+        }
+
+        viewModel.validateTokenResponse.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при валидации токена сервером")
+                },
+                onSuccess = { response ->
+                    if (response.success) {
+                        viewModel.toast("Токен провалидирован сервером")
+                        // TODO ну и хуйня
+                        viewModel.getUsername()
+                        binding.multiplayerButton.visibility = View.VISIBLE
+                        binding.multiplayerButton.setOnClickListener {
+                            val params = FindOpponentScreenParams(
+                                needCreateSocket = true
+                            )
+                            viewModel.launch(FindOpponentsScreenFragment.Screen(params))
+                        }
+                    } else {
+                        binding.multiplayerButton.visibility = View.GONE
+                    }
+                }
+            )
+        }
+
+        viewModel.setJwtToken.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при загрузке токена в хранилище")
+                },
+                onSuccess = {
+                    viewModel.toast("Токен успешно загружен в хранилище")
+                }
+            )
+        }
+
+        viewModel.setUsername.observe(viewLifecycleOwner) { result ->
+            renderSimpleResult(
+                root = binding.root,
+                result = result,
+                onError = {
+                    viewModel.toast("Ошибка при загрузке логина в хранилище")
+                },
+                onSuccess = {
+                    viewModel.toast("Логин успешно загружен в хранилище")
+                }
+            )
+        }
+
         viewModel.createUserResponse.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(
                 root = binding.root,
@@ -76,8 +151,11 @@ class LoginScreenFragment : BaseFragment() {
                 onSuccess = { response ->
                     if (response.success) {
                         viewModel.toast("Регистрация прошла успешно")
+                        viewModel.setJwtToken(JwtToken(
+                            token = response.token
+                        ))
+                        viewModel.setUsername(binding.usernameEdittext.text.toString())
                         val params = FindOpponentScreenParams(
-                            username = binding.usernameEdittext.text.toString(),
                             needCreateSocket = true
                         )
                         viewModel.launch(FindOpponentsScreenFragment.Screen(params))
@@ -96,10 +174,13 @@ class LoginScreenFragment : BaseFragment() {
                     viewModel.toast("Ошибка при валидации пользователя")
                 },
                 onSuccess = { response ->
-                    if (response.validate_result) {
+                    if (response.success) {
                         viewModel.toast("Авторизация прошла успешно")
+                        viewModel.setJwtToken(JwtToken(
+                            token = response.token
+                        ))
+                        viewModel.setUsername(binding.usernameEdittext.text.toString())
                         val params = FindOpponentScreenParams(
-                            username = binding.usernameEdittext.text.toString(),
                             needCreateSocket = true
                         )
                         viewModel.launch(FindOpponentsScreenFragment.Screen(params))

@@ -80,6 +80,14 @@
             android:textAllCaps="false"
             android:textColor="@color/black" />
 
+        <Button
+            android:id="@+id/multiplayer_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Мультиплеер"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
     </LinearLayout>
 
 </FrameLayout>

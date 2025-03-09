@@ -4,8 +4,16 @@ import android.app.Application
 import com.serebryakov.cyclechesscpp.application.model.back.Api
 import com.serebryakov.cyclechesscpp.application.model.back.socket.WebSocketHolderImpl
 import com.serebryakov.cyclechesscpp.application.model.cppapi.CppConnectionApiImpl
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.jwttoken.JwtTokenSharedPref
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.jwttoken.JwtTokenSharedPrefImpl
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.username.UsernameSharedPref
+import com.serebryakov.cyclechesscpp.application.model.sharedpref.username.UsernameSharedPrefImpl
 import com.serebryakov.cyclechesscpp.application.repository.backrepository.BackRepositoryImpl
 import com.serebryakov.cyclechesscpp.application.repository.cppconnectionrepository.CppConnectionRepositoryImpl
+import com.serebryakov.cyclechesscpp.application.repository.sharedprefrepository.jwttoken.JwtTokenSharedPrefRepository
+import com.serebryakov.cyclechesscpp.application.repository.sharedprefrepository.jwttoken.JwtTokenSharedPrefRepositoryImpl
+import com.serebryakov.cyclechesscpp.application.repository.sharedprefrepository.username.UsernameSharedPrefRepository
+import com.serebryakov.cyclechesscpp.application.repository.sharedprefrepository.username.UsernameSharedPrefRepositoryImpl
 import com.serebryakov.cyclechesscpp.application.repository.socketrepository.SocketRepositoryImpl
 import com.serebryakov.cyclechesscpp.foundation.BaseApplication
 import com.serebryakov.cyclechesscpp.foundation.model.IoDispatcher
@@ -24,13 +32,30 @@ class App : Application(), BaseApplication {
 
     private val ioDispatcher = IoDispatcher(Dispatchers.IO)
     private val backRepository = BackRepositoryImpl(productApi, ioDispatcher)
+
     private val socketHolder = WebSocketHolderImpl()
     private val socketRepository = SocketRepositoryImpl(socketHolder, ioDispatcher)
+
     private val cppApi = CppConnectionApiImpl()
     private val cppConnectionRepository = CppConnectionRepositoryImpl(cppApi)
 
+    private lateinit var jwtTokenSharedPref: JwtTokenSharedPref
+    private lateinit var jwtTokenSharedPrefRepository: JwtTokenSharedPrefRepository
+
+    private lateinit var usernameSharedPref: UsernameSharedPref
+    private lateinit var usernameSharedPrefRepository: UsernameSharedPrefRepository
+
+
     override fun onCreate() {
         super.onCreate()
+        jwtTokenSharedPref = JwtTokenSharedPrefImpl(applicationContext)
+        jwtTokenSharedPrefRepository = JwtTokenSharedPrefRepositoryImpl(jwtTokenSharedPref, ioDispatcher)
+
+        usernameSharedPref = UsernameSharedPrefImpl(applicationContext)
+        usernameSharedPrefRepository = UsernameSharedPrefRepositoryImpl(usernameSharedPref, ioDispatcher)
+
+        singletonScopeDependencies.add(jwtTokenSharedPrefRepository)
+        singletonScopeDependencies.add(usernameSharedPrefRepository)
     }
 
     override val singletonScopeDependencies = mutableListOf<Any>(
