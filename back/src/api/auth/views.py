@@ -67,11 +67,13 @@ async def validate_user(
 def get_current_token_payload(
         credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
 ) -> dict | None:
+    print(credentials)
     token = credentials.credentials
     try:
         payload = crud.decode_jwt_token(
             token=token,
         )
+        print(payload)
         return payload
     except InvalidTokenError as e:
         return None
