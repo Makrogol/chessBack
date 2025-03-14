@@ -1,6 +1,9 @@
 sudo apt update
 sudo apt install docker-compose
 
+# Add execute permission to other scripts
+chmod +x update_back.sh
+
 # Go to base dir
 cd ..
 
