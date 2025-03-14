@@ -10,5 +10,5 @@ git pull
 
 cd ..
 source .env
-docker-compose up --build chessback
+docker-compose up --build chessback -d
 docker-compose exec chessback alebmic upgrade head
