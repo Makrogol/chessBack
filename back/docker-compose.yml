@@ -13,7 +13,6 @@ services:
       - db
 
   db:
-    env_file: .env
     image: postgres
     container_name: postgres
     expose:

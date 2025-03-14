@@ -6,6 +6,13 @@ cd ..
 
 # Create .env
 touch .env
+echo "# Set env variables here. For example DB_NAME, DB_PORT etc" >> .env
+
+# Set data to .env file
+nano .env
+
+# Activate .env
+source .env
 
 # Create certs
 mkdir certs

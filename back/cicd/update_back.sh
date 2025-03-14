@@ -7,5 +7,7 @@ docker-compose rm chessback
 docker system prune -a
 
 git pull
+
+source .env
 docker-compose up --build chessback
 docker-compose exec chessback alebmic upgrade head
