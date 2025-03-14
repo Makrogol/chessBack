@@ -41,6 +41,11 @@ docker ps -a
 
 ## docker-compose commands
 
+Can use follow command for use .env variables in docker-compose.yml
+```shell
+docker-compose --env-file .my-env  up -d
+```
+
 ### For first run
 Up all containers
 ```shell
