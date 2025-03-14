@@ -1,5 +1,5 @@
-from web_socket_manager import WebSocketManager
-from shemas import TurnMessage, GameEndMessage, GameStartMessage, TurnReceivedMessage, GameEndReceivedMessage, \
+from .web_socket_manager import WebSocketManager
+from .shemas import TurnMessage, GameEndMessage, GameStartMessage, TurnReceivedMessage, GameEndReceivedMessage, \
     GameStartReceivedMessage
 
 

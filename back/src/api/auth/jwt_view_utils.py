@@ -2,7 +2,7 @@ from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import InvalidTokenError
 
-from shemas import JwtPayload, UserExistValidation
+from .shemas import JwtPayload, UserExistValidation
 
 from ...auth import utils
 

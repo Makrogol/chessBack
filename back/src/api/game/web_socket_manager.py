@@ -1,6 +1,6 @@
 from starlette.websockets import WebSocket
 
-from shemas import BaseMessage
+from .shemas import BaseMessage
 
 
 class WebSocketManager:

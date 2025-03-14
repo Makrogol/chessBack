@@ -3,9 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from .shemas import UserCreate, UserValidate, UserCreateResponse, UserValidateResponse, TokenValidateResponse, \
     UserExistValidation, UserDeleteResponse, UserElement, JwtPayload
-import crud
+from . import crud
 from ...core.models.db_helper import db_helper
-import jwt_view_utils as jwt_utils
+from . import jwt_view_utils as jwt_utils
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 

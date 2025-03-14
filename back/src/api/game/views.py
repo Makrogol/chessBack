@@ -2,8 +2,8 @@ from fastapi import APIRouter, WebSocket
 from starlette.websockets import WebSocketDisconnect
 import json
 
-from utils import data_reaction
-from web_socket_manager import WebSocketManager
+from .utils import data_reaction
+from .web_socket_manager import WebSocketManager
 
 router = APIRouter(prefix="/game", tags=["Game"])
 
