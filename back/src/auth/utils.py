@@ -1,6 +1,8 @@
 import hashlib
 from datetime import datetime, timedelta
 import jwt
+
+from ..api.auth.shemas import JwtPayload
 from ..core.config import settings
 
 
@@ -13,13 +15,13 @@ def validate_password(password: str, hashed_password: bytes) -> bool:
 
 
 def encode_jwt(
-        payload: dict,
+        payload: JwtPayload,
         private_key: str = settings.auth_jwt.private_key_path.read_text(),
         algorithm: str = settings.auth_jwt.algorithm,
         expire_minutes: int = settings.auth_jwt.access_token_expire_minutes,
         expire_timedelta: timedelta | None = None,
 ):
-    to_encode = payload.copy()
+    to_encode = payload.__annotations__
     now = datetime.utcnow()
     if expire_timedelta:
         expire = now + expire_timedelta

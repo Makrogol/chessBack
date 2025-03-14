@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+# Users
 
 class UserElement(BaseModel):
     username: str
@@ -21,15 +22,28 @@ class UserValidate(UserBase):
 
 # View responses
 
+class BaseResponse(BaseModel):
+    success: bool = True
+
 class BaseTokenResponse(BaseModel):
     token: str | None = None
     token_type: str = "Bearer"
 
-class UserCreateResponse(BaseTokenResponse):
-    success: bool = True
+class UserCreateResponse(BaseTokenResponse, BaseResponse):
+    pass
 
-class UserValidateResponse(BaseTokenResponse):
-    success: bool = True
+class UserValidateResponse(BaseTokenResponse, BaseResponse):
+    pass
 
-class TokenValidateResponse(BaseModel):
-    success: bool = True
+class TokenValidateResponse(BaseResponse):
+    pass
+
+class UserDeleteResponse(BaseResponse):
+    pass
+
+
+# Jwt
+
+class JwtPayload(BaseModel):
+    sub: str
+    username: str

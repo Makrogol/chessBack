@@ -1,8 +1,13 @@
 sudo apt update
 sudo apt install docker-compose
 
-# Create certs
+# Go to base dir
 cd ..
+
+# Create .env
+touch .env
+
+# Create certs
 mkdir certs
 cd certs
 openssl genrsa -out jwt-private.pem 2048

@@ -1,11 +1,9 @@
-import asyncio
-
 from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .shemas import UserValidate, UserCreate, UserElement, UserExistValidation
-from ...core.models.user import User
 from ...auth import utils
+from ...core.models.user import User
 
 
 def __convert_users_to_user_elements(users):
@@ -13,12 +11,6 @@ def __convert_users_to_user_elements(users):
     for user in users:
         user_elements.append(UserElement(username=user.username))
     return user_elements
-
-def create_jwt_token(pyload: dict) ->str:
-    return utils.encode_jwt(payload=pyload)
-
-def decode_jwt_token(token: str) -> dict:
-    return utils.decode_jwt(token)
 
 async def get_users(session: AsyncSession) -> list[UserElement]:
     stmt = select(User).order_by(User.id)
