@@ -85,7 +85,7 @@ docker-compose exec chessback alebmic upgrade head
 ```
 
 
-### Issue RSA private key + public key pair
+## Issue RSA private key + public key pair
 ```shell
 # Generate an RSA private key, of size 2048
 `openssl genrsa -out jwt-private.pem 2048`
@@ -96,7 +96,7 @@ docker-compose exec chessback alebmic upgrade head
 openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 ```
 
-### Save depends to requirements.txt with poetry
+## Save depends to requirements.txt with poetry
 ```shell
 poetry export --without-hashes --format=requirements.txt > .\requirements.txt
 ```
