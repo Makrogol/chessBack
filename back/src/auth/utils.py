@@ -21,7 +21,7 @@ def encode_jwt(
         expire_minutes: int = settings.auth_jwt.access_token_expire_minutes,
         expire_timedelta: timedelta | None = None,
 ):
-    to_encode = payload.__annotations__
+    to_encode = vars(payload)
     now = datetime.utcnow()
     if expire_timedelta:
         expire = now + expire_timedelta
