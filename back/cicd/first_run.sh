@@ -27,4 +27,4 @@ openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 cd ..
 docker compose up --build -d
 docker compose exec chessback alembic upgrade head
-docker compose exec chessback sh
+docker attach chessback
