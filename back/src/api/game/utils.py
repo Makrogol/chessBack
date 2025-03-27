@@ -19,8 +19,11 @@ async def data_reaction(manager: WebSocketManager, data: dict):
     received_data_type = parse_received_data(data)
     match received_data_type:
         case ReceivedDataType.TURN_DATA: # Сама игра
+            print('turn ', data)
             await on_turn(TurnReceivedMessage(**data), manager)
         case ReceivedDataType.GAME_END_DATA: # Завершение игры
+            print('end game ', data)
             await on_game_end(GameEndReceivedMessage(**data), manager)
         case ReceivedDataType.GAME_START_DATA: # Вызов на игру
+            print('start game ', data)
             await on_game_start(GameStartReceivedMessage(**data), manager)

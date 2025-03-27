@@ -14,7 +14,7 @@ async def on_turn(data: TurnReceivedMessage, manager: WebSocketManager) -> None:
         opponent_username=data.username,
         turn=data.turn,
     )
-    await manager.send_to_user(data.opponent_username, message)
+    await manager.send_to_user(message.username, message)
 
 
 async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -> None:
@@ -23,11 +23,11 @@ async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -
         opponent_username=data.username,
         game_end=data.game_end,
     )
-    await manager.send_to_user(data.username, message)
-    await manager.send_to_user(data.opponent_username, message)
+    await manager.send_to_user(message.username, message)
+    await manager.send_to_user(message.opponent_username, message)
 
-    manager.remove_connection(data.username)
-    manager.remove_connection(data.opponent_username)
+    manager.remove_connection(message.username)
+    manager.remove_connection(message.opponent_username)
 
 
 async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManager) -> None:
@@ -35,4 +35,4 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
         username=data.opponent_username,
         opponent_username=data.username,
     )
-    await manager.send_to_user(data.opponent_username, message)
+    await manager.send_to_user(message.username, message)
