@@ -28,7 +28,6 @@ class WebSocketManager:
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
         if username in self.__connections.keys():
-            print("data = ", vars(data))
             await self.__connections[username].send_json(vars(data))
 
 
