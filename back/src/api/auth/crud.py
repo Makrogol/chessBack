@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .schemas.users_schemas import UserValidate, UserCreate, UserElement, UserExistValidation
 from ...auth import utils
 from ...core.models.user import User
-from .. import manager
+from ..game.views import manager
 
 
 def __convert_users_to_user_elements(users):
