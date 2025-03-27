@@ -17,8 +17,8 @@ def decode_jwt_token(token: str) -> dict:
 def get_token_payload(
         credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
 ) -> dict | None:
-    token = credentials.credentials
     try:
+        token = credentials.credentials
         payload = decode_jwt_token(
             token=token,
         )
