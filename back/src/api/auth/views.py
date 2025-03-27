@@ -68,7 +68,6 @@ async def validate_token(
         user: UserExistValidation | None = Depends(jwt_utils.get_user_from_jwt),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ) -> TokenValidateResponse:
-    print("user = ", user)
     response = TokenValidateResponse()
     if user is None:
         response.success = False

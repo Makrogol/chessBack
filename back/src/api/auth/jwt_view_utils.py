@@ -6,7 +6,7 @@ from .shemas import JwtPayload, UserExistValidation
 
 from ...auth import utils
 
-http_bearer = HTTPBearer()
+http_bearer = HTTPBearer(auto_error=False)
 
 def create_jwt_token(pyload: JwtPayload) ->str:
     return utils.encode_jwt(payload=pyload)
@@ -18,9 +18,7 @@ def get_token_payload(
         credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
 ) -> dict | None:
     try:
-        print("credentials = ", credentials)
         token = credentials.credentials
-        print("token = ", token)
         payload = decode_jwt_token(
             token=token,
         )
@@ -31,7 +29,6 @@ def get_token_payload(
 def get_user_from_jwt(
         payload: dict | None = Depends(get_token_payload),
 ) -> UserExistValidation | None:
-    print("payload = ", payload)
     if payload is None:
         return None
     username: str | None = payload.get("sub")
