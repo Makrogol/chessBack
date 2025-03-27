@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .schemas.users_schemas import UserCreate, UserValidate, UserElement, UserExistValidation
-from .schemas.responses_schemas import UserCreateResponse, UserValidateResponse, UserDeleteResponse, UserAvailableResponse
+from .schemas.responses_schemas import UserCreateResponse, UserValidateResponse, UserDeleteResponse, \
+    UserAvailableResponse, TokenValidateResponse
 from .schemas.jwt_schemas import JwtPayload
 from . import crud
 from ...core.models.db_helper import db_helper
@@ -18,6 +19,7 @@ async def get_users(
 ) -> list[UserElement]:
     return await crud.get_users(session)
 
+
 @router.get("/available_user")
 async def available_user(
         username: str,
@@ -25,6 +27,7 @@ async def available_user(
     return UserAvailableResponse(
         user_available=manager.has_connection(username),
     )
+
 
 @router.get("/delete_user")
 async def delete_user(
