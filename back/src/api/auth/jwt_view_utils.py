@@ -18,7 +18,9 @@ def get_token_payload(
         credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
 ) -> dict | None:
     try:
+        print("credentials = ", credentials)
         token = credentials.credentials
+        print("token = ", token)
         payload = decode_jwt_token(
             token=token,
         )
@@ -29,6 +31,7 @@ def get_token_payload(
 def get_user_from_jwt(
         payload: dict | None = Depends(get_token_payload),
 ) -> UserExistValidation | None:
+    print("payload = ", payload)
     if payload is None:
         return None
     username: str | None = payload.get("sub")
