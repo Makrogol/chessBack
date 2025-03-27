@@ -15,10 +15,12 @@ def decode_jwt_token(token: str) -> dict:
     return utils.decode_jwt(token)
 
 def get_token_payload(
-        credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
+        credentials: HTTPAuthorizationCredentials | None = Depends(http_bearer),
 ) -> dict | None:
+    if credentials is None:
+        return None
+    token = credentials.credentials
     try:
-        token = credentials.credentials
         payload = decode_jwt_token(
             token=token,
         )
