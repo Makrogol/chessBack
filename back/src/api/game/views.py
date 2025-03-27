@@ -17,6 +17,7 @@ async def websocket_game(username: str, websocket: WebSocket):
         while True:
             # here we are waiting for an oncomming message from clients
             data = await websocket.receive_text()
+            print("raw data:", data)
             data = json.loads(data)
             # precessing the incomming message
             await data_reaction(manager, data)
