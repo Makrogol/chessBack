@@ -17,6 +17,8 @@ def parse_received_data(data: dict) -> ReceivedDataType:
 
 async def data_reaction(manager: WebSocketManager, data: dict):
     received_data_type = parse_received_data(data)
+    print("data ", data)
+    print("received_data_type ", received_data_type)
     match received_data_type:
         case ReceivedDataType.TURN_DATA: # Сама игра
             print('turn ', data)
