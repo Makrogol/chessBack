@@ -7,5 +7,3 @@ from .game.web_socket_manager import WebSocketManager
 router = APIRouter()
 router.include_router(router=auth_router)
 router.include_router(router=game_router)
-
-manager = WebSocketManager()

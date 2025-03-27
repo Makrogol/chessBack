@@ -4,13 +4,11 @@ import json
 
 from .schemas.responses_schemas import UserAvailableResponse
 from .utils import data_reaction
-from .. import manager
+from .web_socket_manager import WebSocketManager
 
 router = APIRouter(prefix="/game", tags=["Game"])
 
-
-# TODO это можно убрать, либо совсем, либо в auth
-
+manager = WebSocketManager()
 
 
 @router.websocket("/{username}")

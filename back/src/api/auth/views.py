@@ -7,7 +7,7 @@ from .schemas.jwt_schemas import JwtPayload
 from . import crud
 from ...core.models.db_helper import db_helper
 from . import jwt_view_utils as jwt_utils
-from .. import manager
+from ..game.views import manager
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
