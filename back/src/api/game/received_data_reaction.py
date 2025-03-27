@@ -1,6 +1,6 @@
 from .web_socket_manager import WebSocketManager
-from .shemas import TurnMessage, GameEndMessage, GameStartMessage, TurnReceivedMessage, GameEndReceivedMessage, \
-    GameStartReceivedMessage
+from .schemas.websocket_received_messages_schemas import TurnReceivedMessage, GameEndReceivedMessage, GameStartReceivedMessage
+from .schemas.websocket_messages_schemas import TurnMessage, GameEndMessage, GameStartMessage
 
 
 def __convert_turn_to_opponent_turn(turn):

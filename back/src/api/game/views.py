@@ -2,12 +2,15 @@ from fastapi import APIRouter, WebSocket
 from starlette.websockets import WebSocketDisconnect
 import json
 
+from .schemas.responses_schemas import UserAvailableResponse
 from .utils import data_reaction
-from .web_socket_manager import WebSocketManager
+from .. import manager
 
 router = APIRouter(prefix="/game", tags=["Game"])
 
-manager = WebSocketManager()
+
+# TODO это можно убрать, либо совсем, либо в auth
+
 
 
 @router.websocket("/{username}")

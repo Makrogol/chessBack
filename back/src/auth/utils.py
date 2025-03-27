@@ -2,7 +2,7 @@ import hashlib
 from datetime import datetime, timedelta
 import jwt
 
-from ..api.auth.shemas import JwtPayload
+from ..api.auth.schemas import JwtPayload
 from ..core.config import settings
 
 

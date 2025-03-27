@@ -1,5 +1,5 @@
 from .received_data_reaction import on_turn, on_game_end, on_game_start
-from .shemas import TurnReceivedMessage, GameEndReceivedMessage, GameStartReceivedMessage
+from .schemas.websocket_received_messages_schemas import TurnReceivedMessage, GameEndReceivedMessage, GameStartReceivedMessage
 from ...core.utils import has_field
 from .recieved_data_type import ReceivedDataType
 from .web_socket_manager import WebSocketManager

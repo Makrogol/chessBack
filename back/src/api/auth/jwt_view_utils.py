@@ -2,8 +2,8 @@ from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import InvalidTokenError
 
-from .shemas import JwtPayload, UserExistValidation
-
+from .schemas.jwt_schemas import JwtPayload
+from .schemas.users_schemas import UserExistValidation
 from ...auth import utils
 
 http_bearer = HTTPBearer(auto_error=False)
