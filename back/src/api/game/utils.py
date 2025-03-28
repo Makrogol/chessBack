@@ -1,4 +1,5 @@
 from .received_data_reaction import on_turn, on_game_end, on_game_start
+from .schemas.websocket_messages_schemas import UserAvailableMessage
 from .schemas.websocket_received_messages_schemas import TurnReceivedMessage, GameEndReceivedMessage, GameStartReceivedMessage
 from ...core.utils import has_field
 from .recieved_data_type import ReceivedDataType
@@ -15,7 +16,7 @@ def parse_received_data(data: dict) -> ReceivedDataType:
     return ReceivedDataType.GAME_START_DATA
 
 
-async def data_reaction(manager: WebSocketManager, data: dict):
+async def data_reaction(manager: WebSocketManager, data: dict) -> None:
     received_data_type = parse_received_data(data)
     match received_data_type:
         case ReceivedDataType.TURN_DATA: # Сама игра
@@ -24,3 +25,7 @@ async def data_reaction(manager: WebSocketManager, data: dict):
             await on_game_end(GameEndReceivedMessage(**data), manager)
         case ReceivedDataType.GAME_START_DATA: # Вызов на игру
             await on_game_start(GameStartReceivedMessage(**data), manager)
+
+async def send_user_available_state(manager: WebSocketManager, username: str, user_available: bool) -> None:
+    message = UserAvailableMessage(username=username, user_available=user_available)
+    await manager.broadcast(message)

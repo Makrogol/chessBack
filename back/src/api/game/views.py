@@ -2,8 +2,7 @@ from fastapi import APIRouter, WebSocket
 from starlette.websockets import WebSocketDisconnect
 import json
 
-from .schemas.responses_schemas import UserAvailableResponse
-from .utils import data_reaction
+from .utils import data_reaction, send_user_available_state
 from .web_socket_manager import WebSocketManager
 
 router = APIRouter(prefix="/game", tags=["Game"])
@@ -14,6 +13,7 @@ manager = WebSocketManager()
 @router.websocket("/{username}")
 async def websocket_game(username: str, websocket: WebSocket):
     await manager.connect(websocket, username)
+    await send_user_available_state(manager, username, True)
     try:
         while True:
             # here we are waiting for an oncomming message from clients
@@ -25,5 +25,6 @@ async def websocket_game(username: str, websocket: WebSocket):
                 return
     except WebSocketDisconnect:
         await manager.disconnect(websocket)
+        await send_user_available_state(manager, username, False)
     except:
         pass
