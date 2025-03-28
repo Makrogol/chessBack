@@ -26,9 +26,6 @@ async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -
     await manager.send_to_user(message.username, message)
     await manager.send_to_user(message.opponent_username, message)
 
-    manager.remove_connection(message.username)
-    manager.remove_connection(message.opponent_username)
-
 
 async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManager) -> None:
     message = GameStartMessage(
