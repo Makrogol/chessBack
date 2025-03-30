@@ -12,6 +12,7 @@ class SuccessResponse(BaseResponse):
 class BaseTokenResponse(BaseResponse):
     token: str | None = None
     token_type: str = "Bearer"
+    username: str = ""
 
 
 class UserCreateResponse(BaseTokenResponse, SuccessResponse):

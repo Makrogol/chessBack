@@ -52,6 +52,7 @@ async def create_user(
             username=user.username,
         )
         response.token = jwt_utils.create_jwt_token(jwt_payload)
+        response.username = user.username
     except Exception as e:
         response.success = False
     return response
@@ -72,6 +73,7 @@ async def validate_user(
             username=user_validate.username,
         )
         response.token = jwt_utils.create_jwt_token(jwt_payload)
+        response.username = username
     return response
 
 
@@ -85,4 +87,5 @@ async def validate_token(
         response.success = False
     else:
         response.success = await crud.is_user_with_username_exist(session, user)
+        response.username = user.username
     return response
