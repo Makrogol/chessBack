@@ -5,6 +5,10 @@ class BaseResponse(BaseModel):
     pass
 
 
+class UsernameResponse(BaseResponse):
+    username: str = ""
+
+
 class SuccessResponse(BaseResponse):
     success: bool = True
 
@@ -12,18 +16,17 @@ class SuccessResponse(BaseResponse):
 class BaseTokenResponse(BaseResponse):
     token: str | None = None
     token_type: str = "Bearer"
-    username: str = ""
 
 
-class UserCreateResponse(BaseTokenResponse, SuccessResponse):
+class UserCreateResponse(BaseTokenResponse, SuccessResponse, UsernameResponse):
     pass
 
 
-class UserValidateResponse(BaseTokenResponse, SuccessResponse):
+class UserValidateResponse(BaseTokenResponse, SuccessResponse, UsernameResponse):
     pass
 
 
-class TokenValidateResponse(SuccessResponse):
+class TokenValidateResponse(SuccessResponse, UsernameResponse):
     pass
 
 
@@ -32,4 +35,4 @@ class UserDeleteResponse(SuccessResponse):
 
 
 class UserAvailableResponse(BaseResponse):
-    user_available: bool
+    user_available: bool = False
