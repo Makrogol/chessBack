@@ -17,7 +17,12 @@ class UserDataMessage(UsernameMessage, OpponentUsernameMessage):
     pass
 
 
-class TurnMessage(UserDataMessage):
+class GameFenMessage(BaseMessage):
+    game_fen: str
+
+
+# TODO вообще не надо отправлять на андроид game_fen, это надо сначала на андроиде разделить messages и received_messages
+class TurnMessage(UserDataMessage, GameFenMessage):
     turn: str
 
 
@@ -33,5 +38,5 @@ class UserAvailableMessage(UsernameMessage):
     user_available: bool
 
 
-class NotCompletedGameMessage(UserDataMessage):
-    game_fen: str
+class NotCompletedGameMessage(UserDataMessage, GameFenMessage):
+    pass
