@@ -11,5 +11,5 @@ class GameData(BaseSchema):
     game_fen: str | None = None
 
 
-class WebSocketConnection(BaseSchema, GameData):
+class WebSocketConnection(GameData):
     websocket: WebSocket
