@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from starlette.websockets import WebSocket
 
 
@@ -12,4 +12,6 @@ class GameData(BaseSchema):
 
 
 class WebSocketConnection(GameData):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     websocket: WebSocket
