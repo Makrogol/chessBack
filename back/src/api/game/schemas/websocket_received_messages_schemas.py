@@ -7,6 +7,7 @@ class BaseReceivedMessage(BaseModel):
 
 class TurnReceivedMessage(BaseReceivedMessage):
     turn: str
+    game_fen: str
 
 class GameEndReceivedMessage(BaseReceivedMessage):
     game_end: str

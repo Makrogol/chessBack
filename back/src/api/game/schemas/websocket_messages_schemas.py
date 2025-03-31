@@ -9,8 +9,12 @@ class UsernameMessage(BaseMessage):
     username: str
 
 
-class UserDataMessage(UsernameMessage):
+class OpponentUsernameMessage(BaseMessage):
     opponent_username: str
+
+
+class UserDataMessage(UsernameMessage, OpponentUsernameMessage):
+    pass
 
 
 class TurnMessage(UserDataMessage):
@@ -27,3 +31,7 @@ class GameStartMessage(UserDataMessage):
 
 class UserAvailableMessage(UsernameMessage):
     user_available: bool
+
+
+class NotCompletedGameMessage(UserDataMessage):
+    game_fen: str

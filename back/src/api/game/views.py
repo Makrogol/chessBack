@@ -2,7 +2,7 @@ from fastapi import APIRouter, WebSocket
 from starlette.websockets import WebSocketDisconnect
 import json
 
-from .utils import data_reaction, send_user_available_state
+from .utils import data_reaction, send_user_available_state, send_user_has_not_completed_game
 from .web_socket_manager import WebSocketManager
 
 router = APIRouter(prefix="/game", tags=["Game"])
@@ -14,6 +14,10 @@ manager = WebSocketManager()
 async def websocket_game(username: str, websocket: WebSocket):
     await manager.connect(websocket, username)
     await send_user_available_state(manager, username, True)
+
+    if manager.has_not_completed_game(username):
+        await send_user_has_not_completed_game(manager, username)
+
     try:
         while True:
             # here we are waiting for an oncomming message from clients

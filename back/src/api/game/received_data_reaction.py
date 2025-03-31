@@ -1,9 +1,10 @@
 from .web_socket_manager import WebSocketManager
-from .schemas.websocket_received_messages_schemas import TurnReceivedMessage, GameEndReceivedMessage, GameStartReceivedMessage
+from .schemas.websocket_received_messages_schemas import TurnReceivedMessage, GameEndReceivedMessage, \
+    GameStartReceivedMessage
 from .schemas.websocket_messages_schemas import TurnMessage, GameEndMessage, GameStartMessage
 
 
-def __convert_turn_to_opponent_turn(turn):
+def __convert_move_to_opponent_turn(turn):
     # TODO
     pass
 
@@ -16,6 +17,9 @@ async def on_turn(data: TurnReceivedMessage, manager: WebSocketManager) -> None:
     )
     await manager.send_to_user(message.username, message)
 
+    manager.update_game_fen(data.username, data.game_fen)
+    manager.update_game_fen(data.opponent_username, data.game_fen)
+
 
 async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -> None:
     message = GameEndMessage(
@@ -26,6 +30,8 @@ async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -
     await manager.send_to_user(message.username, message)
     await manager.send_to_user(message.opponent_username, message)
 
+    manager.set_opponent(data.username, data.opponent_username)
+
 
 async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManager) -> None:
     message = GameStartMessage(
@@ -33,3 +39,6 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
         opponent_username=data.username,
     )
     await manager.send_to_user(message.username, message)
+
+    manager.clear_game_data(data.username)
+    manager.clear_game_data(data.opponent_username)
