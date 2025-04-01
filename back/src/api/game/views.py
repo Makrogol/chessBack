@@ -24,6 +24,7 @@ async def websocket_game(username: str, websocket: WebSocket):
             data = await websocket.receive_text()
             data = json.loads(data)
             # precessing the incomming message
+            print('received data', data)
             await data_reaction(manager, data)
             if not manager.has_any_connection():
                 return
