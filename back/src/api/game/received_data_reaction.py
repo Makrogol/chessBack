@@ -31,7 +31,8 @@ async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -
     await manager.send_to_user(message.username, message)
     await manager.send_to_user(message.opponent_username, message)
 
-    manager.set_opponent(data.username, data.opponent_username)
+    manager.clear_game_data(data.username)
+    manager.clear_game_data(data.opponent_username)
 
 
 async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManager) -> None:
@@ -41,5 +42,4 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
     )
     await manager.send_to_user(message.username, message)
 
-    manager.clear_game_data(data.username)
-    manager.clear_game_data(data.opponent_username)
+    manager.set_opponent(data.username, data.opponent_username)
