@@ -21,14 +21,11 @@ class WebSocketManager:
 
     async def broadcast(self, data: BaseMessage) -> None:
         # broadcasting data to all connected clients
-        print('broadcast data =', data)
-        # for connection in self.__connections.values():
-        for username, connection in self.__connections.items():
-            print('broadcast connection =', username)
+        for connection in self.__connections.values():
+        # for username, connection in self.__connections.items():
             await connection.websocket.send_json(vars(data))
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
-        print('send_to_user', username, 'data =', data)
         if self.has_connection(username):
             await self.__connections[username].websocket.send_json(vars(data))
 
