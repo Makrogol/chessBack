@@ -40,5 +40,6 @@ async def send_user_has_not_completed_game(manager: WebSocketManager, username: 
         opponent_username=game_data.opponent_username,
         game_fen=game_data.game_fen,
         is_opponent_turn=game_data.is_opponent_turn,
+        main_color=game_data.main_color,
     )
     await manager.send_to_user(username, message)
