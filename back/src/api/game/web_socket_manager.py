@@ -38,10 +38,12 @@ class WebSocketManager:
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
+            self.__connections[username].game_data.username = username
             self.__connections[username].game_data.opponent_username = opponent_username
             self.__connections[username].game_data.main_color = main_color
         if self.has_connection(opponent_username):
             self.__connections[opponent_username].game_data.opponent_username = username
+            self.__connections[opponent_username].game_data.useername = opponent_username
             # TODO надо выделить модуль для общения с ядром через питон в отдельное что-то и из него взять unparser
             #   и с ним уже работать с color это мега костыль
             self.__connections[opponent_username].game_data.main_color = "2" if main_color == "1" else "1"
