@@ -13,4 +13,4 @@ class GameEndReceivedMessage(BaseReceivedMessage):
     game_end: str
 
 class GameStartReceivedMessage(BaseReceivedMessage):
-    pass
+    main_color: str

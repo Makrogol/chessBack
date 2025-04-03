@@ -31,12 +31,12 @@ class GameEndMessage(UserDataMessage):
 
 
 class GameStartMessage(UserDataMessage):
-    pass
+    main_color: str
 
 
 class UserAvailableMessage(UsernameMessage):
     user_available: bool
 
 
-class NotCompletedGameMessage(UserDataMessage, GameFenMessage):
-    is_opponent_turn: str
+class NotCompletedGameMessage(GameStartMessage, GameFenMessage):
+    is_opponent_turn: bool

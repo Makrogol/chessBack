@@ -13,7 +13,7 @@ class WebSocketManager:
         self.__connections[username] = WebSocketConnection(websocket=websocket)
 
     async def disconnect(self, websocket: WebSocket) -> None:
-        # TODO можно сделать, чтобы не по сокету искалось, а по никнейму
+        # TODO можно сделать, чтобы не по сокету искалось, а по username
         for username, connection in self.__connections.items():
             if websocket == connection.websocket:
                 del self.__connections[username]
@@ -36,19 +36,23 @@ class WebSocketManager:
         if self.has_connection(username):
             del self.__connections[username]
 
-    def set_opponent(self, username: str, opponent_username: str) -> None:
+    def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
             self.__connections[username].game_data.opponent_username = opponent_username
+            self.__connections[username].game_data.main_color = main_color
         if self.has_connection(opponent_username):
             self.__connections[opponent_username].game_data.opponent_username = username
+            # TODO надо выделить модуль для общения с ядром через питон в отдельное что-то и из него взять unparser
+            #   и с ним уже работать с color это мега костыль
+            self.__connections[opponent_username].game_data.main_color = "2" if main_color == "1" else "1"
 
     def update_game_data_on_turn(self, username: str, opponent_username: str, game_fen: str) -> None:
         if self.has_connection(username):
             self.__connections[username].game_data.game_fen = game_fen
-            self.__connections[username].game_data.is_opponent_turn = str(True)
+            self.__connections[username].game_data.is_opponent_turn = True
         if self.has_connection(username):
             self.__connections[opponent_username].game_data.game_fen = game_fen
-            self.__connections[opponent_username].game_data.is_opponent_turn = str(False)
+            self.__connections[opponent_username].game_data.is_opponent_turn = False
 
     def clear_game_data(self, username: str) -> None:
         if self.has_connection(username):

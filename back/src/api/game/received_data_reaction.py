@@ -38,7 +38,8 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
     message = GameStartMessage(
         username=data.opponent_username,
         opponent_username=data.username,
+        main_color=data.main_color,
     )
     await manager.send_to_user(message.username, message)
 
-    manager.set_opponent(data.username, data.opponent_username)
+    manager.update_game_data_on_start_game(data.username, data.opponent_username, data.main_color)
