@@ -18,8 +18,7 @@ async def on_turn(data: TurnReceivedMessage, manager: WebSocketManager) -> None:
     )
     await manager.send_to_user(message.username, message)
 
-    manager.update_game_fen(data.username, data.game_fen)
-    manager.update_game_fen(data.opponent_username, data.game_fen)
+    manager.update_game_data_on_turn(data.username, data.opponent_username, data.game_fen)
 
 
 async def on_game_end(data: GameEndReceivedMessage, manager: WebSocketManager) -> None:

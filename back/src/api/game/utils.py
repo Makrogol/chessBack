@@ -34,7 +34,11 @@ async def send_user_available_state(manager: WebSocketManager, username: str, us
 
 
 async def send_user_has_not_completed_game(manager: WebSocketManager, username: str) -> None:
-    game_data = manager.get_not_completed_game(username)
-    message = NotCompletedGameMessage(username=username, opponent_username=game_data.opponent_username,
-                                      game_fen=game_data.game_fen)
+    game_data = manager.get_not_completed_game_data(username)
+    message = NotCompletedGameMessage(
+        username=username,
+        opponent_username=game_data.opponent_username,
+        game_fen=game_data.game_fen,
+        is_opponent_turn=game_data.is_opponent_turn,
+    )
     await manager.send_to_user(username, message)

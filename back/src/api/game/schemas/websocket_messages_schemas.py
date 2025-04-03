@@ -39,4 +39,4 @@ class UserAvailableMessage(UsernameMessage):
 
 
 class NotCompletedGameMessage(UserDataMessage, GameFenMessage):
-    pass
+    is_opponent_turn: str
