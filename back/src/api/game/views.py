@@ -12,14 +12,14 @@ manager = WebSocketManager()
 
 @router.websocket("/{username}")
 async def websocket_game(username: str, websocket: WebSocket):
-    await manager.connect(websocket, username)
-    await send_user_available_state(manager, username, True)
-
-    if manager.has_not_completed_game(username):
-        print("Game {} has not completed yet.".format(username))
-        await send_user_has_not_completed_game(manager, username)
-
     try:
+        await manager.connect(websocket, username)
+        await send_user_available_state(manager, username, True)
+
+        if manager.has_not_completed_game(username):
+            print("Game {} has not completed yet.".format(username))
+            await send_user_has_not_completed_game(manager, username)
+
         while True:
             # here we are waiting for an oncomming message from clients
             data = await websocket.receive_text()
