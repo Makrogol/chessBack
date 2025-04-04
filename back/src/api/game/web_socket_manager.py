@@ -13,7 +13,9 @@ class WebSocketManager:
         self.__connections[username] = WebSocketConnection(websocket=websocket)
 
     async def disconnect(self, username: str) -> None:
-        self.remove_connection(username)
+        if self.has_connection(username):
+            self.__connections[username].websocket.close()
+            del self.__connections[username]
         # # TODO можно сделать, чтобы не по сокету искалось, а по username
         # for username, connection in self.__connections.items():
         #     if websocket == connection.websocket:
