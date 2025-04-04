@@ -12,12 +12,13 @@ class WebSocketManager:
         await websocket.accept()
         self.__connections[username] = WebSocketConnection(websocket=websocket)
 
-    async def disconnect(self, websocket: WebSocket) -> None:
-        # TODO можно сделать, чтобы не по сокету искалось, а по username
-        for username, connection in self.__connections.items():
-            if websocket == connection.websocket:
-                del self.__connections[username]
-                return
+    async def disconnect(self, username: str) -> None:
+        self.remove_connection(username)
+        # # TODO можно сделать, чтобы не по сокету искалось, а по username
+        # for username, connection in self.__connections.items():
+        #     if websocket == connection.websocket:
+        #         del self.__connections[username]
+        #         return
 
     async def broadcast(self, data: BaseMessage) -> None:
         # broadcasting data to all connected clients

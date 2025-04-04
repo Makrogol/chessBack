@@ -30,7 +30,7 @@ async def websocket_game(username: str, websocket: WebSocket):
             if not manager.has_any_connection():
                 return
     except WebSocketDisconnect:
-        await manager.disconnect(websocket)
+        await manager.disconnect(username)
         await send_user_available_state(manager, username, False)
     except:
         pass
