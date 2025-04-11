@@ -74,7 +74,7 @@ class WebSocketManager:
         if self.has_connection(username):
             self.__connections[username].game_data.game_fen = game_fen
             self.__connections[username].game_data.is_opponent_turn = True
-        if self.has_connection(username):
+        if self.has_connection(opponent_username):
             self.__connections[opponent_username].game_data.game_fen = game_fen
             self.__connections[opponent_username].game_data.is_opponent_turn = False
 
