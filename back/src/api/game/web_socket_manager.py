@@ -18,7 +18,7 @@ class WebSocketManager:
                 await self.__connections[username].websocket.close()
                 del self.__connections[username]
         except Exception as e:
-            print(f"disconnect exception {e}")
+            print(f"disconnect {username} exception {e}")
         # # TODO можно сделать, чтобы не по сокету искалось, а по username
         # for username, connection in self.__connections.items():
         #     if websocket == connection.websocket:
@@ -33,7 +33,7 @@ class WebSocketManager:
             try:
                 await connection.websocket.send_json(vars(data))
             except Exception as e:
-                print(f"broadcast send exception {e}")
+                print(f"broadcast send to {username} exception {e}")
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
         try:
@@ -41,10 +41,11 @@ class WebSocketManager:
                 print(f"send data {data} to {username}")
                 await self.__connections[username].websocket.send_json(vars(data))
         except Exception as e:
-            print(f"send_to_user exception {e}")
+            print(f"send_to_user {username} exception {e}")
 
-    def remove_all_connections(self) -> None:
-        self.__connections.clear()
+    async def remove_all_connections(self) -> None:
+        for username in self.__connections:
+            await self.disconnect(username)
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
