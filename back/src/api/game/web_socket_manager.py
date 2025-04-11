@@ -22,6 +22,7 @@ class WebSocketManager:
                 del self.__connections[username]
         except Exception as e:
             print(f"{datetime.datetime.now()} disconnect {username} exception {e}")
+            del self.__connections[username]
         # # TODO можно сделать, чтобы не по сокету искалось, а по username
         # for username, connection in self.__connections.items():
         #     if websocket == connection.websocket:
