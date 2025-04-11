@@ -2,6 +2,7 @@ from starlette.websockets import WebSocket
 
 from .schemas.websocket_messages_schemas import BaseMessage
 from .schemas.websocket_schemas import WebSocketConnection, GameData
+import datetime
 
 
 class WebSocketManager:
@@ -15,10 +16,11 @@ class WebSocketManager:
     async def disconnect(self, username: str) -> None:
         try:
             if self.has_connection(username):
+                print(f"{datetime.datetime.now()} disconnect {username}")
                 await self.__connections[username].websocket.close()
                 del self.__connections[username]
         except Exception as e:
-            print(f"disconnect {username} exception {e}")
+            print(f"{datetime.datetime.now()} disconnect {username} exception {e}")
         # # TODO можно сделать, чтобы не по сокету искалось, а по username
         # for username, connection in self.__connections.items():
         #     if websocket == connection.websocket:
@@ -29,19 +31,19 @@ class WebSocketManager:
         # broadcasting data to all connected clients
         # for connection in self.__connections.values():
         for username, connection in self.__connections.items():
-            print(f"broadcast send data {data} to {username}")
+            print(f"{datetime.datetime.now()} broadcast send data {data} to {username}")
             try:
                 await connection.websocket.send_json(vars(data))
             except Exception as e:
-                print(f"broadcast send to {username} exception {e}")
+                print(f"{datetime.datetime.now()} broadcast send to {username} exception {e}")
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
         try:
             if self.has_connection(username):
-                print(f"send data {data} to {username}")
+                print(f"{datetime.datetime.now()} send data {data} to {username}")
                 await self.__connections[username].websocket.send_json(vars(data))
         except Exception as e:
-            print(f"send_to_user {username} exception {e}")
+            print(f"{datetime.datetime.now()} send_to_user {username} exception {e}")
 
     async def remove_all_connections(self) -> None:
         for username in self.__connections:
