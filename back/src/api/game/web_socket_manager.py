@@ -27,7 +27,10 @@ class WebSocketManager:
         # for connection in self.__connections.values():
         for username, connection in self.__connections.items():
             print(f"broadcast send data {data} to {username}")
-            await connection.websocket.send_json(vars(data))
+            try:
+                await connection.websocket.send_json(vars(data))
+            except Exception as e:
+                print(f"broadcast send exception {e}")
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
         if self.has_connection(username):
