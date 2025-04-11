@@ -1,4 +1,5 @@
 from starlette.websockets import WebSocket
+import copy
 
 from .schemas.websocket_messages_schemas import BaseMessage
 from .schemas.websocket_schemas import WebSocketConnection, GameData
@@ -51,7 +52,7 @@ class WebSocketManager:
 
     def update_game_data_for_opponent(self, opponent_username: str, game_data: GameData) -> None:
         if self.has_connection(opponent_username):
-            self.__connections[opponent_username].game_data = game_data
+            self.__connections[opponent_username].game_data = copy.deepcopy(game_data)
             self.__connections[opponent_username].game_data.username = opponent_username
             self.__connections[opponent_username].game_data.opponent_username = game_data.username
 
