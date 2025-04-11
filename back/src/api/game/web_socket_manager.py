@@ -13,9 +13,12 @@ class WebSocketManager:
         self.__connections[username] = WebSocketConnection(websocket=websocket)
 
     async def disconnect(self, username: str) -> None:
-        if self.has_connection(username):
-            await self.__connections[username].websocket.close()
-            del self.__connections[username]
+        try:
+            if self.has_connection(username):
+                await self.__connections[username].websocket.close()
+                del self.__connections[username]
+        except Exception as e:
+            print(f"disconnect exception {e}")
         # # TODO можно сделать, чтобы не по сокету искалось, а по username
         # for username, connection in self.__connections.items():
         #     if websocket == connection.websocket:
@@ -33,16 +36,15 @@ class WebSocketManager:
                 print(f"broadcast send exception {e}")
 
     async def send_to_user(self, username: str, data: BaseMessage) -> None:
-        if self.has_connection(username):
-            print(f"send data {data} to {username}")
-            await self.__connections[username].websocket.send_json(vars(data))
+        try:
+            if self.has_connection(username):
+                print(f"send data {data} to {username}")
+                await self.__connections[username].websocket.send_json(vars(data))
+        except Exception as e:
+            print(f"send_to_user exception {e}")
 
     def remove_all_connections(self) -> None:
         self.__connections.clear()
-
-    def remove_connection(self, username) -> None:
-        if self.has_connection(username):
-            del self.__connections[username]
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
