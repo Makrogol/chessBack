@@ -46,7 +46,7 @@ class WebSocketManager:
             print(f"{datetime.datetime.now()} send_to_user {username} exception {e}")
 
     async def remove_all_connections(self) -> None:
-        for username in self.__connections:
+        for username in self.__connections.keys():
             await self.disconnect(username)
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
