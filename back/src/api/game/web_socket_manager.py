@@ -55,6 +55,7 @@ class WebSocketManager:
             self.__connections[opponent_username].game_data = copy.deepcopy(game_data)
             self.__connections[opponent_username].game_data.username = opponent_username
             self.__connections[opponent_username].game_data.opponent_username = game_data.username
+            self.__connections[opponent_username].game_data.is_opponent_turn = not game_data.is_opponent_turn
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
