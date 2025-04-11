@@ -49,6 +49,12 @@ class WebSocketManager:
         for username in self.__connections.keys():
             await self.disconnect(username)
 
+    def update_game_data_for_opponent(self, opponent_username: str, game_data: GameData) -> None:
+        if self.has_connection(opponent_username):
+            self.__connections[opponent_username].game_data = game_data
+            self.__connections[opponent_username].game_data.username = opponent_username
+            self.__connections[opponent_username].game_data.opponent_username = game_data.username
+
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
             self.__connections[username].game_data.username = username
