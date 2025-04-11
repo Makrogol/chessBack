@@ -42,6 +42,6 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
     )
     await manager.send_to_user(message.username, message)
 
-    print(f"{datetime.datetime.now()} before update")
+    print(f"{datetime.datetime.now()} before update {data}")
     manager.update_game_data_on_start_game(data.username, data.opponent_username, data.main_color)
-    print(f"{datetime.datetime.now()} after update")
+    print(f"{datetime.datetime.now()} after update {data}")
