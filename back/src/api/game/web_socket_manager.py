@@ -57,6 +57,7 @@ class WebSocketManager:
             self.__connections[opponent_username].game_data.username = opponent_username
             self.__connections[opponent_username].game_data.opponent_username = game_data.username
             self.__connections[opponent_username].game_data.is_opponent_turn = not game_data.is_opponent_turn
+            self.__connections[opponent_username].game_data.main_color = "2" if game_data.main_color == "1" else "1"
 
     def update_game_data_on_start_game(self, username: str, opponent_username: str, main_color: str) -> None:
         if self.has_connection(username):
