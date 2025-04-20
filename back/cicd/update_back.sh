@@ -2,8 +2,8 @@ sudo apt update
 sudo apt install docker-compose
 sudo apt install git
 
-docker compose stop chessback
-docker compose rm -f chessback
+docker-compose stop chessback
+docker-compose rm -f chessback
 docker system prune -af
 
 git pull
