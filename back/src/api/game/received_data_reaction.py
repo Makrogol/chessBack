@@ -14,10 +14,10 @@ from .schemas.websocket_sent_messages_schemas import (
 import datetime
 
 from ...core.config import BASE_DIR
-from ....core.chess_unparser import ChessUnparserByte
-from ....core.chess_parser import ChessParserStr
-from ....bot.bridge import Bridge
-from ....core.color import get_another_color
+from back.core.chess_unparser import ChessUnparserByte
+from back.core.chess_parser import ChessParserStr
+from back.bot.bridge import Bridge
+from back.core.color import get_another_color
 
 unparser = ChessUnparserByte()
 parser = ChessParserStr()

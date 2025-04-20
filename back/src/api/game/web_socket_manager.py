@@ -4,9 +4,9 @@ import copy
 from .schemas.websocket_sent_messages_schemas import BaseSentMessage
 from .schemas.websocket_schemas import WebSocketConnection, GameData
 import datetime
-from ....core.chess_unparser import ChessUnparserByte
-from ....core.chess_parser import ChessParserStr
-from ....core.color import get_another_color
+from back.core.chess_unparser import ChessUnparserByte
+from back.core.chess_parser import ChessParserStr
+from back.core.color import get_another_color
 
 parser = ChessParserStr()
 unparser = ChessUnparserByte()
