@@ -13,7 +13,7 @@ from graphviz import Digraph
 from .config import *
 
 # output vector mapping
-from mapper import Mapping
+from .mapper import Mapping
 import logging
 
 from ..cpp_bridge.board import Board
