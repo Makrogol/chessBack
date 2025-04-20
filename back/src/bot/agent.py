@@ -5,7 +5,7 @@ from keras.models import Model
 import time
 
 # import tensorflow as tf
-from mcts import MCTS
+from .mcts import MCTS
 
 # from tensorflow.keras.models import load_model
 

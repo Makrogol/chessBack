@@ -1,8 +1,7 @@
 sudo apt update
 sudo apt install docker-compose
 
-# Add execute permission to other scripts
-chmod +x update_back.sh
+# TODO add here creating venv and in update_back.sh source venv/bin/activate
 
 # Go to base dir
 cd ..
