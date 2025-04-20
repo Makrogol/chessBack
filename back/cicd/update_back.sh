@@ -10,6 +10,6 @@ git pull
 
 cd ..
 source .env
-docker compose up -d --build chessback
-docker compose exec chessback alembic upgrade head
+docker-compose up -d --build chessback
+docker-compose exec chessback alembic upgrade head
 docker attach chessback
