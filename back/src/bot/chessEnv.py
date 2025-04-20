@@ -28,7 +28,7 @@ class ChessEnv:
             self.cpp_api.startGameWithFen(Color.WHITE, self.fen)
 
     @staticmethod
-    def state_to_input(fen: str) -> np.ndarray(config.INPUT_SHAPE):
+    def state_to_input(fen: str) -> np.ndarray(INPUT_SHAPE):
         """
         Convert board to a fen that is interpretable by the model
         """
