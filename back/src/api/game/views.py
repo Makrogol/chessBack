@@ -2,7 +2,11 @@ from fastapi import APIRouter, WebSocket
 from starlette.websockets import WebSocketDisconnect
 import json
 
-from .utils import data_reaction, send_user_available_state, send_user_has_not_completed_game
+from .utils import (
+    data_reaction,
+    send_user_available_state,
+    send_user_has_not_completed_game,
+)
 from .web_socket_manager import WebSocketManager
 import datetime
 

@@ -1,7 +1,12 @@
 from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas.users_schemas import UserValidate, UserCreate, UserElement, UserExistValidation
+from .schemas.users_schemas import (
+    UserValidate,
+    UserCreate,
+    UserElement,
+    UserExistValidation,
+)
 from ...auth import utils
 from ...core.models.user import User
 from ..game.views import manager
@@ -10,7 +15,12 @@ from ..game.views import manager
 def __convert_users_to_user_elements(users):
     user_elements = []
     for user in users:
-        user_elements.append(UserElement(username=user.username, user_available=manager.has_connection(user.username)))
+        user_elements.append(
+            UserElement(
+                username=user.username,
+                user_available=manager.has_connection(user.username),
+            )
+        )
     return user_elements
 
 
@@ -46,7 +56,9 @@ async def get_user_by_username(session: AsyncSession, username: str) -> User | N
     return user
 
 
-async def is_user_with_username_exist(session: AsyncSession, user: UserExistValidation) -> bool:
+async def is_user_with_username_exist(
+    session: AsyncSession, user: UserExistValidation
+) -> bool:
     return await get_user_by_username(session, user.username) is not None
 
 

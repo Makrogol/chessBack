@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).parent.parent.parent
-load_dotenv(BASE_DIR / '.env')
+load_dotenv(BASE_DIR / ".env")
 
 
 class EnvVars(BaseModel):
@@ -18,7 +18,9 @@ class EnvVars(BaseModel):
 
 class DbSettings(BaseModel):
     env_vars: EnvVars = EnvVars()
-    url: str = f"postgresql+asyncpg://{env_vars.db_user}:{env_vars.db_password}@{env_vars.db_host}:{env_vars.db_port}/{env_vars.db_name}"
+    url: str = (
+        f"postgresql+asyncpg://{env_vars.db_user}:{env_vars.db_password}@{env_vars.db_host}:{env_vars.db_port}/{env_vars.db_name}"
+    )
     echo: bool = False
     # echo: bool = True
 

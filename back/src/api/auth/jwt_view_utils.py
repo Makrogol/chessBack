@@ -8,14 +8,17 @@ from ...auth import utils
 
 http_bearer = HTTPBearer(auto_error=False)
 
-def create_jwt_token(pyload: JwtPayload) ->str:
+
+def create_jwt_token(pyload: JwtPayload) -> str:
     return utils.encode_jwt(payload=pyload)
+
 
 def decode_jwt_token(token: str) -> dict:
     return utils.decode_jwt(token)
 
+
 def get_token_payload(
-        credentials: HTTPAuthorizationCredentials | None = Depends(http_bearer),
+    credentials: HTTPAuthorizationCredentials | None = Depends(http_bearer),
 ) -> dict | None:
     if credentials is None:
         return None
@@ -28,8 +31,9 @@ def get_token_payload(
     except InvalidTokenError as e:
         return None
 
+
 def get_user_from_jwt(
-        payload: dict | None = Depends(get_token_payload),
+    payload: dict | None = Depends(get_token_payload),
 ) -> UserExistValidation | None:
     if payload is None:
         return None
