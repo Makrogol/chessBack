@@ -14,10 +14,10 @@ from .schemas.websocket_sent_messages_schemas import (
 import datetime
 
 from ...core.config import BASE_DIR
-from back.core.chess_unparser import ChessUnparserByte
-from back.core.chess_parser import ChessParserStr
-from back.bot.bridge import Bridge
-from back.core.color import get_another_color
+from ...cpp_bridge.chess_unparser import ChessUnparserByte
+from ...cpp_bridge.chess_parser import ChessParserStr
+from ...bot.bridge import Bridge
+from ...cpp_bridge.color import get_another_color
 
 unparser = ChessUnparserByte()
 parser = ChessParserStr()
@@ -97,7 +97,7 @@ async def on_game_start(data: GameStartReceivedMessage, manager: WebSocketManage
         manager.update_game_data_on_start_game(
             username=data.opponent_username,
             opponent_username=data.username,
-            main_color=parser.color(get_another_color(unparser.color(data.main_color))),
+            main_color=parser.color(get_another_color(unparser.color_str(data.main_color))),
             is_switched_color=data.is_switched_color,
             is_play_with_bot=bool(data.is_play_with_bot)
         )

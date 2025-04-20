@@ -4,9 +4,9 @@ import copy
 from .schemas.websocket_sent_messages_schemas import BaseSentMessage
 from .schemas.websocket_schemas import WebSocketConnection, GameData
 import datetime
-from back.core.chess_unparser import ChessUnparserByte
-from back.core.chess_parser import ChessParserStr
-from back.core.color import get_another_color
+from ...cpp_bridge.chess_unparser import ChessUnparserByte
+from ...cpp_bridge.chess_parser import ChessParserStr
+from ...cpp_bridge.color import get_another_color
 
 parser = ChessParserStr()
 unparser = ChessUnparserByte()
@@ -69,7 +69,7 @@ class WebSocketManager:
             self.__connections[opponent_username].game_data.opponent_username = game_data.username
             self.__connections[opponent_username].game_data.is_opponent_turn = not game_data.is_opponent_turn
             self.__connections[opponent_username].game_data.main_color = parser.color(
-                get_another_color(unparser.color(game_data.main_color))
+                get_another_color(unparser.color_str(game_data.main_color))
             )
             self.__connections[opponent_username].game_data.is_switched_color = game_data.is_switched_color
             self.__connections[opponent_username].game_data.is_play_with_bot = game_data.is_play_with_bot

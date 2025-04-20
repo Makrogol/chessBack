@@ -11,9 +11,9 @@ import uuid
 import pandas as pd
 import numpy as np
 
-from back.core.color import Color
-from back.core.game_state import is_game_over, GameState
-from back.core.board import Board
+from ..cpp_bridge.color import Color
+from ..cpp_bridge.game_state import is_game_over, GameState
+from ..cpp_bridge.board import Board
 
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 

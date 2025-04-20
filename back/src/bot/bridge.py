@@ -4,7 +4,7 @@ import numpy as np
 
 from . import config
 from .agent import Agent
-from back.core.move import Move
+from ..cpp_bridge.move import Move
 
 
 class Bridge:

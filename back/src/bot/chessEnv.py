@@ -3,11 +3,11 @@ import numpy as np
 
 import logging
 
-from back.core.cpp_api import CppApi
-from back.core.board import Board
-from back.core.color import Color, get_all_colors
-from back.core.piece_type import PieceType, get_all_piece_types
-from back.core.move import Move
+from ..cpp_bridge.cpp_api import CppApi
+from ..cpp_bridge.board import Board
+from ..cpp_bridge.color import Color, get_all_colors
+from ..cpp_bridge.piece_type import PieceType, get_all_piece_types
+from ..cpp_bridge.move import Move
 
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 

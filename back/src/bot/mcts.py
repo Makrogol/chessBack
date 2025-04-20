@@ -16,12 +16,12 @@ import config
 from mapper import Mapping
 import logging
 
-from back.core.board import Board
-from back.core.move import Move
-from back.core.piece_type import PieceType
-from back.core.color import Color
-from back.core.game_state import is_game_over, GameState
-from back.core.cpp_api import CppApi
+from ..cpp_bridge.board import Board
+from ..cpp_bridge.move import Move
+from ..cpp_bridge.piece_type import PieceType
+from ..cpp_bridge.color import Color
+from ..cpp_bridge.game_state import is_game_over, GameState
+from ..cpp_bridge.cpp_api import CppApi
 
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 

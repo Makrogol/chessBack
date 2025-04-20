@@ -2,11 +2,11 @@ import config
 import math
 import logging
 
-from back.core.move import Move
-from back.core.color import Color
-from back.core.game_state import is_game_over
-from back.core.move_type import MoveType
-from back.core.cpp_api import CppApi
+from ..cpp_bridge.move import Move
+from ..cpp_bridge.color import Color
+from ..cpp_bridge.game_state import is_game_over
+from ..cpp_bridge.move_type import MoveType
+from ..cpp_bridge.cpp_api import CppApi
 
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 

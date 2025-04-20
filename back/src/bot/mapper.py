@@ -2,8 +2,8 @@ from enum import Enum
 from typing import Tuple
 import numpy as np
 
-from back.core.piece_type import PieceType
-from back.core.position import Position
+from ..cpp_bridge.piece_type import PieceType
+from ..cpp_bridge.position import Position
 
 
 # TODO унести это куда-то в другое место и мб сделать так эту штуку как-то по-другому (хотя придется модель переучивать)

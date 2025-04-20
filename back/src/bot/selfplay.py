@@ -14,7 +14,7 @@ import config
 import numpy as np
 from GUI.display import GUI
 
-from back.core.color import Color
+from ..cpp_bridge.color import Color
 
 
 # set logging config

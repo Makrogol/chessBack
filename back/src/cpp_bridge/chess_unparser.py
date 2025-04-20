@@ -34,7 +34,7 @@ class ChessUnparserByte:
         color_int = int(color_str.decode("utf-8"))
         return Color(color_int)
 
-    def color(self, color_str: str) -> Color:
+    def color_str(self, color_str: str) -> Color:
         color_int = int(color_str)
         return Color(color_int)
 

@@ -1,5 +1,5 @@
-from back.core.cpp_api import CppApi
-from back.core.color import Color
+from ..cpp_bridge.cpp_api import CppApi
+from ..cpp_bridge.color import Color
 
 from GUI.display import GUI
 

@@ -6,11 +6,11 @@ from mapper import Mapping
 import config
 from node import Node
 
-from back.core.move import Move
-from back.core.piece import Piece
-from back.core.board import Board
-from back.core.piece_type import PieceType
-from back.core.chess_unparser import ChessUnparserByte
+from ..cpp_bridge.move import Move
+from ..cpp_bridge.piece import Piece
+from ..cpp_bridge.board import Board
+from ..cpp_bridge.piece_type import PieceType
+from ..cpp_bridge.chess_unparser import ChessUnparserByte
 
 
 def save_input_state_to_imgs(input_state: np.ndarray, path: str):

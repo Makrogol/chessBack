@@ -9,8 +9,8 @@ import logging
 
 from GUI.display import GUI
 
-from back.core.color import Color
-from back.core.game_state import is_game_over
+from ..cpp_bridge.color import Color
+from ..cpp_bridge.game_state import is_game_over
 
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 
