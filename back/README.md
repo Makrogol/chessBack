@@ -105,3 +105,8 @@ openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 ```shell
 poetry export --without-hashes --format=requirements.txt > .\requirements.txt
 ```
+
+## If docker show error "Permission denied" on up can help this command
+```shell
+sudo chmod 777 /var/run/docker.sock
+```
