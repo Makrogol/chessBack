@@ -12,6 +12,12 @@ from .schemas.websocket_received_messages_schemas import (
 from ...core.utils import has_field
 from .recieved_data_type import ReceivedDataType
 from .web_socket_manager import WebSocketManager
+from ...cpp_bridge.chess_unparser import ChessUnparserByte
+from ...cpp_bridge.chess_parser import ChessParserStr
+from ...cpp_bridge.color import get_another_color
+
+unparser = ChessUnparserByte()
+parser = ChessParserStr()
 
 
 def parse_received_data(data: dict) -> ReceivedDataType:
@@ -45,6 +51,8 @@ async def send_user_available_state(
     message = UserAvailableSentMessage(username=username, user_available=user_available)
     await manager.broadcast(message)
 
+    manager.set_user_available(user_available, username)
+
 
 async def send_user_has_not_completed_game(
         manager: WebSocketManager, username: str
@@ -57,6 +65,15 @@ async def send_user_has_not_completed_game(
         is_opponent_turn=game_data.is_opponent_turn,
         main_color=game_data.main_color,
         is_switched_color=game_data.is_switched_color,
+        is_play_with_bot=game_data.is_play_with_bot,
+    ) if game_data.username != username else NotCompletedGameSentMessage(  # TODO убрать этот костыль галимый
+        username=game_data.username,
+        opponent_username=game_data.opponent_username,
+        game_fen=game_data.game_fen,
+        is_opponent_turn=not game_data.is_opponent_turn,
+        main_color=parser.color(get_another_color(unparser.color_str(game_data.main_color))),
+        is_switched_color=game_data.is_switched_color,
+        is_play_with_bot=game_data.is_play_with_bot,
     )
 
     manager.update_game_data_for_opponent(username, game_data)

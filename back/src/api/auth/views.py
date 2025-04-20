@@ -35,7 +35,7 @@ async def available_user(
     username: str,
 ) -> UserAvailableResponse:
     return UserAvailableResponse(
-        user_available=manager.has_connection(username),
+        user_available=manager.is_user_available(username),
     )
 
 

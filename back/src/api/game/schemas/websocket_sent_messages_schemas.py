@@ -40,6 +40,7 @@ class UserAvailableSentMessage(UsernameSentMessage):
 
 class NotCompletedGameSentMessage(GameStartSentMessage, GameFenSentMessage):
     is_opponent_turn: bool
+    is_play_with_bot: bool
 
 
 class GameDeclineSentMessage(UserDataSentMessage):

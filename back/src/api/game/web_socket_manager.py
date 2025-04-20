@@ -21,20 +21,23 @@ class WebSocketManager:
         self.__connections[username] = WebSocketConnection(websocket=websocket)
 
     async def disconnect(self, username: str) -> None:
-        try:
-            if self.has_connection(username):
-                print(f"{datetime.datetime.now()} disconnect {username}")
-                await self.__connections[username].websocket.close()
-                del self.__connections[username]
-        except Exception as e:
-            print(f"{datetime.datetime.now()} disconnect {username} exception {e}")
-            del self.__connections[username]
+        if self.is_user_available(username):
+            self.__connections[username].game_data.user_available = False
+        # try:
+        #     if self.has_connection(username):
+        #         print(f"{datetime.datetime.now()} disconnect {username}")
+        #         await self.__connections[username].websocket.close()
+        #         del self.__connections[username]
+        # except Exception as e:
+        #     print(f"{datetime.datetime.now()} disconnect {username} exception {e}")
+        #     del self.__connections[username]
 
     async def broadcast(self, data: BaseSentMessage) -> None:
         for username, connection in self.__connections.items():
             print(f"{datetime.datetime.now()} broadcast send data {data} to {username}")
             try:
-                await connection.websocket.send_json(vars(data))
+                if self.is_user_available(username):
+                    await connection.websocket.send_json(vars(data))
             except Exception as e:
                 print(
                     f"{datetime.datetime.now()} broadcast send to {username} exception {e}"
@@ -42,7 +45,7 @@ class WebSocketManager:
 
     async def send_to_user(self, username: str, data: BaseSentMessage) -> None:
         try:
-            if self.has_connection(username):
+            if self.is_user_available(username):
                 print(f"{datetime.datetime.now()} send data {data} to {username}")
                 await self.__connections[username].websocket.send_json(vars(data))
         except Exception as e:
@@ -102,7 +105,9 @@ class WebSocketManager:
     def clear_game_data(self, username: str) -> None:
         if self.has_connection(username):
             # TODO сюда можно писать не пустую гейм дату, а нан просто
+            is_user_available = self.__connections[username].game_data.is_user_available
             self.__connections[username].game_data = GameData()
+            self.__connections[username].game_data.is_user_available = is_user_available
 
     def has_any_connection(self) -> bool:
         return self.__connections != {}
@@ -110,11 +115,21 @@ class WebSocketManager:
     def has_not_completed_game(self, opponent_username: str) -> bool:
         return self.get_not_completed_game_data(opponent_username) is not None
 
+    def is_user_available(self, username: str) -> bool:
+        return self.has_connection(username) and self.__connections[username].game_data.user_available
+
+    def set_user_available(self, user_available: bool, username: str) -> None:
+        if self.has_connection(username):
+            self.__connections[username].game_data.user_available = user_available
+
     def get_not_completed_game_data(self, opponent_username: str) -> GameData | None:
+        # TODO так записи в словаре будут оч быстро накапливаться и надо будет их через время удалять
+        if self.is_user_available(opponent_username) and self.__connections[opponent_username].game_data.game_fen is not None:
+            return self.__connections[opponent_username].game_data
+
         for username in self.__connections.keys():
             if (
-                    self.__connections[username].game_data.opponent_username
-                    == opponent_username
+                    self.__connections[username].game_data.opponent_username == opponent_username
                     and self.__connections[username].game_data.game_fen is not None
             ):
                 return self.__connections[username].game_data

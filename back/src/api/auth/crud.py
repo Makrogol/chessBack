@@ -18,7 +18,7 @@ def __convert_users_to_user_elements(users):
         user_elements.append(
             UserElement(
                 username=user.username,
-                user_available=manager.has_connection(user.username),
+                user_available=manager.is_user_available(user.username),
             )
         )
     return user_elements

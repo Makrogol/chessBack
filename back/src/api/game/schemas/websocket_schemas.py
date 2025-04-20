@@ -7,7 +7,7 @@ class BaseSchema(BaseModel):
 
 
 class GameData(BaseSchema):
-    # TODo зачем тут юзернейм
+    # TODO зачем тут юзернейм
     username: str | None = None
     opponent_username: str | None = None
     game_fen: str | None = None
@@ -15,6 +15,7 @@ class GameData(BaseSchema):
     main_color: str | None = None
     is_switched_color: str | None = None
     is_play_with_bot: bool | None = None
+    user_available: bool | None = None
 
 
 class WebSocketConnection(BaseModel):
