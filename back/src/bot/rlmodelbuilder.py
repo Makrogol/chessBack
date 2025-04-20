@@ -12,7 +12,7 @@ from tensorflow.python.keras.engine.keras_tensor import KerasTensor
 # disable eager execution
 
 
-import config
+from .config import *
 
 
 class RLModelBuilder:
@@ -34,8 +34,8 @@ class RLModelBuilder:
         # define class variables
         self.input_shape = input_shape
         self.output_shape = output_shape
-        self.nr_hidden_layers = config.AMOUNT_OF_RESIDUAL_BLOCKS
-        self.convolution_filters = config.CONVOLUTION_FILTERS
+        self.nr_hidden_layers = AMOUNT_OF_RESIDUAL_BLOCKS
+        self.convolution_filters = CONVOLUTION_FILTERS
 
         # tensorflow: gpu memory growth
         # gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -66,7 +66,7 @@ class RLModelBuilder:
                 "policy_head": "categorical_crossentropy",
                 "value_head": "mean_squared_error",
             },
-            optimizer=Adam(learning_rate=config.LEARNING_RATE),
+            optimizer=Adam(learning_rate=LEARNING_RATE),
             loss_weights={"policy_head": 0.5, "value_head": 0.5},
         )
         # return the compiled model
@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
     # create the model
     model_builder = RLModelBuilder(
-        input_shape=config.INPUT_SHAPE, output_shape=config.OUTPUT_SHAPE
+        input_shape=INPUT_SHAPE, output_shape=OUTPUT_SHAPE
     )
     model = model_builder.build_model()
 
