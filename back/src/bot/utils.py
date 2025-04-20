@@ -2,9 +2,9 @@ import socket
 import numpy as np
 from PIL import Image
 import time
-from mapper import Mapping
-import config
-from node import Node
+from .mapper import Mapping
+from .config import *
+from .node import Node
 
 from ..cpp_bridge.move import Move
 from ..cpp_bridge.piece import Piece
@@ -72,7 +72,7 @@ def time_function(func):
     return wrap_func
 
 
-def moves_to_output_vector(moves: dict, fen: str = config.DEFAULT_FEN) -> np.ndarray:
+def moves_to_output_vector(moves: dict, fen: str = DEFAULT_FEN) -> np.ndarray:
     """
     Convert a dictionary of moves to a vector of probabilities
     """
@@ -83,7 +83,7 @@ def moves_to_output_vector(moves: dict, fen: str = config.DEFAULT_FEN) -> np.nda
     return np.asarray(vector)
 
 
-def move_to_plane_index(move: str, fen: str = config.DEFAULT_FEN):
+def move_to_plane_index(move: str, fen: str = DEFAULT_FEN):
     """ "
     Convert a move to a plane index and the row and column on the board
     """
@@ -130,13 +130,13 @@ def recvall(sock: socket.socket, count: int = 0) -> bytes:
     buffer = b""
     if count == 0:
         while True:
-            part = sock.recv(config.SOCKET_BUFFER_SIZE)
+            part = sock.recv(SOCKET_BUFFER_SIZE)
             buffer += part
-            if len(part) < config.SOCKET_BUFFER_SIZE:
+            if len(part) < SOCKET_BUFFER_SIZE:
                 break
     else:
         while count > 0:
-            part = sock.recv(config.SOCKET_BUFFER_SIZE)
+            part = sock.recv(SOCKET_BUFFER_SIZE)
             buffer += part
             count -= len(part)
     return buffer

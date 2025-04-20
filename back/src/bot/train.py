@@ -2,13 +2,13 @@ import argparse
 import os
 from typing import Tuple
 import numpy as np
-from chessEnv import ChessEnv
-import config
+from .chessEnv import ChessEnv
+from .config import *
 from keras.models import Model
 from keras.models import load_model, save_model
 from matplotlib import pyplot as plt
 import pandas as pd
-import utils
+from .utils import *
 from tqdm import tqdm
 from datetime import datetime
 
@@ -16,7 +16,7 @@ from datetime import datetime
 class Trainer:
     def __init__(self, model: Model):
         self.model = model
-        self.batch_size = config.BATCH_SIZE
+        self.batch_size = BATCH_SIZE
 
     def sample_batch(self, data):
         if self.batch_size > len(data):
@@ -35,7 +35,7 @@ class Trainer:
         for position in data:
             # for every position in the batch, get the output probablity vector and value of the state
             fen = position[0]
-            moves = utils.moves_to_output_vector(position[1], fen)
+            moves = moves_to_output_vector(position[1], fen)
             y_probs.append(moves)
             y_value.append(position[2])
         return X, (np.array(y_probs).reshape(len(y_probs), 4672), np.array(y_value))
@@ -93,14 +93,14 @@ class Trainer:
         plt.plot(policy_loss, label="policy_head_loss")
         plt.plot(value_loss, label="value_head_loss")
         plt.legend()
-        plt.title(f"Loss over time\nLearning rate: {config.LEARNING_RATE}")
+        plt.title(f"Loss over time\nLearning rate: {LEARNING_RATE}")
         plt.savefig(
-            f"{config.LOSS_PLOTS_FOLDER}/loss-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.png"
+            f"{LOSS_PLOTS_FOLDER}/loss-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.png"
         )
 
     def save_model(self):
-        os.makedirs(config.MODEL_FOLDER, exist_ok=True)
-        path = f"{config.MODEL_FOLDER}/model-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.keras"
+        os.makedirs(MODEL_FOLDER, exist_ok=True)
+        path = f"{MODEL_FOLDER}/model-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.keras"
         save_model(self.model, path)
         print(f"Model trained. Saved model to {path}")
 

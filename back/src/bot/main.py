@@ -1,9 +1,9 @@
 import threading
 import time
 import numpy as np
-from chessEnv import ChessEnv
-from game import Game
-from agent import Agent
+from .chessEnv import ChessEnv
+from .game import Game
+from .agent import Agent
 import argparse
 import logging
 

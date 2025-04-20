@@ -1,6 +1,6 @@
-from agent import Agent
-from chessEnv import ChessEnv
-from game import Game
+from .agent import Agent
+from .chessEnv import ChessEnv
+from .game import Game
 
 
 class Evaluation:

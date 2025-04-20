@@ -1,6 +1,6 @@
 # implement the Monte Carlo Tree Search algorithm
-from chessEnv import ChessEnv
-from node import Node, Edge
+from .chessEnv import ChessEnv
+from .node import Node, Edge
 import numpy as np
 from tqdm import tqdm
 import threading
@@ -10,7 +10,7 @@ import threading
 # graphing mcts
 from graphviz import Digraph
 
-import config
+from .config import *
 
 # output vector mapping
 from mapper import Mapping
@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message
 
 
 class MCTS:
-    def __init__(self, agent: "Agent", fen: str = config.DEFAULT_FEN, stochastic=False):
+    def __init__(self, agent: "Agent", fen: str = DEFAULT_FEN, stochastic=False):
         """
         An object of the MCTS class represents a tree that can be built using
         the Monte Carlo Tree Search algorithm. The tree contists of nodes and edges.
@@ -79,7 +79,7 @@ class MCTS:
                 return node
             noise = [1 for _ in range(len(node.edges))]
             if self.stochastic and node == self.root:
-                noise = np.random.dirichlet([config.DIRICHLET_NOISE] * len(node.edges))
+                noise = np.random.dirichlet([DIRICHLET_NOISE] * len(node.edges))
             best_edge = None
             best_score = -np.inf
             for i, edge in enumerate(node.edges):
@@ -151,7 +151,7 @@ class MCTS:
             - final 9 planes: underpromotions (left diagonal, right diagonal, forward) * (three possible pieces (knight, bishop, rook))
         """
         probabilities = probabilities.reshape(
-            config.amount_of_planes, config.n, config.n
+            amount_of_planes, n, n
         )
         # mask = np.zeros((config.amount_of_planes, config.n, config.n))
 

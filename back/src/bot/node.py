@@ -1,4 +1,4 @@
-import config
+from .config import *
 import math
 import logging
 
@@ -40,8 +40,8 @@ class Edge:
 
     def upper_confidence_bound(self, noise: float) -> float:
         exploration_rate = (
-                math.log((1 + self.input_node.N + config.C_base) / config.C_base)
-                + config.C_init
+                math.log((1 + self.input_node.N + C_base) / C_base)
+                + C_init
         )
         ucb = (
             exploration_rate
@@ -55,7 +55,7 @@ class Edge:
 
 
 class Node:
-    def __init__(self, fen: str = config.DEFAULT_FEN):
+    def __init__(self, fen: str = DEFAULT_FEN):
         """
         A node is a fen inside the MCTS tree.
         """

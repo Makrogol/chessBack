@@ -1,6 +1,6 @@
 import logging
-from rlmodelbuilder import RLModelBuilder
-import config
+from .rlmodelbuilder import RLModelBuilder
+from .config import *
 from keras.models import Model
 import time
 
@@ -21,7 +21,7 @@ class Agent:
         self,
         local_predictions: bool = True,
         model_path=None,
-        fen: str = config.DEFAULT_FEN,
+        fen: str = DEFAULT_FEN,
     ):
         """
         An agent is an object that can play chessmoves on the environment.
@@ -57,7 +57,7 @@ class Agent:
         """
         Build a new model based on the configuration in config.py
         """
-        model_builder = RLModelBuilder(config.INPUT_SHAPE, config.OUTPUT_SHAPE)
+        model_builder = RLModelBuilder(INPUT_SHAPE, OUTPUT_SHAPE)
         model = model_builder.build_model()
         return model
 
@@ -73,9 +73,9 @@ class Agent:
         Save the current model to a file
         """
         if timestamped:
-            self.model.save(f"{config.MODEL_FOLDER}/model-{time.time()}.keras")
+            self.model.save(f"{MODEL_FOLDER}/model-{time.time()}.keras")
         else:
-            self.model.save(f"{config.MODEL_FOLDER}/model.keras")
+            self.model.save(f"{MODEL_FOLDER}/model.keras")
 
     def predict(self, data):
         """

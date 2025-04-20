@@ -1,12 +1,12 @@
 import os
 import time
-from chessEnv import ChessEnv
-from agent import Agent
-import utils
+from .chessEnv import ChessEnv
+from .agent import Agent
+from .utils import *
 import logging
-import config
-from node import Edge
-from mcts import MCTS
+from .config import *
+from .node import Edge
+from .mcts import MCTS
 import uuid
 import pandas as pd
 import numpy as np
@@ -47,7 +47,7 @@ class Game:
             else -1 if result == GameState.MATE_FOR_WHITE else 0
         )
 
-    @utils.time_function
+    @time_function
     def play_one_game(self, stochastic: bool = True) -> int:
         """
         Play one game from the starting position, and save it to memory.
@@ -212,7 +212,7 @@ class Game:
         )
         logging.info(f"<game> Memory size: {len(self.memory)}")
 
-    @utils.time_function
+    @time_function
     def train_puzzles(self, puzzles: pd.DataFrame):
         """
         Create positions from puzzles (fen strings) and let the MCTS figure out how to solve them.

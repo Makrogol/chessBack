@@ -7,12 +7,12 @@ import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import socket
 import time
-from agent import Agent
-from chessEnv import ChessEnv
-from game import Game
-import config
+from .agent import Agent
+from .chessEnv import ChessEnv
+from .game import Game
+from .config import *
 import numpy as np
-from GUI.display import GUI
+from .GUI.display import GUI
 
 from ..cpp_bridge.color import Color
 
@@ -21,7 +21,7 @@ from ..cpp_bridge.color import Color
 logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message)s")
 
 
-def setup(fen: str = config.DEFAULT_FEN, local_predictions=False) -> Game:
+def setup(fen: str = DEFAULT_FEN, local_predictions=False) -> Game:
     """
     Setup function to set up a game.
     This can be used in both the self-play and puzzle solving function
@@ -39,7 +39,7 @@ def setup(fen: str = config.DEFAULT_FEN, local_predictions=False) -> Game:
     env = ChessEnv(fen=fen)
 
     # create agents
-    model_path = os.path.join(config.MODEL_FOLDER, "model.keras")
+    model_path = os.path.join(MODEL_FOLDER, "model.keras")
     white = Agent(local_predictions, model_path, env.fen)
     black = Agent(local_predictions, model_path, env.fen)
 

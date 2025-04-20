@@ -1,4 +1,4 @@
-import config
+from .config import *
 import numpy as np
 
 import logging
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, filename="_log_.log", format=" %(message
 
 
 class ChessEnv:
-    def __init__(self, fen: str = config.DEFAULT_FEN):
+    def __init__(self, fen: str = DEFAULT_FEN):
         """
         Initialize the chess environment
         """
@@ -23,7 +23,7 @@ class ChessEnv:
         self.reset()
 
     def reset(self):
-        self.fen = config.DEFAULT_FEN
+        self.fen = DEFAULT_FEN
         if self.cpp_api.getFen() != self.fen:
             self.cpp_api.startGameWithFen(Color.WHITE, self.fen)
 
@@ -81,7 +81,7 @@ class ChessEnv:
             en_passant[board.passant_position.i][board.passant_position.j] = True
 
         r = np.array([is_white_turn, *castling, counter, *arrays, en_passant]).reshape(
-            (1, *config.INPUT_SHAPE)
+            (1, * INPUT_SHAPE)
         )
         # memory management
         return r.astype(int)

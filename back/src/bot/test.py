@@ -1,7 +1,7 @@
 from ..cpp_bridge.cpp_api import CppApi
 from ..cpp_bridge.color import Color
 
-from GUI.display import GUI
+from .GUI.display import GUI
 
 # TODO написать тест на фен, когда нет прав рокироваться
 # cpp_api = CppApi()

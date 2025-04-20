@@ -3,10 +3,10 @@ import logging
 import os
 import socket
 from typing import Tuple
-import config
+from .config import *
 import numpy as np
 import threading
-import utils
+from .utils import *
 
 from dotenv import load_dotenv
 
@@ -17,7 +17,7 @@ from tensorflow.keras.models import load_model
 
 logging.basicConfig(level=logging.INFO, format=" %(message)s")
 
-model = load_model(config.MODEL_FOLDER + "/model.keras")
+model = load_model(MODEL_FOLDER + "/model.keras")
 
 
 @tf.function(experimental_follow_type_hints=True)
@@ -89,7 +89,7 @@ class ClientHandler(threading.Thread):
         inputs to the server, and returns the server's predictions to the client.
         """
         super().__init__()
-        self.BUFFER_SIZE = config.SOCKET_BUFFER_SIZE
+        self.BUFFER_SIZE = SOCKET_BUFFER_SIZE
         self.sock = sock
         self.address = address
 
@@ -102,7 +102,7 @@ class ClientHandler(threading.Thread):
                 self.close()
                 break
             data = np.array(np.frombuffer(data, dtype=bool))
-            data = data.reshape(1, *config.INPUT_SHAPE)
+            data = data.reshape(1, *INPUT_SHAPE)
             data = tf.convert_to_tensor(data, dtype=tf.bool)
             # make prediction
             p, v = predict(data)
@@ -122,7 +122,7 @@ class ClientHandler(threading.Thread):
                 # this happens if the socket connects and then closes without sending data
                 return data
             data_length = int(data_length.decode("ascii"))
-            data = utils.recvall(self.sock, data_length)
+            data = recvall(self.sock, data_length)
             if len(data) != 1216:
                 data = None
                 raise ValueError("Invalid data length, closing socket")
