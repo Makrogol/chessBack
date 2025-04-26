@@ -35,6 +35,7 @@ class Agent:
             from tensorflow.keras.models import load_model
 
             self.model = load_model(model_path)
+            print("agent created model")
             self.local_predictions = True
             np_config.enable_numpy_behavior()
         # else:

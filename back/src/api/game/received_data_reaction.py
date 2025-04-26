@@ -21,7 +21,7 @@ from ...cpp_bridge.color import get_another_color
 
 unparser = ChessUnparserByte()
 parser = ChessParserStr()
-bridge = Bridge(str(BASE_DIR / "src" / "bot" / "models" / "model.keras"))
+bridge = Bridge(str("models/model.keras"))
 
 
 def change_move_for_opponent(move_str: str) -> str:
