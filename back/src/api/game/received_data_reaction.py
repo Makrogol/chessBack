@@ -31,6 +31,7 @@ def change_move_for_opponent(move_str: str) -> str:
 
 
 async def on_turn(data: TurnReceivedMessage, manager: WebSocketManager) -> None:
+    print(f"on turn username {data.username}")
     if manager.is_user_play_with_bot(data.username):
         print(f'user {data.username} is playing with bot')
         move, fen = bridge.predict_move(data.game_fen)
