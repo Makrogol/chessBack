@@ -18,10 +18,11 @@ from ...cpp_bridge.chess_unparser import ChessUnparserByte
 from ...cpp_bridge.chess_parser import ChessParserStr
 from ...bot.bridge import Bridge
 from ...cpp_bridge.color import get_another_color
+import os
 
 unparser = ChessUnparserByte()
 parser = ChessParserStr()
-bridge = Bridge(str("models/model.keras"))
+bridge = Bridge(os.path.join(os.environ.get("MODEL_FOLDER", "models"), "model.keras"))
 
 
 def change_move_for_opponent(move_str: str) -> str:
