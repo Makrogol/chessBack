@@ -14,6 +14,7 @@ class Bridge:
     def predict_move(self, fen: str) -> Tuple[Move, str]:
         print(f"predict move for fen {fen}")
         agent = Agent(fen=fen, local_predictions=True, model_path=self.model_path)
+        print("predict move create agent")
         agent.run_simulations(n=config.SIMULATIONS_PER_MOVE)
         moves = agent.mcts.root.edges
         print(f"predict move find all moves")
