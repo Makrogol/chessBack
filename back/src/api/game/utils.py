@@ -34,6 +34,7 @@ def parse_received_data(data: dict) -> ReceivedDataType:
 
 async def data_reaction(manager: WebSocketManager, data: dict) -> None:
     received_data_type = parse_received_data(data)
+    print(f'received data {data}')
     match received_data_type:
         case ReceivedDataType.TURN_DATA:  # Сама игра
             await on_turn(TurnReceivedMessage(**data), manager)
