@@ -29,6 +29,7 @@ class Agent:
         It holds an MCTS object that is used to run MCTS simulations to build a tree.
         """
         if local_predictions and model_path is not None:
+            print(f"creating agent for model_path {model_path}")
             logging.info("<agent> Using local predictions")
             from tensorflow.python.ops.numpy_ops import np_config
             from tensorflow.keras.models import load_model
