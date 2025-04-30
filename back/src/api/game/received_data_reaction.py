@@ -22,7 +22,7 @@ import os
 
 unparser = ChessUnparserByte()
 parser = ChessParserStr()
-bridge = Bridge(os.path.join(os.environ.get("MODEL_FOLDER", "models"), "model.keras"))
+bridge = Bridge(str(BASE_DIR / "src" / "bot" / "models" / "model.keras"))
 
 
 def change_move_for_opponent(move_str: str) -> str:
