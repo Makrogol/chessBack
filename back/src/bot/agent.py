@@ -39,6 +39,8 @@ class Agent:
                 print("agent created model")
                 self.local_predictions = True
                 np_config.enable_numpy_behavior()
+                self.mcts = MCTS(self, fen=fen)
+                print("finish work agent init")
         except Exception as e:
             print(e)
         # else:
@@ -56,7 +58,6 @@ class Agent:
         #         exit(1)
         #     logging.info(f"Agent connected to server {server}:{port}")
 
-        self.mcts = MCTS(self, fen=fen)
 
     def build_model(self) -> Model:
         """
