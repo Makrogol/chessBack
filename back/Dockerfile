@@ -1,5 +1,5 @@
-FROM python:3.12
 FROM gcc:latest
+FROM python:3.12
 #FROM alpine:edge
 #
 #ENV LD_LIBRARY_PATH=/lib
