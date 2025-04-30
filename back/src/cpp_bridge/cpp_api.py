@@ -11,13 +11,15 @@ from .piece_type import PieceType
 from .board import BoardRepresentation
 from .move import Move
 
+from ..core.config import BASE_DIR
+
 
 class CppApi:
     def __init__(self) -> None:
         self.parser = ChessParserByte()
         self.unparser = ChessUnparserByte()
 
-        self.lib = ctypes.CDLL(str(Path(__file__) / "build" / "libcyclechesscpp.so"))
+        self.lib = ctypes.CDLL(str(BASE_DIR / "src" / "cpp_bridge" / "build" / "libcyclechesscpp.so"))
 
         self.lib.startGame.argtypes = [ctypes.c_char_p]
 
