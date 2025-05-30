@@ -46,12 +46,6 @@ struct HistoryRecord {
             && blackMove == secondRecord.blackMove;
     }
 
-    // Тут получить ход с противоположным цветом
-    HistoryMove getMoveForColor(Color color) const {
-        // TODO как-то поправить элсы на то, чтобы не было тут NoColor
-        return color == Color::WHITE ? blackMove : whiteMove;
-    }
-
     // Тут получить ход с таким же цветом
     HistoryMove getMoveByColor(Color color) const {
         // TODO как-то поправить элсы на то, чтобы не было тут NoColor

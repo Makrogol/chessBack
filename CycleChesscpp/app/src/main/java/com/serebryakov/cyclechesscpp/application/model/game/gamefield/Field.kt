@@ -12,9 +12,11 @@ import com.serebryakov.cyclechesscpp.application.model.game.PieceType
 import com.serebryakov.cyclechesscpp.application.model.game.Position
 import com.serebryakov.cyclechesscpp.application.model.game.QueenPiece
 import com.serebryakov.cyclechesscpp.application.model.game.RookPiece
+import com.serebryakov.cyclechesscpp.application.model.game.createPieceByPieceType
 import com.serebryakov.cyclechesscpp.application.model.game.getAnotherColor
 import com.serebryakov.cyclechesscpp.application.model.game.size
 import com.serebryakov.cyclechesscpp.application.model.game.toPieceColor
+import com.serebryakov.cyclechesscpp.application.model.game.toPieceType
 
 class Field {
     private val field = mutableListOf<MutableList<Cell>>()
@@ -58,6 +60,35 @@ class Field {
         val newRookPosition = Position(position.i, newKingPosition.j - if(position.j > newPosition.j) -1 else 1)
         movePiece(position, newKingPosition)
         movePiece(newPosition, newRookPosition)
+    }
+
+    fun generateFieldByFen(fen: String) {
+        generateEmptyField()
+        // TODO унести в unparser
+        val board = fen.split(' ')[0]
+        val lines = board.split('/')
+
+        for (i in lines.indices) {
+            var j = 0
+            var isCountStepsDigit = false
+            for (k in lines[i].indices) {
+                if (lines[i][k].isDigit()) {
+                    if (isCountStepsDigit) {
+                        isCountStepsDigit = false
+                    } else {
+                        j += lines[i][k].toString().toInt()
+                    }
+                } else if (lines[i][k].isLetter()) {
+                    val color = if (lines[i][k].isUpperCase()) PieceColor.white else PieceColor.black
+                    val pieceType = lines[i][k].lowercaseChar().toPieceType()
+                    val countSteps = lines[i][k + 1].toString().toInt()
+                    field[i][j].piece = createPieceByPieceType(pieceType, color, Position(i, j))
+                    field[i][j].piece?.countSteps = countSteps
+                    isCountStepsDigit = true
+                    j += 1
+                }
+            }
+        }
     }
 
     fun getPiece(position: Position): BasePiece? {

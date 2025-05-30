@@ -17,6 +17,11 @@ void Main::startGameWithFen(const String& mainColorString, const String& fen) {
     game.startGameWithFen(mainColor, fen);
 }
 
+void Main::startGameWithReversedFen(const String& mainColorString, const String& fen) {
+    const Color mainColor = Unparser::getColor(mainColorString);
+    game.startGameWithReversedFen(mainColor, fen);
+}
+
 String Main::getPossibleMovesForPosition(const String& positionString) {
     const Position position = Unparser::getPositionToPossibleMove(positionString);
     Board::Route possibleMoves = game.getPossibleMovesForPosition(position);
@@ -24,8 +29,8 @@ String Main::getPossibleMovesForPosition(const String& positionString) {
 }
 
 String Main::getCurrentTurn() {
-    const Color turmColor = game.getCurrentTurn();
-    return Parser::color(turmColor);
+    const Color turnColor = game.getCurrentTurn();
+    return Parser::color(turnColor);
 }
 
 String Main::getKingPositionByColor(const String& colorString) {
@@ -62,6 +67,8 @@ String Main::tryDoMoveV2(const String& moveString) {
     MoveType resultDoMove = game.tryDoMove(move.positionFirst, move.positionSecond);
     if (resultDoMove == MoveType::MAGIC_PAWN_TRANSFORMATION && move.promotion != PieceType::EMPTY) {
         bool result = game.tryDoMagicPawnTransformation(move.positionSecond, move.promotion);
+        // TODO возможно не совсем правильно, что тут подменяется resultDoMove с MAGIC_PAWN_TRANSFORMATION
+        // на что-то другое
         if (result) {
             resultDoMove = MoveType::NOT_SPECIAL;
         } else {

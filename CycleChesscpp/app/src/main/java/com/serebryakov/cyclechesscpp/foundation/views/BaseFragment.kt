@@ -12,7 +12,6 @@ import com.serebryakov.cyclechesscpp.foundation.model.SuccessResult
 import java.lang.Exception
 
 //Базовый класс для фрагмента
-
 abstract class BaseFragment : Fragment() {
 
     abstract val viewModel: BaseViewModel
@@ -24,7 +23,7 @@ abstract class BaseFragment : Fragment() {
         onSuccess: (T) -> Unit,
         onEmpty: () -> Unit = {},
     ) {
-        root.children.forEach { it.visibility = View.GONE }
+        root.alpha = 0.0f
 
         when (result) {
             is SuccessResult -> onSuccess(result.data)
@@ -33,5 +32,4 @@ abstract class BaseFragment : Fragment() {
             is EmptyResult -> onEmpty()
         }
     }
-
 }

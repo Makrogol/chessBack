@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/app_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="10dp"
+        android:text="Циклические\nшахматы"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <LinearLayout
+        android:id="@+id/main_ui_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <!--        TODO Сделать настриваемые размеры (думаю 1/3 экрана-->
+        <!--        этих полей, чтобы они динамически менялись в зависимости-->
+        <!--        разрешения экрана-->
+
+        <!--        TODO Сделать хинты не белыми, а какими-нибудь серыми-->
+
+        <!--         TODO Перенести строки в ресурсы-->
+
+        <TextView
+            android:id="@+id/username_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Аноним"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/one_desk_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Одна доска"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/play_with_bot_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Игра с ботом"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Профиль"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/multiplayer_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Мультиплеер"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/history_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="История"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <include layout="@layout/part_result" />
+
+    <include layout="@layout/accept_decline_game_container" />
+
+    <include
+        layout="@layout/start_game_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

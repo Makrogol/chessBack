@@ -7,7 +7,7 @@ import com.serebryakov.cyclechesscpp.application.model.back.responses.UserRespon
 import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateTokenResponse
 import com.serebryakov.cyclechesscpp.application.model.back.responses.ValidateUserResponse
 import com.serebryakov.cyclechesscpp.application.model.sharedpref.jwttoken.JwtToken
-import com.serebryakov.cyclechesscpp.application.model.user.UserData
+import com.serebryakov.cyclechesscpp.application.model.data.UserData
 import com.serebryakov.cyclechesscpp.foundation.model.IoDispatcher
 import kotlinx.coroutines.withContext
 

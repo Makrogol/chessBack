@@ -15,5 +15,10 @@
     <color name="wrong_piece_on_check_color">#665300</color>
     <color name="empty_route_color">#665300</color>
     <color name="magic_pawn_transformation_color">#CDA001</color>
+    <color name="user_current_turn_color">#CDA001</color>
+    <color name="user_no_current_turn_color">#FF000000</color>
     <color name="login_password_info_text_color">#FF3300</color>
+    <color name="game_result_win_text_color">#00FF00</color>
+    <color name="game_result_loose_text_color">#FF0000</color>
+    <color name="game_result_draw_text_color">#FDAF01</color>
 </resources>

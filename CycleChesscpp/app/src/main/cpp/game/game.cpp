@@ -40,17 +40,13 @@ Board::Moves Game::getAllPossibleMoves() const {
 }
 
 void Game::startGameWithFen(const Color mainColor, std::string fen) {
-    if (board) {
-        history->clearAll();
-        historyRecordManager->clearAll();
-        board->clearField();
-        board->setMainColor(mainColor);
-    } else {
-        history = std::make_shared<History>();
-        historyRecordManager = std::make_shared<HistoryRecordManager>();
-        board = std::make_shared<Board>(mainColor, history, historyRecordManager);
-    }
+    defaultCreatingOrClearingBoard(mainColor);
     board->createFieldFromFen(fen);
+}
+
+void Game::startGameWithReversedFen(const Color mainColor, std::string fen) {
+    defaultCreatingOrClearingBoard(mainColor);
+    board->createFieldFromReversedFen(fen);
 }
 
 MoveType Game::tryDoMove(const Position& position, const Position& newPosition) {
@@ -96,4 +92,17 @@ bool Game::tryDoMagicPawnTransformation(const PositionAndPieceType& positionAndP
 
 GameState Game::getGameState() const {
     return board->getGameState();
+}
+
+void Game::defaultCreatingOrClearingBoard(const Color mainColor) {
+    if (board) {
+        history->clearAll();
+        historyRecordManager->clearAll();
+        board->clearField();
+        board->setMainColor(mainColor);
+    } else {
+        history = std::make_shared<History>();
+        historyRecordManager = std::make_shared<HistoryRecordManager>();
+        board = std::make_shared<Board>(mainColor, history, historyRecordManager);
+    }
 }

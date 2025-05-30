@@ -5,8 +5,16 @@ class CppConnectionApiImpl: CppConnectionApi {
         return getKingPositionByColorCpp(color)
     }
 
-    override fun startGame(mainColorString: String): String {
-        return startGameCpp(mainColorString)
+    override fun startGame(mainColorString: String) {
+        startGameCpp(mainColorString)
+    }
+
+    override fun startGameWithFen(mainColorString: String, fenString: String) {
+        startGameWithFenCpp(mainColorString, fenString)
+    }
+
+    override fun startGameWithReversedFen(mainColorString: String, fenString: String) {
+        startGameWithReversedFenCpp(mainColorString, fenString)
     }
 
     override fun getPossibleMovesForPosition(positionString: String): String {
@@ -17,8 +25,20 @@ class CppConnectionApiImpl: CppConnectionApi {
         return tryDoMoveCpp(positionsString)
     }
 
+    override fun tryDoMoveV2(moveString: String): String {
+        return tryDoMoveV2Cpp(moveString)
+    }
+
     override fun getGameState(): String {
         return getGameStateCpp()
+    }
+
+    override fun getFen(): String {
+        return getFenCpp()
+    }
+
+    override fun getCurrentTurnColor(): String {
+        return getCurrentTurnColorCpp()
     }
 
     override fun tryDoMagicPawnTransformation(positionAndPieceTypeString: String): String {

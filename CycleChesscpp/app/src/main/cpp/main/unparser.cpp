@@ -86,11 +86,11 @@ Unparser::PositionAndPieceType Unparser::getPositionAndPieceTypeForMagicPawnTran
 Color Unparser::getColor(const String& color) {
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", "Unparser getMainColor");
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", color.c_str());
-    const Strings nameAndColor = split(color, ":");
+    // const Strings nameAndColor = split(color, ":");
     // TODO тут сделать аналогичные проверки на содержимое
-    const int colorInt = stringToInt(nameAndColor[1]);
+    // const int colorInt = stringToInt(nameAndColor[1]);
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", nameAndColor[0].c_str());
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%s", nameAndColor[1].c_str());
 //    __android_log_print(ANDROID_LOG_INFO, "TRACKERS", "%d", colorInt);
-    return static_cast<Color>(colorInt);
+    return static_cast<Color>(stringToInt(color));
 }

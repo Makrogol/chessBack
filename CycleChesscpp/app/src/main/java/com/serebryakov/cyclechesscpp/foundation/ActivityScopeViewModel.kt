@@ -20,5 +20,4 @@ class ActivityScopeViewModel(
         super.onCleared()
         navigator.clear()
     }
-
 }

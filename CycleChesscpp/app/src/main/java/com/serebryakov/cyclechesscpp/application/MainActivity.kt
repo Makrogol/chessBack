@@ -1,22 +1,21 @@
 package com.serebryakov.cyclechesscpp.application
 
-import android.Manifest
-import android.app.Activity
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.serebryakov.cyclechesscpp.R
-import com.serebryakov.cyclechesscpp.application.view.loginscreen.LoginScreenFragment
+import com.serebryakov.cyclechesscpp.application.repository.socketrepository.SocketRepository
+import com.serebryakov.cyclechesscpp.application.view.mainscreen.MainScreenFragment
 import com.serebryakov.cyclechesscpp.databinding.MainActivityBinding
 import com.serebryakov.cyclechesscpp.foundation.ActivityScopeViewModel
+import com.serebryakov.cyclechesscpp.foundation.BaseApplication
 import com.serebryakov.cyclechesscpp.foundation.navigator.FragmentNavigator
 import com.serebryakov.cyclechesscpp.foundation.navigator.IntermediateNavigator
 import com.serebryakov.cyclechesscpp.foundation.tools.viewModelCreator
 import com.serebryakov.cyclechesscpp.foundation.uiactions.AndroidUiActions
 import com.serebryakov.cyclechesscpp.foundation.views.FragmentsHolder
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(), FragmentsHolder {
@@ -39,13 +38,24 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
         navigator = FragmentNavigator(
             activity = this,
             containerId = R.id.container,
-            initialScreenCreator = { LoginScreenFragment.Screen() }
+            initialScreenCreator = { MainScreenFragment.Screen() }
         )
 
         navigator.onCreate(savedInstanceState)
     }
 
+    override fun onStart() {
+        lifecycleScope.launch {
+            (this@MainActivity.application as BaseApplication).closeSocket()
+        }
+        super.onStart()
+    }
+
     override fun onDestroy() {
+        lifecycleScope.launch {
+            (this@MainActivity.application as BaseApplication).closeSocket()
+        }
+
         navigator.onDestroy()
         super.onDestroy()
     }

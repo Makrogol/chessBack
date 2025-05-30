@@ -30,6 +30,14 @@ fun colorToString(color: GameColor): String {
     }
 }
 
+fun Int.toGameColor(): GameColor {
+    return when (this) {
+        1 -> GameColor.white
+        2 -> GameColor.black
+        else -> GameColor.noColor
+    }
+}
+
 fun PieceColor.getAnotherColor(): PieceColor =
     if (this == PieceColor.white) PieceColor.black else PieceColor.white
 
@@ -44,3 +52,6 @@ fun PieceColor.toGameColor(): GameColor =
 
 fun GameColor.toPieceColor(): PieceColor =
     if (this == GameColor.white) PieceColor.white else PieceColor.black
+
+fun generateRandomGameColor(): GameColor =
+    listOf(GameColor.white, GameColor.black).shuffled().first()

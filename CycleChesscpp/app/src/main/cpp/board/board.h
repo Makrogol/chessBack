@@ -155,6 +155,8 @@ public:
 
     void createFieldFromFen(const std::string& fen);
 
+    void createFieldFromReversedFen(const std::string& fen);
+
     void clearField();
 
     Position getKingPositionByColor(const Color& color) const;

@@ -5,7 +5,7 @@ import com.serebryakov.cyclechesscpp.application.model.sharedpref.SharedPrefImpl
 
 class JwtTokenSharedPrefImpl(
     context: Context
-): JwtTokenSharedPref {
+) : JwtTokenSharedPref {
     private val sharedPref = SharedPrefImpl(context)
 
     override fun getJwtToken(): JwtToken {

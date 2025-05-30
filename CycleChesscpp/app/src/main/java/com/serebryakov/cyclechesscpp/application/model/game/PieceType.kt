@@ -21,3 +21,27 @@ fun pieceTypeToString(pieceType: PieceType): String {
         PieceType.KNIGHT -> "6"
     }
 }
+
+fun Int.toPieceType(): PieceType {
+    return when(this) {
+        1 -> PieceType.PAWN
+        2 -> PieceType.KING
+        3 -> PieceType.ROOK
+        4 -> PieceType.BISHOP
+        5 -> PieceType.QUEEN
+        6 -> PieceType.KNIGHT
+        else -> PieceType.EMPTY
+    }
+}
+
+fun Char.toPieceType(): PieceType {
+    return when(this) {
+        'b' -> PieceType.BISHOP
+        'k' -> PieceType.KING
+        'q' -> PieceType.QUEEN
+        'r' -> PieceType.ROOK
+        'n' -> PieceType.KNIGHT
+        'p' -> PieceType.PAWN
+        else -> PieceType.EMPTY
+    }
+}

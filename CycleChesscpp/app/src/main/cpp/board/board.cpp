@@ -668,6 +668,79 @@ void Board::setMainColor(Color color) {
     anotherColor = getAnotherColor(mainColor);
 }
 
+void Board::createFieldFromReversedFen(const std::string& fen) {
+    // TODO потом надо будет унести все, что связано с феном в его класс
+    // Потому что сейчас эта функция и createFieldFromFen почти полностью друг друга повторяют
+    createEmptyColoredField();
+    Strings fenElements = split(fen, " ");
+    if (fenElements.size() < 5) {
+        // TODO error need log
+        // std::cout << "fenElements.size() < 5 cannot create field" << std::endl;
+        return;
+    }
+    
+    // TODO rename
+    int iter = 0;
+    Strings boardStr = split(fenElements[iter++], "/");
+    if (boardStr.size() != 8) {
+        // TODO error need log
+        // std::cout << "boardStr.size() != 8 cannot create field" << std::endl;
+        return;
+    }
+    String turnColorStr = fenElements[iter++];
+    if (fenElements.size() == 6) {
+        // Права рокировки не нужны, потому что я запоминаю количество ходов
+        // Каждой фигуры
+        String castlingRights = fenElements[iter++];
+    }
+    String passantPosition = fenElements[iter++];
+    String countMovesWithoutEatingOrPawnsMoveStr = fenElements[iter++];
+    String countMovesStr = fenElements[iter++];
+
+    for (int i = 0; i < 8; ++i) {
+        int j = 0;
+        for (int k = 0; k < boardStr[i].size(); ++k) {
+            // Если началось с цифры, то ничего не делаем (пустые поля и так есть)
+            // Просто скипаем поля и запоминаем сколько, чтобы потом понимать где расставлять
+            // Фигуры, когда они пойдут
+            if (isdigit(boardStr[i][k])) {
+                // TODO рефактор приведения чарика к строке
+                j += stringToInt(std::string{boardStr[i][k]});
+            } else if (isalpha(boardStr[i][k])) {
+                // std::cout << "setPiece to position " << Position(i, j) << std::endl;
+                // TODO рефактор приведения чарика к строке
+                // Можно очень легко написать конвертер чара в инт
+                PieceTypeAndColor typeAndColor = Piece::getPieceTypeAndColorFromFen(boardStr[i][k]);
+                int countSteps = stringToInt(std::string{boardStr[i][k + 1]});
+                Cell::PPiece piece = createPieceByType(convertToPositionFromReversedBoard(Position(i, j)), typeAndColor);
+                piece->setCountSteps(countSteps);
+                field[7 - i][7 - j]->changePieceTo(piece);
+                ++j;
+                ++k;
+            }
+        }
+    }
+
+    turnColor = getTurnColorFromFen(turnColorStr);
+    // Заполняем прошлый ход, а не текущий
+    historyRecordManager->setTurnColor(getAnotherColor(turnColor));
+    historyRecordManager->setPassantPosition(convertToPositionFromReversedBoard(fromString(passantPosition)));
+    history->setCountMovesWithoutEatingOrPawnsMove(stringToInt(countMovesWithoutEatingOrPawnsMoveStr));
+    // TODO тут надо очень аккуртно, потому что может что-то сработать,
+    // Что смотрит только на количество элементов в истории
+    history->setCountMoves(stringToInt(countMovesStr));
+    // Это для того, чтобы при дефолтном фене
+    // Не создавались никакие записи в истории
+    if (history->getCountMoves() > 0) {
+        history->addHistoryRecord(historyRecordManager->getRecord());
+    }
+    // TODO возможно надо будет сделать какую-нибудь облегченную версию борды
+    // Специально для фена, которая не будет иметь ни истории
+    // Ничего такого, тип просто на один ход какая-то супер легкая борда
+    // Или сделать моки или типо того, чтобы я тут выставлял значения
+    // И вся логика продолжала работать
+}
+
 void Board::createFieldFromFen(const std::string& fen) {
     createEmptyColoredField();
     Strings fenElements = split(fen, " ");
@@ -754,7 +827,16 @@ String Board::getFen() const {
                     countEmptyCell = 0;
                 }
                 // Тут расхождения с fen (добавляется количество ходов фигуры после каждой фигуры)
-                fen += field[i][j]->getPiece()->getFen() += std::to_string(field[i][j]->getPiece()->getCountSteps());
+                // при чем, если ходов больше 9, то записываться будет все равно 9,
+                // чтобы не ломать распаршивание из фена. Да и прям точное количество ходов не нужно.
+                // Нужно только больше 3 или нет
+
+                // TODO мб это можно в 1 строчку сделать
+                int countSteps = field[i][j]->getPiece()->getCountSteps();
+                if (countSteps > 9) {
+                    countSteps = 9;
+                }
+                fen += field[i][j]->getPiece()->getFen() += std::to_string(countSteps);
             }
         }
         if (countEmptyCell > 0) {
@@ -797,9 +879,12 @@ String Board::getFen() const {
     fen += " " + std::to_string(history->getCountMovesWithoutEatingOrPawnsMove());
     fen += " " + std::to_string(history->getCountMoves());
 
-    // TODO на countEqualMoves мы просто тут забиваем в моменте
-    // И поэтому они не учитываются в фене и в нейронке
-    // Надо их в фен тоже добавить и учитывать в нем и в нейронке
+    // Тут расхождения с фен, в конец добавляем количество одинаковых ходов
+    // И если их количество не 0, то собственно ход, который повторяется
+    // fen += " " + std::to_string(history->getCountEqualMoves());
+    // if (history->getCountEqualMoves() > 0) {
+    //     fen += " "
+    // }
     return fen;
 }
 

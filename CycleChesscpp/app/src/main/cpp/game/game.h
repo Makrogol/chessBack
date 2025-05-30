@@ -19,6 +19,8 @@ public:
 
     void startGameWithFen(const Color mainColor, std::string fen);
 
+    void startGameWithReversedFen(const Color mainColor, std::string fen);
+
     Board::Route getPossibleMovesForPosition(const Position& position) const;
 
     MoveType tryDoMove(const TwoPositions& positions);
@@ -48,4 +50,6 @@ private:
     PBoard board;
     Board::PHistory history;
     Board::PHistoryRecordManager historyRecordManager;
+
+    void defaultCreatingOrClearingBoard(const Color mainColor);
 };

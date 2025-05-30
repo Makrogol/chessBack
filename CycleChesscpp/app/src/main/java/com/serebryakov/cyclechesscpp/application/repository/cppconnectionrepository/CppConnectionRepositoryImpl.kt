@@ -1,10 +1,11 @@
 package com.serebryakov.cyclechesscpp.application.repository.cppconnectionrepository
 
 import com.serebryakov.cyclechesscpp.application.model.cppapi.CppConnectionApi
-import com.serebryakov.cyclechesscpp.application.model.cppapi.cpptools.Parser
-import com.serebryakov.cyclechesscpp.application.model.cppapi.cpptools.Unparser
+import com.serebryakov.cyclechesscpp.application.model.cppapi.utils.Parser
+import com.serebryakov.cyclechesscpp.application.model.cppapi.utils.Unparser
 import com.serebryakov.cyclechesscpp.application.model.game.GameColor
 import com.serebryakov.cyclechesscpp.application.model.game.GameState
+import com.serebryakov.cyclechesscpp.application.model.game.Move
 import com.serebryakov.cyclechesscpp.application.model.game.MoveType
 import com.serebryakov.cyclechesscpp.application.model.game.PieceType
 import com.serebryakov.cyclechesscpp.application.model.game.Position
@@ -27,6 +28,16 @@ class CppConnectionRepositoryImpl(
         api.startGame(data)
     }
 
+    override fun startGameWithFen(mainColor: GameColor, fen: String) {
+        val data = parser.color(mainColor)
+        api.startGameWithFen(data, fen)
+    }
+
+    override fun startGameWithReversedFen(mainColor: GameColor, fen: String) {
+        val data = parser.color(mainColor)
+        api.startGameWithReversedFen(data, fen)
+    }
+
     override fun getPossibleMovesForPosition(position: Position): Route {
         val data = parser.positionToPossibleMove(position)
         val result = api.getPossibleMovesForPosition(data)
@@ -43,6 +54,20 @@ class CppConnectionRepositoryImpl(
         return tryDoMove(Pair(positionFirst, positionSecond))
     }
 
+    override fun tryDoMoveV2(move: Move): MoveType {
+        val data = parser.move(move)
+        val result = api.tryDoMoveV2(data)
+        return unparser.getMoveType(result)
+    }
+
+    override fun getFen(): String {
+        return api.getFen()
+    }
+
+    override fun getCurrentTurnColor(): GameColor {
+        return unparser.getColor(api.getCurrentTurnColor())
+    }
+
     override fun getGameState(): GameState {
         val result = api.getGameState()
         return unparser.getGameState(result)
@@ -57,5 +82,4 @@ class CppConnectionRepositoryImpl(
     override fun endGame() {
         api.endGame()
     }
-
 }

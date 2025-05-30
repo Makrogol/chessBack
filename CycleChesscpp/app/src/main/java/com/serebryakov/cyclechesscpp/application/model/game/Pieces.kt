@@ -16,8 +16,6 @@ open class BasePiece {
     }
 
     fun canDoStepsOverBoard() = countSteps > 2
-
-    fun countSteps() = countSteps
 }
 
 // region Pieces
@@ -46,3 +44,15 @@ class RookPiece(override var color: PieceColor, override var position: Position)
 }
 
 // endregion
+
+fun createPieceByPieceType(pieceType: PieceType, color: PieceColor, position: Position): BasePiece {
+    return when(pieceType) {
+        PieceType.PAWN -> PawnPiece(color, position)
+        PieceType.KNIGHT -> KnightPiece(color, position)
+        PieceType.ROOK -> RookPiece(color, position)
+        PieceType.QUEEN -> QueenPiece(color, position)
+        PieceType.KING -> KingPiece(color, position)
+        PieceType.BISHOP -> BishopPiece(color, position)
+        else -> BasePiece() // TODO error need log
+    }
+}

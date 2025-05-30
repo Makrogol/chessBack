@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.serebryakov.cyclechesscpp.application.model.user.OpponentData
+import com.serebryakov.cyclechesscpp.application.model.data.OpponentData
 import com.serebryakov.cyclechesscpp.databinding.ItemOpponentsRecyclerviewBinding
 
 
@@ -18,15 +18,24 @@ class OpponentsAdapter(
     val opponents: List<OpponentData> = _opponents
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addOpponentData(opponentData: List<OpponentData>) {
-        _opponents.addAll(opponentData)
+    fun addOpponentData(opponentsData: List<OpponentData>) {
+        _opponents.addAll(opponentsData)
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setOpponentData(opponentData: List<OpponentData>) {
+    fun setOpponentData(opponentsData: List<OpponentData>) {
         _opponents.clear()
-        _opponents.addAll(opponentData)
+        _opponents.addAll(opponentsData)
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun changeOpponentDataByUsername(opponentData: OpponentData) {
+        val idx = _opponents.indexOfFirst { _opponentData ->
+            _opponentData.username == opponentData.username
+        }
+        _opponents[idx] = opponentData
         notifyDataSetChanged()
     }
 
@@ -53,8 +62,10 @@ class OpponentsAdapter(
         val context = holder.itemView.context // Это для того, чтобы получать строковые ресурсы
 
         with(holder.binding) {
-            if (opponentData.username == username) {
+            if (opponentData.username == username || !opponentData.user_available) {
                 startGameButton.visibility = View.GONE
+            } else {
+                startGameButton.visibility = View.VISIBLE
             }
             opponentNameTextview.text = opponentData.username
             startGameButton.setOnClickListener {

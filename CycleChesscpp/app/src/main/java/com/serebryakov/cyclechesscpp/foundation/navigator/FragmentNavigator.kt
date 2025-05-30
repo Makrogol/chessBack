@@ -51,7 +51,7 @@ class FragmentNavigator(
         }
     }
 
-    private fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = false) {
+    private fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true) {
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
         fragment.arguments = bundleOf(ARG_SCREEN to screen)
         val transaction = activity.supportFragmentManager.beginTransaction()

@@ -40,7 +40,7 @@
 
 // Color = int
 // Просто одно число
-// В начале подписывается, что это color
+// В начале НЕ подписывается, что это color
 // Пример
 // TODO
 
@@ -82,7 +82,7 @@ String Parser::positionToString(const Position& position) {
 
 String Parser::color(const Color color) {
     const String colorStr = std::to_string(static_cast<int>(color));
-    return "color:" + colorStr;
+    return colorStr;
 }
 
 // TODO переменовать

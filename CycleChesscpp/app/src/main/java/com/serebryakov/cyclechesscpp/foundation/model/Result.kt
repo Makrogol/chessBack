@@ -9,7 +9,6 @@ import java.lang.Exception
 typealias Mapper<Input, Output> = (Input) -> Output
 
 sealed class Result<T> {
-
     fun <R> map(mapper: Mapper<T, R>? = null): Result<R> = when (this) {
         is PendingResult -> PendingResult()
         is ErrorResult -> ErrorResult(this.exception)

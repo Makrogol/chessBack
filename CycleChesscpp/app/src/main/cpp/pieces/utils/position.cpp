@@ -139,3 +139,7 @@ std::ostream& operator<<(std::ostream& os, const Position& position) {
     os << "position:" << position.i << "," << position.j;
     return os;
 }
+
+Position convertToPositionFromReversedBoard(const Position& position) {
+    return Position(7 - position.getI(), 7 - position.getJ());
+}

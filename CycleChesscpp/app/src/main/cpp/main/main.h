@@ -20,6 +20,8 @@ public:
 
     void startGameWithFen(const String& mainColorString, const String& fen);
 
+    void startGameWithReversedFen(const String& mainColorString, const String& fen);
+
     String getPossibleMovesForPosition(const String& positionString);
 
     String getKingPositionByColor(const String& colorString);

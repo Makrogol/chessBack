@@ -1,5 +1,7 @@
 package com.serebryakov.cyclechesscpp.application.view.findopponentsscreen
 
+import com.serebryakov.cyclechesscpp.foundation.socket.listner.BaseWebSocketListener
+
 data class FindOpponentScreenParams(
-    val needCreateSocket: Boolean,
+    val webSocketListener: BaseWebSocketListener? = null,
 )

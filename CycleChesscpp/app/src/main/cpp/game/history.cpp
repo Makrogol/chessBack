@@ -27,11 +27,14 @@ History::PHistory History::getCopy() const {
     for (const HistoryRecord& record : history) {
         newHistory.addHistoryRecord(record);
     }
+    newHistory.countEqualMoves = this->countEqualMoves;
+    newHistory.countMoves = this->countMoves;
+    newHistory.countMovesWithoutEatingOrPawnsMove = this->countMovesWithoutEatingOrPawnsMove;
     return std::make_shared<History>(std::move(newHistory));
 }
 
 HistoryMove History::getLastMoveForColor(Color color) const {
-    return getLastRecord().getMoveForColor(color);
+    return getLastRecord().getMoveByColor(getAnotherColor(color));
 }
 
 void History::removeLastRecord() {

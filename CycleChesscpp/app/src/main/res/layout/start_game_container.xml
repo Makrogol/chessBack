@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choose_start_game_color_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/dark_background_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/choose_start_game_color_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/choose_start_game_color_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Выберите стартовый цвет"
+            android:textColor="@color/white" />
+
+        <RadioGroup
+            android:id="@+id/choose_color_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/white_color_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Играть за белых"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+            <RadioButton
+                android:id="@+id/black_color_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Играть за черных"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+            <RadioButton
+                android:id="@+id/switched_color_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Играть за чередующийся цвет"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/choose_game_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Введите ограничения на таймер"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/choose_game_time_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="05:00"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/start_game_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Вызывать на игру!"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</merge>

@@ -70,3 +70,4 @@ bool isStepInBorderByMove(const Position& position, const Offset& offset, const 
 int getIDeltaBetweenPositions(const Position& firstPosition, const Position& secondPosition);
 int getJDeltaBetweenPositions(const Position& firstPosition, const Position& secondPosition);
 Position fromString(const std::string& positionString);
+Position convertToPositionFromReversedBoard(const Position& position);
